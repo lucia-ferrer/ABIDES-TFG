@@ -39,7 +39,7 @@ def get_agent():
 def test_attack(path, attack_cls, attacked_policy, trials):
     results = pd.read_csv(path) if os.path.exists(path) else pd.DataFrame()
     i = 0
-    print(attacked_policy, attack_cls.__name__)
+    #print(attacked_policy, attack_cls.__name__)
     for params in grid_generator(get_agent_attack_config(attacked_policy)[attack_cls.__name__]):
         print(f"Attacking {attacked_policy} with {attack_cls.__name__} and params {params}")
         i += 1
@@ -66,6 +66,8 @@ if __name__ == '__main__':
 
     for policy_id in ids:
         for name, cls in ATTACK_CLASS.items() if args.attack == -1 else ((args.attack, ATTACK_CLASS[args.attack],),):
+            #TODO: verify if the empty attack is neccesary
+            print(cls)
             test_attack(
                 path=f'results/attacks/{name}_{policy_id}.csv',
                 attack_cls=cls,
