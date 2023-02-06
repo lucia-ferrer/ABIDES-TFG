@@ -67,10 +67,9 @@ if __name__ == '__main__':
     for policy_id in ids:
         for name, cls in ATTACK_CLASS.items() if args.attack == -1 else ((args.attack, ATTACK_CLASS[args.attack],),):
             #TODO: verify if the empty attack is neccesary
-            print(cls)
-            test_attack(
-                path=f'results/attacks/{name}_{policy_id}.csv',
-                attack_cls=cls,
-                attacked_policy=policy_id,
-                trials=args.val_episodes
-            )
+            if name != 'Empty': test_attack(
+                    path=f'results/attacks/{name}_{policy_id}.csv',
+                    attack_cls=cls,
+                    attacked_policy=policy_id,
+                    trials=args.val_episodes
+                )
