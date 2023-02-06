@@ -21,7 +21,8 @@ def evaluate(env, agent, config, num_trials, norm=False, verbose=False):
 
 
 def episode(env, agent, config, norm=False):
-    agent = agent()
+    #TODO : REVIEW why object agent is being called -> Raised erros thus I comment it.
+    #agent = agent()
     # restart adversarial attributes
     if 'at_episode_start' in agent.__dir__():
         agent.at_episode_start()
