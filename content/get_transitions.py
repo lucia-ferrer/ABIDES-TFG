@@ -28,8 +28,10 @@ if __name__ == '__main__':
 
     # extract normal transitions
     for id in ids:
-        print(f"Extracting transitions for {id}...")
-        print()
-        agent.epsilon_greedy = {id: args.epsilon}
-        evaluate(env, agent, config, num_trials=args.episodes, verbose=True)
-        pd.DataFrame(agent.transitions[id]).to_csv(f'data/transitions_{id}.csv', index=False)
+        # TODO: verify what agent is MM and why it raises errors
+        if id != 'MM': 
+            print(f"Extracting transitions for {id}...")
+            print()
+            agent.epsilon_greedy = {id: args.epsilon}
+            evaluate(env, agent, config, num_trials=args.episodes, verbose=True)
+            pd.DataFrame(agent.transitions[id]).to_csv(f'data/transitions_{id}.csv', index=False)
