@@ -30,3 +30,4 @@ class KNNRecovery:
             return parents[distances.argmin()]
         distances = distances[:, None]
         return np.sum(parents * (distances/distances.sum()), axis=0)
+        

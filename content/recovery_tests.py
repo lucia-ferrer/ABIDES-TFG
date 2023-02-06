@@ -24,7 +24,8 @@ def parse_args():
                         help=f"The normalization to use (default {available_norms[0]}"
     )
     parser.add_argument("--val_episodes", default=NUM_TRIALS,
-                        help=f"Number of episodes to validate the agent with (default {NUM_TRIALS})")
+                        help=f"Number of episodes to validate the agent with (default {NUM_TRIALS})"
+    )
     parser.add_argument("--detector", default=-1,
                         help="The name of the detector to run. -1 for all (Default)"
     )

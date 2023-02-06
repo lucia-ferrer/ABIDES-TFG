@@ -1,6 +1,3 @@
-/adversarial-rl-abides/data/
-/adversarial-rl-abides/results*/
-/adversarial-rl-abides/venv/
-/adversarial-rl-abides/.idea/
+/adversarial-rl-abides/*
 /content/results*/
 /content/data/

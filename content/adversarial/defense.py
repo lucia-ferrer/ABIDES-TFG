@@ -29,7 +29,7 @@ class Defense:
         # normalize transitions and set auxiliar structures
         self.normalized = self.process_transitions(self.train)
         self.tree = BallTree(self.normalized)
-
+ 
         # fit submodules
         self.fit_detector()
         self.fit_recovery()
@@ -45,7 +45,7 @@ class Defense:
             self.recovery.fit(self.normalized)
 
     def is_adversarial(self, t):
-        return self.detector.predict([t])[0]
+        return self.detector.predict([t])[0] 
 
     def recover(self, t):
         distances, parents = self.recovery.find_parents(t)
