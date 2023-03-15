@@ -21,11 +21,12 @@ def evaluate(env, agent, config, num_trials, norm=False, verbose=False):
 
 
 def episode(env, agent, config, norm=False):
-    #TODO : REVIEW why object agent is being called -> Raised erros thus I comment it.
-    agent = agent()
+    #TODO : REVIEW why object agent is being called -> Raised errors when get_transitions! and not 
+    # when test_detector, or test_recovery. 
+    #agent = agent()
     # restart adversarial attributes
-    if 'at_episode_start' in agent.__dir__():
-        agent.at_episode_start()
+    #if 'at_episode_start' in agent.__dir__():
+    #    agent.at_episode_start() 
 
     ids = config['env_config']['learning_agent_ids']
     norm_state = env.reset()

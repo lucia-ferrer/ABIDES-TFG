@@ -1,3 +1,5 @@
+"""Method to return Class Adversial --> w/ Attacker + Defender + Recovery """
+
 import numpy as np
 from copy import deepcopy
 from collections import defaultdict
@@ -12,9 +14,10 @@ def AdversarialWrapper(cls):
             self.attacker = attacker if attacker is not None else {}
             self.defender = defender if defender is not None else {}
             self.epsilon_greedy = epsilon_greedy if epsilon_greedy is not None else {}
-            self.policy = defaultdict(lambda: self._optimal_policy)
+            self.policy = defaultdict(lambda: self._optimal_policy) #Default policy if key/name not found -> _optimal_policy
+            #Store in the dict the different policies for different epsilons
             for id in self.epsilon_greedy:
-                self.policy[id] = self._epsilon_greedy_policy
+                self.policy[id] = self._epsilon_greedy_policy   
             self.record = record
 
             self.at_test_start()
