@@ -85,14 +85,16 @@ def AdversarialWrapper(cls):
                         # recovery executes : find_parents, recover_from_parents (recoveryAgent). 
                         observation = self.defender[policy_id].recover([self.last_states[policy_id], transition]).reshape(observation.shape)
                            
-            #We are going to keep always the same number of states so remove last added. 
-            if len(self.last_states[policy_id])>= self.defender[policy_id].recovery.window : self.last_states[policy_id].pop(0)
-            #self.last_actions[policy_id].pop(0)
+                #We are going to keep always the same number of states so remove last added. 
+                if len(self.last_states[policy_id])>= self.defender[policy_id].recovery.window : 
+                    self.last_states[policy_id].pop(0)
+                     #Add in last place the new state/action
+                    self.last_states[policy_id].append(observation)
+                    #self.last_actions[policy_id].pop(0)
+            else:
+                self.last_states[policy_id][0]=observation
 
-            #Add in last place the new state/action
-            self.last_states[policy_id].append(observation)
             self.last_actions[policy_id] = self.policy[policy_id](observation, policy_id, *args, **kwargs)
-
 
             # record transitions
             if self.record and policy_id in self.last_states:
