@@ -39,6 +39,7 @@ def AdversarialWrapper(cls):
         def at_test_start(self):
             self.transitions = defaultdict(lambda: [])
             self.matrix = defaultdict(lambda: np.zeros((2, 2)))
+            self.counter = 0
 
         def at_episode_start(self):
             for _, a in self.attacker.items():
@@ -65,7 +66,7 @@ def AdversarialWrapper(cls):
             transition = None
 
             # attack
-            if policy_id in self.attacker and self.attacker[policy_id] != {}:
+            if policy_id in self.attacker and self.attacker[policy_id] != {} and self.counter>self.defender[policy_id].recovery.window:
                 observation = self.attacker[policy_id].attack(observation, self.get_policy(policy_id))
 
             # defense
@@ -79,7 +80,7 @@ def AdversarialWrapper(cls):
                 self.matrix[policy_id][int(is_attack), int(is_adversarial)] += 1
 
                 if is_adversarial:
-                    if self.defender[policy_id].recovery == 'cheat':
+                    if self.defender[policy_id].recovery == 'cheat' or self.counter<self.defender[policy_id].recovery.window:
                         observation = og_observation
                     else:
                         # recovery executes : find_parents, recover_from_parents (recoveryAgent). 
@@ -103,6 +104,7 @@ def AdversarialWrapper(cls):
                 if transition is None:
                     transition = self.get_transition(observation, policy_id)
                 self.transitions[policy_id].append(transition)
-
+            
+            self.counter+=1; 
             return self.last_actions[policy_id]
     return Adversarial
