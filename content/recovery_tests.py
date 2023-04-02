@@ -60,7 +60,7 @@ if __name__ == '__main__':
 
     env, config = get_env()
     ids = config['env_config']['learning_agent_ids'] if args.agent == -1 else [args.agent]
-
+    print('IDS: ', ids)
     transitions = {id: pd.read_csv(f'data/transitions_{id}.csv', header=None).values for id in ids}
 
     # list of detectors to do
@@ -113,6 +113,7 @@ if __name__ == '__main__':
         
         for recovery_name, recovery_params in recovery_list:
             for policy_id, defense in defenses.items():
+                print(policy_id, defense, sep='||\t||')
                 state_dims = np.prod(env.observation_space[policy_id].shape)
                 defense.recovery = RECOVERY_CLASS[recovery_name](**recovery_params, state_dims=state_dims)
                 defense.fit_recovery()
