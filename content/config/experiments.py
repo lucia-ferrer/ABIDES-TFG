@@ -1,5 +1,5 @@
 from adversarial.detectors import *
-from adversarial.recoveries import KNNRecovery
+from adversarial.lucia.my_recover import KNNRecovery
 
 detector_experiments = {
     'KNN-Hyper': {},

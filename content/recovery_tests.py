@@ -9,7 +9,7 @@ from config.defaults import NUM_TRIALS
 from config.attacks import ATTACK_CLASS, get_agent_attack_config
 from config.utils import grid_generator, Logger
 from config.experiments import *
-from adversarial.agents import AdversarialWrapper
+from adversarial.lucia.my_agent import AdversarialWrapper
 from adversarial.defense import available_norms, Defense
 from adversarial.utils import test
 from reinforcement.models import get_env, load_weights

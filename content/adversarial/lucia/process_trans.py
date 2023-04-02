@@ -1,6 +1,6 @@
 """ The transitions has been  """
-from content_alb.reinforcement.models import get_env, load_weights, evaluate
-from content_alb.adversarial.agents import AdversarialWrapper
+from content.reinforcement.models import get_env, load_weights, evaluate
+from content.adversarial.agents import AdversarialWrapper
 from ray.rllib.agents.ppo.ppo import PPOTrainer
 import pandas as pd
 
