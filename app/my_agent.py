@@ -1,4 +1,8 @@
-"""Method to return Class Adversial --> w/ Attacker + Defender + Recovery """
+"""Method to return Class Adversial --> w/ Attacker + Defender + Recovery 
+
+MAIN CHANGE: we store varius different states. 
+
+"""
 
 import numpy as np
 from copy import deepcopy
@@ -46,7 +50,7 @@ def AdversarialWrapper(cls):
             self.last_rewards = {}
 
         def get_transition(self, observation, policy_id):
-            state = self.last_states[policy_id].flatten()
+            state = self.last_states[policy_id][-1].flatten()
             next_state = observation.flatten()
             # one-hot encode actions
             action_space = self.get_policy(policy_id).action_space.nvec
@@ -87,8 +91,17 @@ def AdversarialWrapper(cls):
                     if self.defender[policy_id].recovery == 'cheat':
                         observation = og_observation
                     else:
-                        # recovery
-                        observation = self.defender[policy_id].recover(transition).reshape(observation.shape)
+                        # recovery executes : find_parents, recover_from_parents (recoveryAgent). 
+                        observation = self.defender[policy_id].recover([self.last_states[policy_id], transition]).reshape(observation.shape)
+                           
+            #We are going to keep always the same number of states so remove last added. 
+            self.last_states[policy_id].pop(0)
+            #self.last_actions[policy_id].pop(0)
+
+            #Add in last place the new state/action
+            self.last_states[policy_id].append(observation)
+            self.last_actions[policy_id] = self.policy[policy_id](observation, policy_id, *args, **kwargs)
+
 
             # record transitions
             if self.record and policy_id in self.last_states:
@@ -96,7 +109,5 @@ def AdversarialWrapper(cls):
                     transition = self.get_transition(observation, policy_id)
                 self.transitions[policy_id].append(transition)
 
-            self.last_states[policy_id] = observation
-            self.last_actions[policy_id] = self.policy[policy_id](observation, policy_id, *args, **kwargs)
             return self.last_actions[policy_id]
     return Adversarial
