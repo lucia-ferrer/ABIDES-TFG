@@ -6,7 +6,7 @@ from sklearn.neighbors import BallTree
 
 
 class KNNRecovery:
-    def __init__(self, k=1, consider_next_state=False, state_dims=None, window=3):
+    def __init__(self, k=1, consider_next_state=False, state_dims=None, window=3, difference=False):
         self.k = k
         self.consider_next_state = consider_next_state
         self.state_dims = state_dims

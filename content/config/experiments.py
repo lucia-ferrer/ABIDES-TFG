@@ -1,5 +1,5 @@
 from adversarial.detectors import *
-from adversarial.lucia.my_recover import KNNRecovery
+from adversarial.lucia.my_recover import *
 
 detector_experiments = {
     'KNN-Hyper': {},
@@ -13,8 +13,12 @@ detector_experiments = {
 recovery_experiments = {
     'KNNRecovery': {
         'k': [1, 3, 5, 10],
-        'consider_next_state': False
-    }
+        'consider_next_state': False,
+        'window' : [1,3,4],
+        'difference':False  #TODO: Implement!!
+    },
+    'TimeSeries': {}
+
 }
 
 DETECTOR_CLASS = {
@@ -25,7 +29,8 @@ DETECTOR_CLASS = {
 }
 
 RECOVERY_CLASS = {
-    'KNNRecovery': KNNRecovery
+    'KNNRecovery': KNNRecovery,
+    'TimeSeries': TimeSeries
 }
 
 
