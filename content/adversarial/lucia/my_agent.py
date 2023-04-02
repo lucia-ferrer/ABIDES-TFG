@@ -61,15 +61,6 @@ def AdversarialWrapper(cls):
 
         def compute_single_action(self, observation, policy_id, *args, **kwargs):
 
-            # local_worker = self.workers.local_worker()
-            #
-            # # Check the preprocessor and preprocess, if necessary.
-            # pp = local_worker.preprocessors[policy_id]
-            # if pp and type(pp).__name__ != "NoPreprocessor":
-            #     observation = pp.transform(observation)
-            # filtered_observation = local_worker.filters[policy_id](
-            #     observation, update=False)
-
             og_observation = observation[:]
             transition = None
 
@@ -95,7 +86,7 @@ def AdversarialWrapper(cls):
                         observation = self.defender[policy_id].recover([self.last_states[policy_id], transition]).reshape(observation.shape)
                            
             #We are going to keep always the same number of states so remove last added. 
-            self.last_states[policy_id].pop(0)
+            if len(self.last_states[policy_id])>= self.defender[policy_id].recovery.window : self.last_states[policy_id].pop(0)
             #self.last_actions[policy_id].pop(0)
 
             #Add in last place the new state/action

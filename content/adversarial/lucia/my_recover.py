@@ -11,7 +11,7 @@ class KNNRecovery:
         self.consider_next_state = consider_next_state
         self.state_dims = state_dims
         self.defense = None
-        self.window_size = window
+        self.window = window
 
     def fit(self, X):
         self.data = self.defense.train
