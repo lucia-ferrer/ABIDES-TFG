@@ -1,3 +1,5 @@
 /adversarial-rl-abides/*
 /content/results*/
-/content/data/
+/content/data/*
+/content/out/*
+/content/log/*
