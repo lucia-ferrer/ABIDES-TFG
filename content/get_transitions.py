@@ -22,8 +22,8 @@ if __name__ == '__main__':
     args = parse_args()
     # load environment and agent
     env, config = get_env()
-    #agent = AdversarialWrapper(PPOTrainer)(env='marl-v0', record=True, config=config)
-    agent = AdversarialWrapper(PPOTrainer)(env=env, record=True, config=config)
+    agent = AdversarialWrapper(PPOTrainer)(env='marl-v0', record=True, config=config)
+    #agent = AdversarialWrapper(PPOTrainer)(env=env, record=True, config=config)
     load_weights(agent)
     ids = config['env_config']['learning_agent_ids'] if args.agent == -1 else [args.agent]
 
