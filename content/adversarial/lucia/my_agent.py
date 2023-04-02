@@ -90,9 +90,11 @@ def AdversarialWrapper(cls):
                     self.last_states[policy_id].pop(0)
                      #Add in last place the new state/action
                     self.last_states[policy_id].append(observation)
+                    print(self.last_states[policy_id])
                     #self.last_actions[policy_id].pop(0)
             else:
-                self.last_states[policy_id][0]=observation
+                self.last_states[policy_id]=[observation]
+                print(self.last_states[policy_id])
 
             self.last_actions[policy_id] = self.policy[policy_id](observation, policy_id, *args, **kwargs)
 
