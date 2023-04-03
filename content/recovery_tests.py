@@ -9,11 +9,15 @@ from config.defaults import NUM_TRIALS
 from config.attacks import ATTACK_CLASS, get_agent_attack_config
 from config.utils import grid_generator, Logger
 from config.experiments import *
-from adversarial.lucia.my_agent import AdversarialWrapper
-from adversarial.defense import available_norms, Defense
 from adversarial.utils import test
 from reinforcement.models import get_env, load_weights
 
+from adversarial.lucia.my_agent import AdversarialWrapper
+from adversarial.lucia.my_defense import available_norms, Defense
+""" 
+from adversarial.agents import AdversarialWrapper
+from adversarial.defense import available_norms, Defense
+ """
 
 def parse_args():
     parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter)
@@ -107,8 +111,11 @@ if __name__ == '__main__':
     # execute experiments
     results = pd.DataFrame()
     for detector_name, detector_params in detectors_list:
+        print(detector_name, detector_params)
         defenses = {policy_id: Defense(norm=args.norm, detector=DETECTOR_CLASS[detector_name](**detector_params))
                     for policy_id in ids}
+        
+        #TODO: IF WINDOW WE NEED TO PROCESS THE TRANSITIONS SO AS TO FIT STATE DIMENSION
         [defense.fit(transitions[policy_id]) for policy_id, defense in defenses.items()]
         
         for recovery_name, recovery_params in recovery_list:
