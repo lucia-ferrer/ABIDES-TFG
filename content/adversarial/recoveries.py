@@ -23,6 +23,10 @@ class KNNRecovery:
         transitions = self.defense.process_transitions([transition]) #transition normalized 
         if not self.consider_next_state: transitions = self.skip_next_state(transitions)
         closest_distances, closest_idxs = self.tree.query(transitions, k=self.k)
+        if isinstance(self.data[0], np.ndarray): print('Transition Dim->',self.data[0].ndim,'\tShape->', self.data[0].shape)
+        else:  print('Transition len ->', len(self.data[0]))
+        if isinstance(self.data[0][0], np.ndarray): print('Transition[0] Dim->',self.data[0][0].ndim,'\tShape->', self.data[0][0].shape)
+        
         return closest_distances[0], self.data[closest_idxs][:, :, -self.state_dims-1:-1][0]
 
     def new_state_from_parents(self, distances, parents):
