@@ -29,8 +29,6 @@ class KNNRecovery:
         if distances.min() == 0:
             return parents[distances.argmin()]
         distances = distances[:, None]
-        new_state = np.sum(parents * (distances/distances.sum()), axis=0)
-        print('New_state Dim->', new_state.ndim, '\tShape->', new_state.shape)
-        return new_state
+        return np.sum(parents * (distances/distances.sum()), axis=0)
 
         

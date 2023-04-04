@@ -66,6 +66,8 @@ def AdversarialWrapper(cls):
             # filtered_observation = local_worker.filters[policy_id](
             #     observation, update=False)
 
+            if isinstance(observation, np.ndarray): print('observation Dim->', observation.ndim, '\tShape->', observation.shape)
+            else: print(observation)
             og_observation = observation[:]
             transition = None
 
