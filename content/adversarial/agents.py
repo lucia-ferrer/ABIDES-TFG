@@ -52,11 +52,12 @@ def AdversarialWrapper(cls):
             action_space = self.get_policy(policy_id).action_space.nvec
             action = np.zeros(action_space.sum())
             action[[self.last_actions[policy_id][0], self.last_actions[policy_id][1]+action_space[0]]] = 1
+            print('Action->', action, '\naction_space->',action_space)
             # generate transitions
-            print('Policy->', policy_id)
-            if isinstance(state, np.ndarray): print('state Dim->', state.ndim, '\tShape->', state.shape)
-            if isinstance(observation, np.ndarray): print('observation Dim->', observation.ndim, '\tShape->', observation.shape)
-            if isinstance(action, np.ndarray): print('action Dim->', action.ndim, '\tShape->', action.shape)
+            if policy_id == 'PT1':
+                if isinstance(state, np.ndarray): print('state Dim->', state.ndim, '\tShape->', state.shape)
+                if isinstance(observation, np.ndarray): print('observation Dim->', observation.ndim, '\tShape->', observation.shape)
+                if isinstance(action, np.ndarray): print('action Dim->', action.ndim, '\tShape->', action.shape)
             return np.concatenate((state, action, next_state, [self.last_rewards[policy_id]]))
 
         def compute_single_action(self, observation, policy_id, *args, **kwargs):
