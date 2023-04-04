@@ -53,6 +53,10 @@ def AdversarialWrapper(cls):
             action = np.zeros(action_space.sum())
             action[[self.last_actions[policy_id][0], self.last_actions[policy_id][1]+action_space[0]]] = 1
             # generate transitions
+            print('Policy->', policy_id)
+            if isinstance(state, np.ndarray): print('state Dim->', state.ndim, '\tShape->', state.shape)
+            if isinstance(observation, np.ndarray): print('observation Dim->', observation.ndim, '\tShape->', observation.shape)
+            if isinstance(action, np.ndarray): print('action Dim->', action.ndim, '\tShape->', action.shape)
             return np.concatenate((state, action, next_state, [self.last_rewards[policy_id]]))
 
         def compute_single_action(self, observation, policy_id, *args, **kwargs):
@@ -66,8 +70,6 @@ def AdversarialWrapper(cls):
             # filtered_observation = local_worker.filters[policy_id](
             #     observation, update=False)
 
-            if isinstance(observation, np.ndarray): print('observation Dim->', observation.ndim, '\tShape->', observation.shape)
-            else: print(observation)
             og_observation = observation[:]
             transition = None
 
