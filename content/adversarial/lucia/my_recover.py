@@ -31,8 +31,7 @@ class KNNRecovery:
         return transitions[:, dims_indexes] if transitions.ndim > 1 else np.take(transitions, dims_indexes)
 
     def find_parents(self, transition):
-        print('From find_parents: Transition->', transition)
-        print('Calling process')
+        print('From find_parents -> Calling process with  [transition]')
         transitions = self.defense.process_transitions([transition]) #transition normalized list with [[last_states,(current_transition)]]
         if not self.consider_next_state: transitions = self.skip_next_state(transitions)
         closest_distances, closest_idxs = self.tree.query(transitions, k=self.k)
