@@ -19,7 +19,7 @@ class KNNRecovery:
         
         #We can have problems with norm_parameters in detector. 
         if self.diff: 
-            print(f'Type of X {type(self.diff)}')
+            print(f'Type of X {type(X)}')
         self.X = X
 
         self.tree = self.defense.tree if self.consider_next_state else BallTree(self.skip_next_state(X))
