@@ -1,23 +1,22 @@
 import argparse
-
 import pandas as pd
+from adversarial.utils import test
+from config.attacks import ATTACK_CLASS, get_agent_attack_config
+from config.defaults import NUM_TRIALS
+from config.utils import Logger, grid_generator
 #import tensorflow as tf
 #tf.compat.v1.enable_eager_execution()
 from ray.rllib.agents.ppo.ppo import PPOTrainer
-
-from config.defaults import NUM_TRIALS
-from config.attacks import ATTACK_CLASS, get_agent_attack_config
-from config.utils import grid_generator, Logger
-from adversarial.utils import test
 from reinforcement.models import get_env, load_weights
+
 """
 from config.my_experiments import *
 from adversarial.lucia.my_agent import AdversarialWrapper
 from adversarial.lucia.my_defense import available_norms, Defense
 """ 
-from config.experiments import *
 from adversarial.agents import AdversarialWrapper
-from adversarial.defense import available_norms, Defense
+from adversarial.defense import Defense, available_norms
+from config.experiments import *
 
 
 def parse_args():
@@ -112,7 +111,7 @@ if __name__ == '__main__':
     # execute experiments
     results = pd.DataFrame()
     for detector_name, detector_params in detectors_list:
-        print(detector_name, detector_params)
+        print('Detector->',detector_name, detector_params)
         defenses = {policy_id: Defense(norm=args.norm, detector=DETECTOR_CLASS[detector_name](**detector_params))
                     for policy_id in ids}
         
