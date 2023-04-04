@@ -9,7 +9,7 @@ class KNNRecovery:
         self.k = k
         self.consider_next_state = consider_next_state
         self.state_dims = state_dims
-        print('State_dim->{self.state_dims}')
+        print('State_dim->',self.state_dims)
         self.defense = None
         self.diff = difference
         self.window = window
@@ -31,6 +31,7 @@ class KNNRecovery:
         return transitions[:, dims_indexes] if transitions.ndim > 1 else np.take(transitions, dims_indexes)
 
     def find_parents(self, transition):
+        print('Transition->', transition)
         transitions = self.defense.process_transitions([transition]) #transition normalized list with [[last_states,(current_transition)]]
         if not self.consider_next_state: transitions = self.skip_next_state(transitions)
         closest_distances, closest_idxs = self.tree.query(transitions, k=self.k)
@@ -45,8 +46,8 @@ class KNNRecovery:
             return parents[distances.argmin()]
         distances = distances[:, None]
         new_state = np.sum(parents * (distances/distances.sum()), axis=0)
-        print('parents->{parents}')
-        print('new_state -> {new_state}')
+        print('parents->',parents)
+        print('new_state ->', new_state)
         return new_state
 
 class TimeSeries:
