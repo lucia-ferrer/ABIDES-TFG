@@ -32,6 +32,7 @@ class KNNRecovery:
 
     def find_parents(self, transition):
         print('From find_parents: Transition->', transition)
+        print('Calling process')
         transitions = self.defense.process_transitions([transition]) #transition normalized list with [[last_states,(current_transition)]]
         if not self.consider_next_state: transitions = self.skip_next_state(transitions)
         closest_distances, closest_idxs = self.tree.query(transitions, k=self.k)
