@@ -13,10 +13,10 @@ class Defense:
         self.recovery = recovery
 
     def process_transitions(self, transitions):
-        print('Type transitions->',type(transitions))
+        print('From process_transition: Type transitions->',type(transitions))
         print('Len transitions->',len(transitions))
-        try: print('NDim transitions->',transitions.ndim)
-        finally: pass
+        if not isinstance(np.ndarray,transitions): transitions = np.array(transitions)
+        print('NDim transitions->',transitions.ndim)
         return np.true_divide(transitions - self.norm_translation, self.norm_scaling,
                               out=np.ones_like(transitions), where=self.norm_scaling != 0)
 

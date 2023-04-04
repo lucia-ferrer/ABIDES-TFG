@@ -22,7 +22,7 @@ class KNNRecovery:
     def skip_next_state(self, transitions):
         dims_indexes = list(range(0, len(transitions[0]))) #-> tuple tamaño 4 [(prev_state, action, obser, rewards)]
         for _ in range(self.state_dims): dims_indexes.pop(len(dims_indexes) - 2) #indexes to remove: new dim_indexes [0,1,2,4] : no next_state
-        print('Len(transitions[0])->',len(transitions[0]))
+        print('From skip_next_state:  Len(transitions[0])->',len(transitions[0]))
         print('Dim_indexes->',dims_indexes)
         if transitions.ndim>1: 
             print('Transitions from skip_state with ndim>1->', transitions[:, dims_indexes][0])
@@ -31,7 +31,7 @@ class KNNRecovery:
         return transitions[:, dims_indexes] if transitions.ndim > 1 else np.take(transitions, dims_indexes)
 
     def find_parents(self, transition):
-        print('Transition->', transition)
+        print('From find_parents: Transition->', transition)
         transitions = self.defense.process_transitions([transition]) #transition normalized list with [[last_states,(current_transition)]]
         if not self.consider_next_state: transitions = self.skip_next_state(transitions)
         closest_distances, closest_idxs = self.tree.query(transitions, k=self.k)
