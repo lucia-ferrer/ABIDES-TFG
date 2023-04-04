@@ -11,12 +11,17 @@ class KNNRecovery:
         self.state_dims = state_dims
         print('State_dim->',self.state_dims)
         self.defense = None
-        self.diff = difference
+        self.diff = True
         self.window = window
     
     def fit(self, X):
         self.data = self.defense.train
+        
+        #We can have problems with norm_parameters in detector. 
+        if self.diff: 
+            print(f'Type of X {type(self.diff)}')
         self.X = X
+
         self.tree = self.defense.tree if self.consider_next_state else BallTree(self.skip_next_state(X))
 
     def skip_next_state(self, transitions):
