@@ -8,16 +8,17 @@ from ray.rllib.agents.ppo.ppo import PPOTrainer
 from config.defaults import NUM_TRIALS
 from config.attacks import ATTACK_CLASS, get_agent_attack_config
 from config.utils import grid_generator, Logger
-from config.experiments import *
 from adversarial.utils import test
 from reinforcement.models import get_env, load_weights
-
+"""
+from config.my_experiments import *
 from adversarial.lucia.my_agent import AdversarialWrapper
 from adversarial.lucia.my_defense import available_norms, Defense
 """ 
+from config.experiments import *
 from adversarial.agents import AdversarialWrapper
 from adversarial.defense import available_norms, Defense
- """
+
 
 def parse_args():
     parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter)

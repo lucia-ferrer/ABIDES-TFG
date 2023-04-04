@@ -1,9 +1,9 @@
 from adversarial.detectors import *
-from adversarial.recoveries import *
+from adversarial.lucia.my_recover import *
 
 detector_experiments = {
     'KNN-Hyper': {},
-    'Kernel_Density': {},
+    #'Kernel_Density': {},
     'DBSCAN': {},
     'Gaussian_Mixture': {
         'n_clusters': [128, 256, 512, 1024, 2048]
@@ -14,7 +14,10 @@ recovery_experiments = {
     'KNNRecovery': {
         'k': [1, 3, 5, 10],
         'consider_next_state': False,
-    }
+        'window' : [1,3,4],
+        'difference':False  #TODO: Implement!!
+    },
+    'TimeSeries': {}
 
 }
 
@@ -26,7 +29,8 @@ DETECTOR_CLASS = {
 }
 
 RECOVERY_CLASS = {
-    'KNNRecovery': KNNRecovery
+    'KNNRecovery': KNNRecovery,
+    'TimeSeries': TimeSeries
 }
 
 
