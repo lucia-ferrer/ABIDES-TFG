@@ -15,15 +15,13 @@ class KNNRecovery:
         self.tree = self.defense.tree if self.consider_next_state else BallTree(self.skip_next_state(X))
 
     def skip_next_state(self, transitions):
-        if isinstance(transitions, np.ndarray): print('Transition Dim->',transitions.shape,'\tShape->', transitions.shape)
         dims_indexes = list(range(0, len(transitions[0]))) #-> tuple tamaño 4 [(prev_state, action, obser, rewards)]
-        print('Len dims_indexes->', dims_indexes)
-        print('Len state dims->', self.state_dims)
         for _ in range(self.state_dims): dims_indexes.pop(len(dims_indexes) - 2) #indexes to remove: new dim_indexes [0,1,2,4] : no next_state
-        print('Len dims_indexes without next_state->', dims_indexes)
         return transitions[:, dims_indexes] if transitions.ndim > 1 else np.take(transitions, dims_indexes)
         
     def find_parents(self, transition):
+        if isinstance(transition, np.ndarray): print('Transition Dim->',transition.ndim,'\tShape->', transition.shape)
+        else: print('Transition len ->', len(transition))
         transitions = self.defense.process_transitions([transition]) #transition normalized 
         if not self.consider_next_state: transitions = self.skip_next_state(transitions)
         closest_distances, closest_idxs = self.tree.query(transitions, k=self.k)
