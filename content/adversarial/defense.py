@@ -13,8 +13,9 @@ class Defense:
         self.recovery = recovery
 
     def process_transitions(self, transitions):
-        if isinstance(transitions, np.ndarray): print('Transition Dim->',transition.ndim,'\tShape->', transition.shape)
-        else: print('Transition len ->', len(transitions))
+        if isinstance(transitions, np.ndarray): print('Transition Dim->',transitions.ndim,'\tShape->', transitions.shape)
+        if isinstance(transitions[0], np.ndarray): print('Transition[0] Dim->',transitions.ndim,'\tShape->', transitions.shape)
+        else:  print('Transition len ->', len(transitions))
         return np.true_divide(transitions - self.norm_translation, self.norm_scaling,
                               out=np.ones_like(transitions), where=self.norm_scaling != 0)
 
