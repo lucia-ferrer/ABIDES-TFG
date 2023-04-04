@@ -42,6 +42,7 @@ class KNNRecovery:
             return parents[distances.argmin()]
         distances = distances[:, None]
         new_state = np.sum(parents * (distances/distances.sum()), axis=0)
+        print('parents->{parents}')
         print('new_state -> {new_state}')
         return new_state
 

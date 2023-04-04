@@ -19,12 +19,7 @@ class Defense:
     def fit(self, X):
         # set normalization parameters
         self.train = X.copy()
-        if self.norm == 'z-score':
-            self.norm_translation = self.train.mean(axis=0)
-            self.norm_scaling = self.train.std(axis=0)
-        elif self.norm == 'min-max':
-            self.norm_translation = self.train.min(axis=0)
-            self.norm_scaling = self.train.max(axis=0) - self.train.min(axis=0)
+        self.norm_parameters()
 
         # normalize transitions and set auxiliar structures
         self.normalized = self.process_transitions(self.train)
@@ -34,6 +29,15 @@ class Defense:
         self.fit_detector()
         self.fit_recovery()
 
+    def norm_parameters(self, X=None):
+        train = X if X else self.train
+        if self.norm == 'z-score':
+            self.norm_translation = train.mean(axis=0)
+            self.norm_scaling = train.std(axis=0)
+        elif self.norm == 'min-max':
+            self.norm_translation = train.min(axis=0)
+            self.norm_scaling = train.max(axis=0) - train.min(axis=0)
+
     def fit_detector(self):
         if self.detector is not None:
             self.detector.defense = self
@@ -42,10 +46,11 @@ class Defense:
     def fit_recovery(self):
         if self.recovery is not None and self.recovery != 'cheat':
             self.recovery.defense = self
-            if self.recovery.window > 1 : 
-                
-            self.recovery.fit(self.normalized)
-
+            if self.recovery.window > 1: #REVIEW
+                self.recovery.fit(self.train)
+            else:
+                self.recovery.fit(self.normalized) 
+    
     def is_adversarial(self, t):
         return self.detector.predict([t])[0] 
 
