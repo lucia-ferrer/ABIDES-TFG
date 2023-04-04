@@ -14,8 +14,8 @@ class Defense:
 
     def process_transitions(self, transitions):
         if isinstance(transitions, np.ndarray): print('Transition Dim->',transitions.ndim,'\tShape->', transitions.shape)
-        if isinstance(transitions[0], np.ndarray): print('Transition[0] Dim->',transitions.ndim,'\tShape->', transitions.shape)
         else:  print('Transition len ->', len(transitions))
+        if isinstance(transitions[0], np.ndarray): print('Transition[0] Dim->',transitions[0].ndim,'\tShape->', transitions[0].shape)
         return np.true_divide(transitions - self.norm_translation, self.norm_scaling,
                               out=np.ones_like(transitions), where=self.norm_scaling != 0)
 
