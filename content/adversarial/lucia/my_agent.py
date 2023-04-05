@@ -90,8 +90,8 @@ def AdversarialWrapper(cls):
                 
                 # To avoid storing more than necessary transitions
                 if len(self.transitions[policy_id]) >= wnd:
-                    self.transitions[policy_id].pop(0)
-                
+                    self.transitions[policy_id][1:,:]
+                    
             # record transitions
             if self.record and policy_id in self.last_states:
                 if transition is None:
