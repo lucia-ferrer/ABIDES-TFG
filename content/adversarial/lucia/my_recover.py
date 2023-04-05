@@ -37,7 +37,7 @@ class KNNRecovery:
         self.norm_values = self.defense.norm_parameters(self.X)  # self.norm_translation, self.norm_scaling
         self.X = self.defense.process_transitions(self.X, self.norm_values)
 
-        if not self.consider_next_transition: 
+        if self.consider_transition: 
             self.tree = BallTree(self.skip_next_state(self.X))
         elif not self.consider_next_state:
             self.tree = BallTree(self.skip_next_transition(self.X))
