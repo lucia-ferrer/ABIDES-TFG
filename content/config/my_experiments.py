@@ -15,7 +15,8 @@ recovery_experiments = {
         'k': [1, 3, 5, 10],
         'consider_next_state': False,
         'window' : [1,3,4],
-        'difference':False  #TODO: Implement!!
+        'diff_state' : False, 
+        'trans_state' : False
     },
     'TimeSeries': {}
 
