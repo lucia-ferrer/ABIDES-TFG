@@ -55,7 +55,7 @@ class KNNRecovery:
         """
         # Reward/Action, or not. -> [Sn, An, Rn]    -> (S0,A0,R0), (S1,A1,R1), (S2,A2,R2) ...
         x = X[:,:self.state_dims] if not self.trans_state else self.skip_next_state(X)
-        if not self.transition_dmin: self.transition_dmin = x.shape[1]
+        if self.transition_dmin is None: self.transition_dmin = x.shape[1]
 
         # Increment difference or not.  -> [Sn+1 - Sn] -> ΔS1-0, ΔS2-1, ΔS3-2, ...
         if self.diff_state: x = np.diff(x) 
