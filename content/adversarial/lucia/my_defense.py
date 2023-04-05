@@ -57,7 +57,7 @@ class Defense:
         return self.detector.predict([t])[0] 
 
     def recover(self, t):
-        print(f'Transition for recover->{t}, Dim{len(t)}')
+        print(f'Transition Type->{type(t)}, Len{len(t)}')
         distances, parents = self.recovery.find_parents(t)
         return self.recovery.new_state_from_parents(distances, parents)
 
