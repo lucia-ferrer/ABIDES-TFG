@@ -50,7 +50,7 @@ class Defense:
 
     def fit_recovery(self):
         if self.recovery is not None and self.recovery != 'cheat':
-            # self.recovery.defense = self
+            self.recovery.defense = self
             self.recovery.fit(self.train)
     
     def is_adversarial(self, t):
