@@ -86,7 +86,7 @@ def AdversarialWrapper(cls):
                     else:
                         print(f'Len of transtions[-wnd:]->{len(self.transitions[policy_id])}')
                         new_wnd = self.transitions[policy_id][-wnd+1:] + [transition] if wnd > 2 else transition
-                        observation = self.defender[policy_id].recover(new_wnd).reshape(observation.shape)
+                        observation = self.defender[policy_id].recover(np.array(new_wnd)).reshape(observation.shape)
                                 # To avoid storing more than necessary transitions
                 
                 if len(self.transitions[policy_id]) >= wnd:
