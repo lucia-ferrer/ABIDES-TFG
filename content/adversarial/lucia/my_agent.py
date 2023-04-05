@@ -89,7 +89,7 @@ def AdversarialWrapper(cls):
                         observation = self.defender[policy_id].recover(wnd_trans).reshape(observation.shape)
                 
                 if len(self.transitions[policy_id]) > wnd:
-                    self.transitions.pop(0)
+                    self.transitions[policy_id].pop(0)
                 
             # record transitions
             if self.record and policy_id in self.last_states:
