@@ -84,7 +84,7 @@ class KNNRecovery:
             Input: np.array with shape (m,n) -> n : (State, Action, Next_State, Reward)  
             Output: np.array with shape (m,n-state) -> n : (State, Action, Reward)    
         """
-        dims_indexes = list(range(0, len(transitions[0]))) if transitions.ndim>1 else list(range(0, len(transitions))) # (prev_state, action, obser, rewards)
+        dims_indexes = list(range(0, len(transitions[0]))) # (prev_state, action, obser, rewards)
         for _ in range(self.state_dims): dims_indexes.pop(len(dims_indexes) - 2) 
         return transitions[:, dims_indexes] if transitions.ndim > 1 else np.take(transitions, dims_indexes)
 
