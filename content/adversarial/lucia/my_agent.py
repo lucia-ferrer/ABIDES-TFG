@@ -50,7 +50,7 @@ def AdversarialWrapper(cls):
             self.last_rewards = {}
 
         def get_transition(self, observation, policy_id):
-            state = self.last_states[policy_id][-1].flatten()
+            state = self.last_states[policy_id].flatten()
             next_state = observation.flatten()
             # one-hot encode actions
             action_space = self.get_policy(policy_id).action_space.nvec
@@ -73,17 +73,17 @@ def AdversarialWrapper(cls):
                 transition = self.get_transition(observation, policy_id)#-> (state, action, next_state, reward)
                 #where : -> (prev_observation, prev_action, observation, rewards)
 
-                wnd = self.defender[policy_id].recovery.window
                 # detection
                 is_attack = np.linalg.norm((observation - og_observation).flatten()) > 0
                 is_adversarial = self.defender[policy_id].is_adversarial(transition)
                 self.matrix[policy_id][int(is_attack), int(is_adversarial)] += 1
 
                 if is_adversarial:
+                    wnd = self.defender[policy_id].recovery.window
+
                     if self.defender[policy_id].recovery == 'cheat'[policy_id] or wnd < len(self.transitions[policy_id]):
                         observation = og_observation
                     else:
-                        # recovery executes : find_parents, recover_from_parents (recoveryAgent). 
                         observation = self.defender[policy_id].recover(self.transitions[-wnd:] + transition).reshape(observation.shape)
                 
             # record transitions
@@ -94,6 +94,5 @@ def AdversarialWrapper(cls):
             
             self.last_states[policy_id] = observation
             self.last_actions[policy_id] = self.policy[policy_id](observation, policy_id, *args, **kwargs)
-
             return self.last_actions[policy_id]
     return Adversarial
