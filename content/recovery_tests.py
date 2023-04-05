@@ -112,7 +112,8 @@ if __name__ == '__main__':
     # execute experiments
     results = pd.DataFrame()
     for detector_name, detector_params in detectors_list:
-        print(detector_name, detector_params)
+        print(f"detector_name->{detector_name}, \tdetector_params->{detector_params}")
+
         defenses = {policy_id: Defense(norm=args.norm, detector=DETECTOR_CLASS[detector_name](**detector_params))
                     for policy_id in ids}
         
