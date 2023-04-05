@@ -39,7 +39,6 @@ def AdversarialWrapper(cls):
         def at_test_start(self):
             self.transitions = defaultdict(lambda: [])
             self.matrix = defaultdict(lambda: np.zeros((2, 2)))
-            self.counter = 0
 
         def at_episode_start(self):
             for _, a in self.attacker.items():
@@ -66,7 +65,7 @@ def AdversarialWrapper(cls):
             transition = None
 
             # attack
-            if policy_id in self.attacker and self.attacker[policy_id] != {} and self.counter>self.defender[policy_id].recovery.window:
+            if policy_id in self.attacker and self.attacker[policy_id] != {} [policy_id].recovery.window:
                 observation = self.attacker[policy_id].attack(observation, self.get_policy(policy_id))
 
             # defense
@@ -74,36 +73,27 @@ def AdversarialWrapper(cls):
                 transition = self.get_transition(observation, policy_id)#-> (state, action, next_state, reward)
                 #where : -> (prev_observation, prev_action, observation, rewards)
 
+                wnd = self.defender[policy_id].recovery.window
                 # detection
                 is_attack = np.linalg.norm((observation - og_observation).flatten()) > 0
                 is_adversarial = self.defender[policy_id].is_adversarial(transition)
                 self.matrix[policy_id][int(is_attack), int(is_adversarial)] += 1
 
                 if is_adversarial:
-                    if self.defender[policy_id].recovery == 'cheat' or self.counter<self.defender[policy_id].recovery.window:
+                    if self.defender[policy_id].recovery == 'cheat'[policy_id] or wnd < len(self.transitions[policy_id]):
                         observation = og_observation
                     else:
                         # recovery executes : find_parents, recover_from_parents (recoveryAgent). 
-                        observation = self.defender[policy_id].recover([self.last_states[policy_id][0], transition]).reshape(observation.shape)
-                           
-                #We are going to keep always the same number of states so remove last added. 
-                if len(self.last_states[policy_id])>= self.defender[policy_id].recovery.window : 
-                    self.last_states[policy_id].pop(0)
-                     #Add in last place the new state/action
-                    self.last_states[policy_id].append(observation)
-                    #self.last_actions[policy_id].pop(0)
-            else:
-                self.last_states[policy_id]=[observation]
-                print(len(self.last_states[policy_id]))
-
-            self.last_actions[policy_id] = self.policy[policy_id](observation, policy_id, *args, **kwargs)
-
+                        observation = self.defender[policy_id].recover(self.transitions[-wnd:] + transition).reshape(observation.shape)
+                
             # record transitions
             if self.record and policy_id in self.last_states:
                 if transition is None:
                     transition = self.get_transition(observation, policy_id)
                 self.transitions[policy_id].append(transition)
             
-            self.counter+=1; 
+            self.last_states[policy_id] = observation
+            self.last_actions[policy_id] = self.policy[policy_id](observation, policy_id, *args, **kwargs)
+
             return self.last_actions[policy_id]
     return Adversarial

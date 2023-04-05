@@ -1,58 +1,119 @@
-""" Recover with window size transitions : based on more than 1 state"""
-
+""" Recovert classes with window size transitions : based on more than 1 state
+        - KNNRecovery -> Based on density distribution function. 
+        - TimeSeries -> To be implemented. 
+"""
 
 import numpy as np
 from sklearn.neighbors import BallTree
 
 class KNNRecovery:
-    def __init__(self, k=1, consider_next_state=False, state_dims=None, window=1, difference=False):
+    def __init__(self, k=1, state_dims=None, 
+                 consider_next_state=False,
+                 consider_next_transition=False,
+                 window=2, diff_state=False, trans_state=False):
         self.k = k
         self.consider_next_state = consider_next_state
+        self.consider_next_transition = consider_next_transition
         self.state_dims = state_dims
-        print('State_dim->',self.state_dims)
+        self.transition_dmin = None
         self.defense = None
-        self.diff = True
-        self.window = window
+        self.diff_state = diff_state
+        self.trans_state = trans_state
+        self.window = window if window > 2 else 2
     
     def fit(self, X):
-        self.data = self.defense.train
-        
         #We can have problems with norm_parameters in detector. 
-        if self.diff: 
-            print(f'Type of X {type(X)}')
-        self.X = X
+        """
+            Input: X -> not normalized
+            Stored structures: 
+            - self.data -> Normal transitions, if window we only store from n-1 Transition. 
+            - self.X -> Processed transitions, with increments, and normalized. 
+            - self.tree -> Structure for BinarySearch. 
+        """
+        self.data = self.defense.train[self.window-1:] if self.window > 2 else self.defense.train
+        self.X = X if not self.diff_state and not self.trans_state and self.window==2 else self.transform_transition(X)
+        
+        # Normalize the data and store the parameters with correct dimension
+        self.defense.norm_parameters(self.X)
+        self.X = self.defense.process_transitions(self.X)
 
-        self.tree = self.defense.tree if self.consider_next_state else BallTree(self.skip_next_state(X))
+        if not self.consider_next_transition: 
+            self.tree = BallTree(self.skip_next_state(self.X))
+        elif not self.consider_next_state:
+            self.tree = BallTree(self.skip_next_transition(self.X))
+        else:
+            self.defense.tree 
+
+    def transform_transition(self, X):
+        """
+        This method transform the current transitions to the desired format: 
+            Input: np.array with shape (m,n) -> n = (state, action, next_state, reward)
+            Output: window size states per transition
+        Transitions can be made up with:
+            - States Raw info | Increment with previous States
+            - Only States | State+Action+Reward
+        """
+        # Reward/Action, or not. -> [Sn, An, Rn]    -> (S0,A0,R0), (S1,A1,R1), (S2,A2,R2) ...
+        x = X[:,:self.state_dims] if not self.trans_state else self.skip_next_state(X)
+        if not self.transition_dmin: self.transition_dmin = x.shape[1]
+
+        # Increment difference or not.  -> [Sn+1 - Sn] -> ΔS1-0, ΔS2-1, ΔS3-2, ...
+        if self.diff_state: x = np.diff(x) 
+
+        # Window size transitions. -> (S0,S1 ..., Swnd), (Swnd+1, Swnd+2 ..., Swnd+wnd), ...
+        y = x.copy()
+        for indx in range(1,self.window-1):
+            y = np.column_stack((y[:-1,:], x[indx+1:, :]))
+        
+        #Self.X contains the window sized transitions, to be input to the Tree and Recuperation of Indexes. 
+        return y.copy()
+           
+    def skip_next_transition(self, transitions):
+        """
+        This method eliminates the next transition of a transformed transition
+                Input: np.array with shape (m,n) -> [ Wnd · (State+Action+Reward), ...  ] 
+                Output: np.array with shape (m,n-transition) -> [ Wnd-1 · (State+Action+Reward), ... ] 
+        """
+        dims_indexes = list(range(0, len(transitions[0])))
+        for _ in range(self.transition_dmin): dims_indexes.pop(len(dims_indexes) - 1) 
+        return transitions[:, dims_indexes] if transitions.ndim > 1 else np.take(transitions, dims_indexes)
+
 
     def skip_next_state(self, transitions):
-        dims_indexes = list(range(0, len(transitions[0]))) #-> tuple tamaño 4 [(prev_state, action, obser, rewards)]
-        for _ in range(self.state_dims): dims_indexes.pop(len(dims_indexes) - 2) #indexes to remove: new dim_indexes [0,1,2,4] : no next_state
-        print('From skip_next_state:  Len(transitions[0])->',len(transitions[0]))
-        print('Dim_indexes->',dims_indexes)
-        if transitions.ndim>1: 
-            print('Transitions from skip_state with ndim>1->', transitions[:, dims_indexes][0])
-        else:
-            print('Transition from skip_state with 1dim->', np.take(transitions, dims_indexes))
+        """
+        This method eliminates the next state of a transition.
+            Input: np.array with shape (m,n) -> n : (State, Action, Next_State, Reward)  
+            Output: np.array with shape (m,n-state) -> n : (State, Action, Reward)    
+        """
+        dims_indexes = list(range(0, len(transitions[0]))) # (prev_state, action, obser, rewards)
+        for _ in range(self.state_dims): dims_indexes.pop(len(dims_indexes) - 2) 
         return transitions[:, dims_indexes] if transitions.ndim > 1 else np.take(transitions, dims_indexes)
 
     def find_parents(self, transition):
-        print('From find_parents -> Calling process with  [transition]')
-        transitions = self.defense.process_transitions([transition]) #transition normalized list with [[last_states,(current_transition)]]
-        if not self.consider_next_state: transitions = self.skip_next_state(transitions)
+        """
+        This method will recover from the Fast Index Tree, the k nearest neighbours of the state specified. 
+            Input: Last Wnd Raw transitions
+            Output: List with K simple transitions (Sn, A, An+1, R)
+        """
+        #Transform and process the transition
+        transitions = self.transform_transition(transition)
+        transitions = self.defense.process_transitions([transition]) 
+
+        if not self.consider_next_state: 
+            transitions = self.skip_next_state(transitions)
+        if not self.consider_next_transition: 
+            transitions = self.skip_next_transition(transitions)
+        
         closest_distances, closest_idxs = self.tree.query(transitions, k=self.k)
-        #TODO: Verify why different ks are used as an input, if only referenced k=0 (nearest)
-        print('Self_data->', self.data[0])
-        print('Self_data Dimension->', len(self.data[0]))
+        #Indexes need to be verified. 
+        #In self.data we have the simple transitions starting in n-1 state. (state, action, next_state, reward)
         return closest_distances[0], self.data[closest_idxs][:, :, -self.state_dims-1:-1][0]
 
     def new_state_from_parents(self, distances, parents):
-        print('len(distances)->', len(distances), ', parents.ndim->', parents.ndim)
         if distances.min() == 0:
             return parents[distances.argmin()]
         distances = distances[:, None]
         new_state = np.sum(parents * (distances/distances.sum()), axis=0)
-        print('parents->',parents)
-        print('new_state ->', new_state)
         return new_state
 
 class TimeSeries:

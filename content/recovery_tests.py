@@ -116,7 +116,6 @@ if __name__ == '__main__':
         defenses = {policy_id: Defense(norm=args.norm, detector=DETECTOR_CLASS[detector_name](**detector_params))
                     for policy_id in ids}
         
-        #TODO: IF WINDOW WE NEED TO PROCESS THE TRANSITIONS SO AS TO FIT STATE DIMENSION
         [defense.fit(transitions[policy_id]) for policy_id, defense in defenses.items()]
         
         for recovery_name, recovery_params in recovery_list:

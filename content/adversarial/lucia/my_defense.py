@@ -13,11 +13,6 @@ class Defense:
         self.recovery = recovery
 
     def process_transitions(self, transitions):
-        print('From process_transition: Type transitions->',type(transitions))
-        print('Len transitions->',len(transitions))
-        if isinstance(transitions, np.ndarray): #transitions = np.array(transitions)
-            print('NDim transitions->',transitions.ndim)
-            print('Shape transitions->',transitions.shape)
         return np.true_divide(transitions - self.norm_translation, self.norm_scaling,
                               out=np.ones_like(transitions), where=self.norm_scaling != 0)
 
@@ -25,9 +20,7 @@ class Defense:
         # set normalization parameters
         self.train = X.copy()
         self.norm_parameters()
-
         # normalize transitions and set auxiliar structures
-        print('Calling process from fit with self.train')
         self.normalized = self.process_transitions(self.train)
         self.tree = BallTree(self.normalized)
  
@@ -52,16 +45,13 @@ class Defense:
     def fit_recovery(self):
         if self.recovery is not None and self.recovery != 'cheat':
             self.recovery.defense = self
-            if self.recovery.window > 1: #REVIEW
-                self.recovery.fit(self.train)
-            else:
-                self.recovery.fit(self.normalized) 
+            self.recovery.fit(self.train)
     
     def is_adversarial(self, t):
         return self.detector.predict([t])[0] 
 
     def recover(self, t):
-        print('FROM RECOVER t->', t)
+        print(f'Transition for recover->{t}, Dim{len(t)}')
         distances, parents = self.recovery.find_parents(t)
         return self.recovery.new_state_from_parents(distances, parents)
 
