@@ -37,7 +37,7 @@ def AdversarialWrapper(cls):
             return self._optimal_policy(observation, policy_id, *args, **kwargs)
 
         def at_test_start(self):
-            self.transitions = defaultdict(lambda:[])
+            self.transitions = defaultdict(lambda:np.empty(0))
             self.matrix = defaultdict(lambda: np.zeros((2, 2)))
 
         def at_episode_start(self):
@@ -80,22 +80,23 @@ def AdversarialWrapper(cls):
 
                 if is_adversarial:
                     print('Wnd->', wnd, '\tLen of stored transitions->', len(self.transitions[policy_id]))
-                    if self.defender[policy_id].recovery == 'cheat' or (wnd > 2 and len(self.transitions[policy_id]) < wnd):
+                    if self.defender[policy_id].recovery == 'cheat' or (wnd > 2 and len(self.transitions[policy_id]) < wnd-1):
                         observation = og_observation
                         print('Recovered by cheat\n')
                     else:
-                        print(f'Len of transtions[-wnd:]->{len(self.transitions[policy_id][-wnd:])}')
-                        wnd_trans = self.transitions[policy_id][-wnd:] + wnd_trans if wnd > 2 else transition
-                        observation = self.defender[policy_id].recover(wnd_trans).reshape(observation.shape)
+                        print(f'Len of transtions[-wnd:]->{len(self.transitions[policy_id])}')
+                        new_wnd = np.append(self.transitions[policy_id][-wnd+1:],transition) if wnd > 2 else transition
+                        observation = self.defender[policy_id].recover(new_wnd).reshape(observation.shape)
                 
-                if len(self.transitions[policy_id]) > wnd:
+                # To avoid storing more than necessary transitions
+                if len(self.transitions[policy_id]) >= wnd:
                     self.transitions[policy_id].pop(0)
                 
             # record transitions
             if self.record and policy_id in self.last_states:
                 if transition is None:
-                    transition = [self.get_transition(observation, policy_id)]
-                self.transitions[policy_id].append(transition)
+                    transition = self.get_transition(observation, policy_id)
+                self.transitions[policy_id] = np.append(self.transitions[policy_id],transition)
             
             self.last_states[policy_id] = observation
             self.last_actions[policy_id] = self.policy[policy_id](observation, policy_id, *args, **kwargs)
