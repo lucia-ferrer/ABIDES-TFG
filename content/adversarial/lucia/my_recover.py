@@ -34,8 +34,8 @@ class KNNRecovery:
         self.X = X if not self.diff_state and not self.trans_state and self.window==2 else self.transform_transition(X)
         
         # Normalize the data and store the parameters with correct dimension
-        self.defense.norm_parameters(self.X)
-        self.X = self.defense.process_transitions(self.X)
+        self.norm_values = self.defense.norm_parameters(self.X)  # self.norm_translation, self.norm_scaling
+        self.X = self.defense.process_transitions(self.X, self.norm_values)
 
         if not self.consider_next_transition: 
             self.tree = BallTree(self.skip_next_state(self.X))
@@ -97,7 +97,7 @@ class KNNRecovery:
         """
         #Transform and process the transition
         transitions = self.transform_transition(transition)
-        transitions = self.defense.process_transitions([transition]) 
+        transitions = self.defense.process_transitions([transition], self.norm_values) 
 
         if not self.consider_next_state: 
             transitions = self.skip_next_state(transitions)

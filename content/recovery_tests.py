@@ -112,7 +112,6 @@ if __name__ == '__main__':
     # execute experiments
     results = pd.DataFrame()
     for detector_name, detector_params in detectors_list:
-        print(f"detector_name->{detector_name}, \tdetector_params->{detector_params}")
 
         defenses = {policy_id: Defense(norm=args.norm, detector=DETECTOR_CLASS[detector_name](**detector_params))
                     for policy_id in ids}
@@ -120,6 +119,8 @@ if __name__ == '__main__':
         [defense.fit(transitions[policy_id]) for policy_id, defense in defenses.items()]
         
         for recovery_name, recovery_params in recovery_list:
+            print(f"recovery_name->{recovery_name}, \trecovery_params->{recovery_params}")
+            
             for policy_id, defense in defenses.items():
                 print(policy_id, defense, sep='||\t||')
                 state_dims = np.prod(env.observation_space[policy_id].shape)

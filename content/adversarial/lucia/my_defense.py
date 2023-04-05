@@ -12,14 +12,19 @@ class Defense:
         self.detector = detector
         self.recovery = recovery
 
-    def process_transitions(self, transitions):
-        return np.true_divide(transitions - self.norm_translation, self.norm_scaling,
+    def process_transitions(self, transitions, norm_values=None):
+        # Use norm parameters obtained to fit the defense
+        if norm_values is None:
+            return np.true_divide(transitions - self.norm_translation, self.norm_scaling,
                               out=np.ones_like(transitions), where=self.norm_scaling != 0)
+        # Use special norm parameters -> Recovery Class may use different values. 
+        return np.true_divide(transitions - norm_values[0], norm_values[1],
+                              out=np.ones_like(transitions), where=norm_values[1] != 0)
 
     def fit(self, X):
         # set normalization parameters
         self.train = X.copy()
-        self.norm_parameters()
+        self.norm_translation, self.norm_scaling = self.norm_parameters()
         # normalize transitions and set auxiliar structures
         self.normalized = self.process_transitions(self.train)
         self.tree = BallTree(self.normalized)
@@ -31,11 +36,12 @@ class Defense:
     def norm_parameters(self, X=None):
         train = self.train if X is None else X
         if self.norm == 'z-score':
-            self.norm_translation = train.mean(axis=0)
-            self.norm_scaling = train.std(axis=0)
+            norm_translation = train.mean(axis=0)
+            norm_scaling = train.std(axis=0)
         elif self.norm == 'min-max':
-            self.norm_translation = train.min(axis=0)
-            self.norm_scaling = train.max(axis=0) - train.min(axis=0)
+            norm_translation = train.min(axis=0)
+            norm_scaling = train.max(axis=0) - train.min(axis=0)
+        return norm_translation, norm_scaling
 
     def fit_detector(self):
         if self.detector is not None:
@@ -44,7 +50,7 @@ class Defense:
 
     def fit_recovery(self):
         if self.recovery is not None and self.recovery != 'cheat':
-            self.recovery.defense = self
+            # self.recovery.defense = self
             self.recovery.fit(self.train)
     
     def is_adversarial(self, t):

@@ -2,12 +2,10 @@ from adversarial.detectors import *
 from adversarial.lucia.my_recover import *
 
 detector_experiments = {
-    'KNN-Hyper': {},
+    #'KNN-Hyper': {},
     #'Kernel_Density': {},
-    'DBSCAN': {},
-    'Gaussian_Mixture': {
-        'n_clusters': [128, 256, 512, 1024, 2048]
-    }
+    'DBSCAN': {}
+    #'Gaussian_Mixture': {'n_clusters': [128, 256, 512, 1024, 2048] }
 }
 
 recovery_experiments = {
