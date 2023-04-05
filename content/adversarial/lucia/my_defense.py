@@ -29,7 +29,7 @@ class Defense:
         self.fit_recovery()
 
     def norm_parameters(self, X=None):
-        train = X if X else self.train
+        train = self.train if not X else X
         if self.norm == 'z-score':
             self.norm_translation = train.mean(axis=0)
             self.norm_scaling = train.std(axis=0)
