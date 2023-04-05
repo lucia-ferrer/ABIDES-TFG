@@ -12,7 +12,8 @@ recovery_experiments = {
     'KNNRecovery': {
         'k': [1, 3, 5, 10],
         'consider_next_state': False,
-        'window' : [1,3,4],
+        'consider_next_transition': [False, True],
+        'window' : [2,3,4],
         'diff_state' : [True, False], 
         'trans_state' : [True, False]
     },
