@@ -14,7 +14,7 @@ from collections import defaultdict
 
 def AdversarialWrapper(cls):
     class Adversarial(cls):
-        def __init__(self, attacker=None, defender=None, record=False, epsilon_greedy=None, *args, **kwargs):
+        def __init__(self, attacker=None, defender=None, record=True, epsilon_greedy=None, *args, **kwargs):
             self.attacker = attacker if attacker is not None else {}
             self.defender = defender if defender is not None else {}
             self.epsilon_greedy = epsilon_greedy if epsilon_greedy is not None else {}
@@ -37,7 +37,7 @@ def AdversarialWrapper(cls):
             return self._optimal_policy(observation, policy_id, *args, **kwargs)
 
         def at_test_start(self):
-            self.transitions = defaultdict(lambda: [])
+            self.transitions = defaultdict(lambda:[])
             self.matrix = defaultdict(lambda: np.zeros((2, 2)))
 
         def at_episode_start(self):
@@ -86,13 +86,17 @@ def AdversarialWrapper(cls):
                         print('Recovered by cheat\n')
                     else:
                         print(f'Len of transtions:{len(self.transitions[policy_id][-wnd:])}')
-                        observation = self.defender[policy_id].recover(self.transitions[policy_id][-wnd:] + transition).reshape(observation.shape)
+                        transitions = self.transitions[policy_id][-wnd:] + transition if wnd > 2 else transition
+                        observation = self.defender[policy_id].recover(transitions).reshape(observation.shape)
                 
             # record transitions
             if self.record and policy_id in self.last_states:
                 if transition is None:
-                    transition = self.get_transition(observation, policy_id)
+                    transition = [self.get_transition(observation, policy_id)]
                 self.transitions[policy_id].append(transition)
+                
+                if len(self.transitions[policy_id]) > wnd:
+                    self.transitions.pop(0)
             
             self.last_states[policy_id] = observation
             self.last_actions[policy_id] = self.policy[policy_id](observation, policy_id, *args, **kwargs)
