@@ -65,7 +65,7 @@ def AdversarialWrapper(cls):
             transition = None
 
             # attack
-            if policy_id in self.attacker and self.attacker[policy_id] != {} [policy_id].recovery.window:
+            if policy_id in self.attacker and self.attacker[policy_id] != {}:
                 observation = self.attacker[policy_id].attack(observation, self.get_policy(policy_id))
 
             # defense
