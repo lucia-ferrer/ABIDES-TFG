@@ -80,12 +80,13 @@ def AdversarialWrapper(cls):
 
                 if is_adversarial:
                     wnd = self.defender[policy_id].recovery.window
-                    print(f'Wnd->{wnd} \t Len of transtions:{len(self.transitions[-wnd:])}')
-                    
+                    print(f'Wnd->{wnd}, Type of trans->{type(self.transitions)}')
+                    print(f'Len of transtions:{len(self.transitions)}')                    
                     if self.defender[policy_id].recovery == 'cheat' or len(self.transitions[policy_id]) < wnd:
                         observation = og_observation
                         print('Recovered by cheat\n')
                     else:
+                        print(f'Len of transtions:{len(self.transitions[-wnd:])}')
                         observation = self.defender[policy_id].recover(self.transitions[-wnd:] + transition).reshape(observation.shape)
                         print('Recovered by CLASS\n')
                 
