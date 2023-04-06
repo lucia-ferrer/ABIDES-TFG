@@ -70,7 +70,7 @@ class KNNRecovery:
             y = np.column_stack((y[:-1,:], x[indx+1:, :]))
             print(f'X_shape->{x.shape}, Y_shape->{y.shape}')
     
-        y = y.flatten() if y.dim<3 else y
+        y = y.flatten() if y.ndim<3 else y
         print(f"Return of transform_transition  y-type->{type(y)}, y-shape->{y.shape}, y-ndim->{y.ndim}")
         #Self.X contains the window sized transitions, to be input to the Tree and Recuperation of Indexes. 
         return y
