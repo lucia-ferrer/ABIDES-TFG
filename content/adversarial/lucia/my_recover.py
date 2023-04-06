@@ -37,7 +37,7 @@ class KNNRecovery:
         # Normalize the data and store the parameters with correct dimension
         self.norm_values = self.defense.norm_parameters(self.X)  # self.norm_translation, self.norm_scaling
         print(f"Parameter for defense.process \t  self.norm_values[0]-type->{type(self.norm_values)}, self.norm_values[0]-shape->{self.norm_values[0].shape}")
-        print("Are the defense and recovery same norm_values? -> ", ([self.defense.norm_translation == self.norm_values[0]]).all())
+        print("Are the defense and recovery same norm_values? -> ", self.defense.norm_translation == self.norm_values[0])
         self.X = self.defense.process_transitions(self.X, self.norm_values)
 
         # To build the tree if specified skip 'attacked info' -> Next_State, Reward, Action.
