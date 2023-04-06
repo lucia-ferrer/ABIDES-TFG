@@ -68,6 +68,7 @@ class KNNRecovery:
         print(f'X_shape->{x.shape}, Y_shape->{y.shape}')
         for indx in range(self.window-1):
             y = np.column_stack((y[:-1,:], x[indx+1:, :]))
+            print(y)
             print(f'X_shape->{x.shape}, Y_shape->{y.shape}')
     
         #y = y.flatten() if y.ndim<3 else y
