@@ -32,17 +32,22 @@ class KNNRecovery:
         """
         self.data = self.defense.train[self.window-1:] if self.window > 2 else self.defense.train
         self.X = X if not self.diff_state and self.consider_transition and self.window<=2 else self.transform_transition(X)
-        
+        print(f"Parameter for norm_param \t self.X type->{type(self.X)}, self.X shape->{self.X.shape}")
         # Normalize the data and store the parameters with correct dimension
         self.norm_values = self.defense.norm_parameters(self.X)  # self.norm_translation, self.norm_scaling
+        print(f"Parameter for defense.process \t  self.norm_values[0]-type->{type(self.norm_values)}, self.norm_values[0]-shape->{self.norm_values[0].shape}")
+        print("Are the defense and recovery same norm_values? -> ", self.defense.norm_translation == self.norm_values[0])
         self.X = self.defense.process_transitions(self.X, self.norm_values)
 
         if self.consider_transition: 
-            self.tree = BallTree(self.skip_next_state(self.X))
+            tree =  self.skip_next_state(self.X)            
         elif not self.consider_next_state:
-            self.tree = BallTree(self.skip_next_transition(self.X))
+            tree = self.skip_next_transition(self.X)
         else:
-            self.defense.tree 
+            tree = self.defense.tree 
+
+        print(f"Parameter for BallTree \t tree type->{type(tree)}, tree shape->{tree.shape}")
+        self.tree = BallTree(tree)
 
     def transform_transition(self, X):
         """
@@ -65,6 +70,8 @@ class KNNRecovery:
         for indx in range(1,self.window-1):
             y = np.column_stack((y[:-1,:], x[indx+1:, :]))
         
+        print(f"Return of transform_transition  y-type->{type(y)}, y-shape->{y.shape}")
+
         #Self.X contains the window sized transitions, to be input to the Tree and Recuperation of Indexes. 
         return y.copy()
     
@@ -95,8 +102,11 @@ class KNNRecovery:
             Output: List with K simple transitions (Sn, A, An+1, R)
         """
         #Transform and process the transition
+        print(f"Parameter for find_parent/transform_transition  t-type->{type(transition)}, shape-t->{transition.shape}")
         transitions = self.transform_transition(transition)
-        transitions = self.defense.process_transitions([transition], self.norm_values) 
+        print(f"Parameter for process  transition-type->{type(transition)}, transition-shape->{transition.shape}")
+        print(f"Parameter for process  self.norm_values[0]-type->{type(self.norm_values[0])}, self.norm_values[0]-shape->{self.norm_values[0].shape}")
+        transitions = self.defense.process_transitions(transition, self.norm_values) 
         
         closest_distances, closest_idxs = self.tree.query(transitions, k=self.k)
         #Indexes need to be verified. 
