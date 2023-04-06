@@ -14,7 +14,7 @@ recovery_experiments = {
         'consider_next_state': False,
         'consider_transition': [True, False],
         'window' : [3,4],
-        'diff_state' : [False, True]
+        'diff_state' : [True]
     },
     'TimeSeries': {}
 
