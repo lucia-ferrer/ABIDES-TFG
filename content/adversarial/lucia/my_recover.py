@@ -102,7 +102,7 @@ class KNNRecovery:
         """
 
         #Transform to obtain wnd size transitions and process the transition
-        transitions = self.wnd_transform_transition(transition) if self.wnd > 2 else [transition]
+        transitions = self.wnd_transform_transition(transition) if self.window > 2 else [transition]
         transitions = self.defense.process_transitions(transitions, self.norm_values) 
 
         #Skip attacked info: State/Reward/Action' is specified
