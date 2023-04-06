@@ -56,19 +56,18 @@ class KNNRecovery:
         """
         # Reward/Action, or not. -> [Sn, An, Rn]    -> (S0,A0,R0), (S1,A1,R1), (S2,A2,R2) ...
         x = X[:,:self.state_dims] if not self.consider_transition else self.skip_next_state(X) if not self.consider_next_state else X
-        #print('X_shape[1]->', x.shape[1],'X_shape->', x.shape)if len(X)>1 else print()
-        #print('Transition_shape->', self.transition_dmin)
+        print('X_shape[1]->', x.shape[1],'X_shape->', x.shape) if len(X)>1 else print()
         if self.transition_dmin is None: self.transition_dmin = x.shape[1]
-        #print('Transition_shape->', self.transition_dmin)
+        print('Transition_shape->', self.transition_dmin)
 
         # Increment difference or not.  -> [Sn+1 - Sn] -> ΔS1-0, ΔS2-1, ΔS3-2, ...
         if self.diff_state: x = np.diff(x) 
-
+        print(f'X_shape->{x.shape}, Y_shape->{x.shape}')
         # Window size transitions. -> (S0,S1 ..., Swnd), (Swnd+1, Swnd+2 ..., Swnd+wnd), ...
         y = x.copy()
         for indx in range(self.window-1):
-            #print(f'X_shape->{x.shape}, Y_shape->{y.shape}')
             y = np.column_stack((y[:-1,:], x[indx+1:, :]))
+            print(f'X_shape->{x.shape}, Y_shape->{y.shape}')
         
         print(f"Return of transform_transition  y-type->{type(y)}, y-shape->{y.shape}, y-ndim->{y.ndim}")
 
