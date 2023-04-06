@@ -17,7 +17,7 @@ class KNNRecovery:
         self.state_dims = state_dims
         self.transition_dmin = None
         self.defense = None
-        self.diff_state = diff_state
+        self.diff_state = diff_state if window > 2 else False
         self.consider_transition = consider_transition  if window > 2 else True
         self.window = window if window > 2 else 2
     
