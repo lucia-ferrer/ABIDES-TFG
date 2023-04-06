@@ -61,7 +61,8 @@ class KNNRecovery:
         print('Transition_shape->', self.transition_dmin)
 
         # Increment difference or not.  -> [Sn+1 - Sn] -> ΔS1-0, ΔS2-1, ΔS3-2, ...
-        if self.diff_state: x = np.diff(x) 
+        if self.diff_state: x = np.diff(x, axis=0) 
+        
         print(f'X_shape->{x.shape}, Y_shape->{x.shape}')
         # Window size transitions. -> (S0,S1 ..., Swnd), (Swnd+1, Swnd+2 ..., Swnd+wnd), ...
         y = x.copy()
