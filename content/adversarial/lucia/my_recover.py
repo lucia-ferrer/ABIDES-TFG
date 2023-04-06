@@ -63,14 +63,14 @@ class KNNRecovery:
         # Increment difference or not.  -> [Sn+1 - Sn] -> ΔS1-0, ΔS2-1, ΔS3-2, ...
         if self.diff_state: x = np.diff(x, axis=0) 
 
-        print(f'X_shape->{x.shape}, Y_shape->{x.shape}')
         # Window size transitions. -> (S0,S1 ..., Swnd), (Swnd+1, Swnd+2 ..., Swnd+wnd), ...
         y = x.copy()
+        print(f'X_shape->{x.shape}, Y_shape->{y.shape}')
         for indx in range(self.window-1):
             y = np.column_stack((y[:-1,:], x[indx+1:, :]))
             print(f'X_shape->{x.shape}, Y_shape->{y.shape}')
     
-        y = y.flatten() if y.ndim<3 else y
+        #y = y.flatten() if y.ndim<3 else y
         print(f"Return of transform_transition  y-type->{type(y)}, y-shape->{y.shape}, y-ndim->{y.ndim}")
         #Self.X contains the window sized transitions, to be input to the Tree and Recuperation of Indexes. 
         return y
