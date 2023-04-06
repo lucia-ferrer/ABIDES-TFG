@@ -109,6 +109,7 @@ if __name__ == '__main__':
         file_name += f"_atckparam{args.attack_parameter}"
 
     logger = Logger(file_name, len(detectors_list)*len(recovery_list)*len(attacks_list))
+    
     # execute experiments
     results = pd.DataFrame()
     for detector_name, detector_params in detectors_list:
@@ -119,7 +120,6 @@ if __name__ == '__main__':
         [defense.fit(transitions[policy_id]) for policy_id, defense in defenses.items()]
         
         for recovery_name, recovery_params in recovery_list:
-            print(f"recovery_name->{recovery_name}, \trecovery_params->{recovery_params}")
             
             for policy_id, defense in defenses.items():
                 print(policy_id, defense, sep='||\t||')
@@ -141,6 +141,6 @@ if __name__ == '__main__':
                 logger()
 
                 results = results.append(row, ignore_index=True)
-                results.to_csv(f"results/recovery/{file_name}.csv", index=False)
+                results.to_csv(f"results/recovery/lucia/{file_name}.csv", index=False)
 
 
