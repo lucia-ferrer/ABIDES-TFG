@@ -25,7 +25,7 @@ class Defense:
         # set normalization parameters
         self.train = X.copy()
         self.norm_translation, self.norm_scaling = self.norm_parameters()
-        print('defense norm_scaling shape->', self.norm_scaling.shape)
+
         # normalize transitions and set auxiliar structures
         self.normalized = self.process_transitions(self.train)
         self.tree = BallTree(self.normalized)

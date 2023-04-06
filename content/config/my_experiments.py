@@ -13,7 +13,7 @@ recovery_experiments = {
         'k': [1, 3, 5],
         'consider_next_state': False,
         'consider_transition': [True, False],
-        'window' : [4],
+        'window' : [2, 3, 4],
         'diff_state' : [False, True]
     },
     'TimeSeries': {}

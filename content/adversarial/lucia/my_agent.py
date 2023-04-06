@@ -1,7 +1,5 @@
-"""Method to return Class Adversial --> w/ Attacker + Defender + Recovery 
-
-MAIN CHANGE: we store varius different states. 
-
+"""
+Method to return Class Adversial --> w/ Attacker + Defender + Recovery 
 """
 
 import numpy as np
@@ -70,22 +68,20 @@ def AdversarialWrapper(cls):
 
             # defense
             if policy_id in self.defender and policy_id in self.last_states:
-                transition = self.get_transition(observation, policy_id)#-> (state, action, next_state, reward)
-                #where : -> (prev_observation, prev_action, observation, rewards)
-                wnd = self.defender[policy_id].recovery.window                   
+                transition = self.get_transition(observation, policy_id)# -> (prev_observation, prev_action, observation, rewards)
+                wnd = self.defender[policy_id].recovery.window
+
                 # detection
                 is_attack = np.linalg.norm((observation - og_observation).flatten()) > 0
                 is_adversarial = self.defender[policy_id].is_adversarial(transition)
                 self.matrix[policy_id][int(is_attack), int(is_adversarial)] += 1
 
+                # recovery
                 if is_adversarial:
-                    print('Wnd->', wnd, '\tLen of stored transitions->', len(self.transitions[policy_id]))
                     if self.defender[policy_id].recovery == 'cheat' or (wnd > 2 and len(self.transitions[policy_id]) < wnd):
                         observation = og_observation
-                        print('Recovered by cheat\n')
                     else:
                         new_wnd = np.array(self.transitions[policy_id][-wnd+1:] + [transition]) if wnd > 2 else np.array(transition)
-                        #print(f'Parameter for recover t-type->{type(new_wnd)}, shape-t->{new_wnd.shape}')
                         observation = self.defender[policy_id].recover(new_wnd).reshape(observation.shape)
                               
                 # To avoid storing more than necessary transitions
@@ -100,5 +96,6 @@ def AdversarialWrapper(cls):
             
             self.last_states[policy_id] = observation
             self.last_actions[policy_id] = self.policy[policy_id](observation, policy_id, *args, **kwargs)
+
             return self.last_actions[policy_id]
     return Adversarial

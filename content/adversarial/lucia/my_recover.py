@@ -1,4 +1,4 @@
-""" Recovert classes with window size transitions : based on more than 1 state
+""" Recovery classes with window size transitions : based on more than 1 state
         - KNNRecovery -> Based on density distribution function. 
         - TimeSeries -> To be implemented. 
 """
@@ -32,17 +32,17 @@ class KNNRecovery:
         """
         self.data = self.defense.train[self.window-1:] if self.window > 2 else self.defense.train
         self.X = X if not self.diff_state and self.consider_transition and self.window<=2 else self.wnd_transform_transition(X)
-        #print(f"Parameter for norm_param \t self.X type->{type(self.X)}, self.X shape->{self.X.shape}")
+        
         
         # Normalize the data and store the parameters with correct dimension
         self.norm_values = self.defense.norm_parameters(self.X)  # self.norm_translation, self.norm_scaling
-        #print(f"Parameter for defense.process \t  self.norm_values[0]-type->{type(self.norm_values)}, self.norm_values[0]-shape->{self.norm_values[0].shape}")
-        #print("Are the defense and recovery same norm_values? -> ", self.defense.norm_translation == self.norm_values[0])
+        
+        
         self.X = self.defense.process_transitions(self.X, self.norm_values)
 
         # To build the tree if specified skip 'attacked info' -> Next_State, Reward, Action.
         tree =  self.skip_next_transition(self.X) if not self.consider_transition else self.skip_next_state(self.X) if not self.consider_next_state else self.defense.tree
-        #print(f"Parameter for BallTree \t tree type->{type(tree)}, tree shape->{tree.shape}")
+        
         self.tree = BallTree(tree)
 
     def wnd_transform_transition(self, X):
@@ -56,9 +56,9 @@ class KNNRecovery:
         """
         # Reward/Action, or not. -> [Sn, An, Rn]    -> (S0,A0,R0), (S1,A1,R1), (S2,A2,R2) ...
         x = X[:,:self.state_dims] if not self.consider_transition else self.skip_next_state(X) if not self.consider_next_state else X
-        print('X_shape[1]->', x.shape[1],'X_shape->', x.shape) if len(X)>1 else print()
+        
         if self.transition_dmin is None: self.transition_dmin = x.shape[1]
-        print('Transition_shape->', self.transition_dmin)
+        
 
         # Increment difference or not.  -> [Sn+1 - Sn] -> ΔS1-0, ΔS2-1, ΔS3-2, ...
         if self.diff_state: 
@@ -67,14 +67,10 @@ class KNNRecovery:
 
         # Window size transitions. -> (S0,S1 ..., Swnd), (Swnd+1, Swnd+2 ..., Swnd+wnd), ...
         y = x.copy()
-        #print(f'X_shape->{x.shape}, Y_shape->{y.shape}')
-        for indx in range(self.window-1):
-            y = np.column_stack((y[:-1,:], x[indx+1:, :]))
-            print(f'X_shape->{x.shape}, Y_shape->{y.shape}')
-    
-        #y = y.flatten() if y.ndim<3 else y
-        #print(f"Return of transform_transition  y-type->{type(y)}, y-shape->{y.shape}, y-ndim->{y.ndim}")
         
+        for indx in range(self.window-1):
+            y = np.column_stack((y[:-1,:], x[indx+1:, :]))      
+
         #Self.X contains the window sized transitions, to be input to the Tree and Recuperation of Indexes. 
         return y
     
