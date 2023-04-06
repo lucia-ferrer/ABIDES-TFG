@@ -56,7 +56,7 @@ class KNNRecovery:
         """
         # Reward/Action, or not. -> [Sn, An, Rn]    -> (S0,A0,R0), (S1,A1,R1), (S2,A2,R2) ...
         x = X[:,:self.state_dims] if not self.consider_transition else self.skip_next_state(X) if not self.consider_next_state else X
-        if len(X)>1: #print('X_shape[1]->', x.shape[1],'X_shape->', x.shape)
+        #print('X_shape[1]->', x.shape[1],'X_shape->', x.shape)if len(X)>1 else print()
         #print('Transition_shape->', self.transition_dmin)
         if self.transition_dmin is None: self.transition_dmin = x.shape[1]
         #print('Transition_shape->', self.transition_dmin)
