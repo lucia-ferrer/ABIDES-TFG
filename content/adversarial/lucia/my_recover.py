@@ -108,7 +108,7 @@ class KNNRecovery:
         print(f"Parameter for process  self.norm_values[0]-type->{type(self.norm_values[0])}, self.norm_values[0]-shape->{self.norm_values[0].shape}")
         transitions = self.defense.process_transitions(transitions, self.norm_values) 
         
-        closest_distances, closest_idxs = self.tree.query(transitions, k=self.k)
+        closest_distances, closest_idxs = self.tree.query(transitions.flatten(), k=self.k)
         #Indexes need to be verified. 
         #In self.data we have the simple transitions starting in n-1 state. (state, action, next_state, reward)
         return closest_distances[0], self.data[closest_idxs][:, :, -self.state_dims-1:-1][0]
