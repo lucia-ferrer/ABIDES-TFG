@@ -104,9 +104,9 @@ class KNNRecovery:
         #Transform and process the transition
         print(f"Parameter for find_parent/transform_transition  t-type->{type(transition)}, shape-t->{transition.shape}")
         transitions = self.transform_transition(transition)
-        print(f"Parameter for process  transition-type->{type(transition)}, transition-shape->{transition.shape}")
+        print(f"Parameter for process  transition-type->{type(transitions)}, transition-shape->{transitions.shape}")
         print(f"Parameter for process  self.norm_values[0]-type->{type(self.norm_values[0])}, self.norm_values[0]-shape->{self.norm_values[0].shape}")
-        transitions = self.defense.process_transitions(transition, self.norm_values) 
+        transitions = self.defense.process_transitions(transitions, self.norm_values) 
         
         closest_distances, closest_idxs = self.tree.query(transitions, k=self.k)
         #Indexes need to be verified. 
