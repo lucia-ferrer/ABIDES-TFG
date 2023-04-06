@@ -85,10 +85,10 @@ def AdversarialWrapper(cls):
                         print('Recovered by cheat\n')
                     else:
                         new_wnd = np.array(self.transitions[policy_id][-wnd+1:] + [transition]) if wnd > 2 else np.array(transition)
-                        print(f'Parameter for recover t-type->{type(new_wnd)}, shape-t->{new_wnd.shape}')
+                        #print(f'Parameter for recover t-type->{type(new_wnd)}, shape-t->{new_wnd.shape}')
                         observation = self.defender[policy_id].recover(new_wnd).reshape(observation.shape)
-                                # To avoid storing more than necessary transitions
-                
+                              
+                # To avoid storing more than necessary transitions
                 if len(self.transitions[policy_id]) >= wnd:
                     self.transitions[policy_id].pop(0)
                 
