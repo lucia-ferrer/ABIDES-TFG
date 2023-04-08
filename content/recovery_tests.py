@@ -120,6 +120,7 @@ if __name__ == '__main__':
         [defense.fit(transitions[policy_id]) for policy_id, defense in defenses.items()]
         
         for recovery_name, recovery_params in recovery_list:
+            print(f"Recovery : {recovery_name} \t Params : {recovery_params}")
             
             for policy_id, defense in defenses.items():
                 state_dims = np.prod(env.observation_space[policy_id].shape)

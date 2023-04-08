@@ -121,6 +121,10 @@ class KNNRecovery:
         new_state = np.sum(parents * (distances/distances.sum()), axis=0)
         return new_state
 
-class TimeSeries:
+class TimeSeriesRecovery:
+    def __init__(self) -> None:
+        pass      
+
+class AutoencodeRecovery:
     def __init__(self) -> None:
         pass       

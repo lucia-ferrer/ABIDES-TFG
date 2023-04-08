@@ -35,6 +35,7 @@ def AdversarialWrapper(cls):
             return self._optimal_policy(observation, policy_id, *args, **kwargs)
 
         def at_test_start(self):
+            #TODO: make transitions a deque (doble ended queue)
             self.transitions = defaultdict(lambda:[])
             self.matrix = defaultdict(lambda: np.zeros((2, 2)))
 
