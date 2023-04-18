@@ -38,7 +38,7 @@ for agent in PT1 MM; do
             echo waiting for finish
             wait
           fi
-	done
+	      done
       done
     done
   done
