@@ -1,6 +1,6 @@
 import pandas as pd
 from collections import defaultdict
-from content.config.defaults import ENVS
+from config.defaults import ENVS
 import os
 import argparse
 
