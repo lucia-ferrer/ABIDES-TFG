@@ -9,7 +9,7 @@ fig = plt.figure()
 ax = plt.gca()
 axs = [ax, ]#plt.gca().twinx()]
 handles, labels = [], []
-for i, (id, ax) in enumerate(zip(['PT1'], axs)):
+for i, (id, ax) in enumerate(zip(['MM'], axs)):
 	ax.plot(df['checkpoint'], df[f'{id}_mean'], color=f'C{i}', label=id)
 	ax.fill_between(
 		df['checkpoint'],
@@ -22,15 +22,15 @@ for i, (id, ax) in enumerate(zip(['PT1'], axs)):
 	handles += h
 	labels += l
 
-""" plt.grid()
+plt.grid()
 plt.xlim(df['checkpoint'].values[0], df['checkpoint'].values[-1])
 plt.xlabel('Training iteration')
 axs[0].set_ylabel('reward')
-# axs[1].set_ylabel('MM reward')
+axs[1].set_ylabel('MM reward')
 plt.tight_layout()
-# plt.legend(handles, labels, loc='upper left')
-#plt.show()
-plt.savefig("images/train.png") """
+plt.legend(handles, labels, loc='upper left')
+plt.show()
+plt.savefig("images/train_v1.png")
 
 # plot attacks
 x_iterator = {
