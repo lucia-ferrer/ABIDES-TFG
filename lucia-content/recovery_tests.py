@@ -113,7 +113,7 @@ if __name__ == '__main__':
     # execute experiments
     results = pd.DataFrame()
     results_prev = pd.read_csv(f"results/recovery_v1/{file_name}.csv")
-    for detector_name, detector_params in detectors_list:
+    for detector_name, detector_params in iter(detectors_list):
 
         defenses = {policy_id: Defense(norm=args.norm, detector=DETECTOR_CLASS[detector_name](**detector_params))
                     for policy_id in ids}
@@ -123,7 +123,9 @@ if __name__ == '__main__':
         for recovery_name, recovery_params in recovery_list:
             print(f"Recovery : {recovery_name} \t Params : {recovery_params}")
 
-            if recovery_name in results_prev['recovery'] and recovery_params in results_prev["recovery_params"]: continue
+            if recovery_name in results_prev.recovery and params_to_str(recovery_params) in results_prev.recovery_params: 
+                print(f"Experiment done")
+                next(detector_name, detector_params)
             
             for policy_id, defense in defenses.items():
                 state_dims = np.prod(env.observation_space[policy_id].shape)
