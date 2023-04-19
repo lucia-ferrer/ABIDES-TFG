@@ -112,7 +112,7 @@ if __name__ == '__main__':
 
     # execute experiments
     results = pd.DataFrame()
-    results_prev = pd.read_csv("fresults/recovery_v1/{file_name}.csv")
+    results_prev = pd.read_csv(f"results/recovery_v1/{file_name}.csv")
     for detector_name, detector_params in detectors_list:
 
         defenses = {policy_id: Defense(norm=args.norm, detector=DETECTOR_CLASS[detector_name](**detector_params))
