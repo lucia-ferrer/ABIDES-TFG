@@ -1,0 +1,28 @@
+TNR,TPR,attack,attack_params,attacked_policy,balanced_accuracy,detector,detector_params,matrix,norm,other_reward,other_reward_std,recovered_reward,recovered_reward_std
+0.5638297872340425,0.6481481481481481,UniformAttack,"epsilon: 0.1, freq: 0.25",MM,0.6059889676910953,KNN-Hyper,,[[7950. 6150.]  [1900. 3500.]],z-score,-64491.15,9179.45,-126755.5,0.0
+1.0,1.0,STAttack,"epsilon: 0.1, beta: 0.9, total: 100, temperature: 3",MM,1.0,KNN-Hyper,,[[19500.     0.]  [    0.     0.]],z-score,-39947.35,4041.4500000000007,-294387.0,0.0
+1.0,1.0,VFAttack,"epsilon: 0.1, beta: 9",MM,1.0,KNN-Hyper,,[[19500.     0.]  [    0.     0.]],z-score,-39370.0,0.0,-294387.0,0.0
+1.0,1.0,Empty,,MM,1.0,KNN-Hyper,,[[19500.     0.]  [    0.     0.]],z-score,-39370.0,0.0,-294387.0,0.0
+1.0,1.0,UniformAttack,"epsilon: 0.1, freq: 0.25",PT1,1.0,KNN-Hyper,,[[14100.     0.]  [    0.  5400.]],z-score,-294387.0,0.0,-39370.0,0.0
+1.0,1.0,STAttack,"epsilon: 0.1, beta: 0.9, total: 100, temperature: 3",PT1,1.0,KNN-Hyper,,[[18050.     0.]  [    0.  1450.]],z-score,-294387.0,0.0,-39370.0,0.0
+1.0,1.0,VFAttack,"epsilon: 0.1, beta: 9",PT1,1.0,KNN-Hyper,,[[18800.     0.]  [    0.   700.]],z-score,-294387.0,0.0,-39370.0,0.0
+1.0,1.0,Empty,,PT1,1.0,KNN-Hyper,,[[19500.     0.]  [    0.     0.]],z-score,-294387.0,0.0,-39370.0,0.0
+0.6595744680851063,0.35185185185185186,UniformAttack,"epsilon: 0.1, freq: 0.25",MM,0.5057131599684791,Kernel_Density,,[[9300. 4800.]  [3500. 1900.]],z-score,-94644.8,8254.4,-138948.0,0.0
+1.0,1.0,STAttack,"epsilon: 0.1, beta: 0.9, total: 100, temperature: 3",MM,1.0,Kernel_Density,,[[19500.     0.]  [    0.     0.]],z-score,-40549.2,8254.4,-294387.0,0.0
+1.0,1.0,VFAttack,"epsilon: 0.1, beta: 9",MM,1.0,Kernel_Density,,[[19500.     0.]  [    0.     0.]],z-score,-39370.0,0.0,-294387.0,0.0
+1.0,1.0,Empty,,MM,1.0,Kernel_Density,,[[19500.     0.]  [    0.     0.]],z-score,-39370.0,0.0,-294387.0,0.0
+0.7659574468085106,0.21296296296296297,UniformAttack,"epsilon: 0.1, freq: 0.25",PT1,0.4894602048857368,Kernel_Density,,[[10800.  3300.]  [ 4250.  1150.]],z-score,-133572.0,0.0,-57343.6,2914.7999999999997
+0.9722991689750693,0.4827586206896552,STAttack,"epsilon: 0.1, beta: 0.9, total: 100, temperature: 3",PT1,0.7275288948323623,Kernel_Density,,[[17550.   500.]  [  750.   700.]],z-score,-294387.0,0.0,-39786.4,2914.7999999999997
+0.9840425531914894,0.5,VFAttack,"epsilon: 0.1, beta: 9",PT1,0.7420212765957447,Kernel_Density,,[[18500.   300.]  [  350.   350.]],z-score,-294387.0,0.0,-39370.0,0.0
+1.0,1.0,Empty,,PT1,1.0,Kernel_Density,,[[19500.     0.]  [    0.     0.]],z-score,-294387.0,0.0,-39370.0,0.0
+0.5638297872340425,0.6481481481481481,UniformAttack,"epsilon: 0.1, freq: 0.25",MM,0.6059889676910953,DBSCAN,,[[7950. 6150.]  [1900. 3500.]],z-score,-65225.15,4041.4500000000007,-126755.5,0.0
+1.0,1.0,STAttack,"epsilon: 0.1, beta: 0.9, total: 100, temperature: 3",MM,1.0,DBSCAN,,[[19500.     0.]  [    0.     0.]],z-score,-39947.35,4041.4500000000007,-294387.0,0.0
+1.0,1.0,VFAttack,"epsilon: 0.1, beta: 9",MM,1.0,DBSCAN,,[[19500.     0.]  [    0.     0.]],z-score,-39370.0,0.0,-294387.0,0.0
+1.0,1.0,Empty,,MM,1.0,DBSCAN,,[[19500.     0.]  [    0.     0.]],z-score,-39370.0,0.0,-294387.0,0.0
+1.0,1.0,UniformAttack,"epsilon: 0.1, freq: 0.25",PT1,1.0,DBSCAN,,[[14100.     0.]  [    0.  5400.]],z-score,-294387.0,0.0,-39370.0,0.0
+1.0,1.0,STAttack,"epsilon: 0.1, beta: 0.9, total: 100, temperature: 3",PT1,1.0,DBSCAN,,[[18050.     0.]  [    0.  1450.]],z-score,-294387.0,0.0,-39370.0,0.0
+1.0,1.0,VFAttack,"epsilon: 0.1, beta: 9",PT1,1.0,DBSCAN,,[[18800.     0.]  [    0.   700.]],z-score,-294387.0,0.0,-39370.0,0.0
+1.0,1.0,Empty,,PT1,1.0,DBSCAN,,[[19500.     0.]  [    0.     0.]],z-score,-294387.0,0.0,-39370.0,0.0
+0.9964539007092199,1.0,UniformAttack,"epsilon: 0.1, freq: 0.25",MM,0.99822695035461,Gaussian_Mixture,n_clusters: 128,[[14050.    50.]  [    0.  5400.]],z-score,-39370.0,0.0,-294387.0,0.0
+0.9974358974358974,1.0,STAttack,"epsilon: 0.1, beta: 0.9, total: 100, temperature: 3",MM,0.9974358974358974,Gaussian_Mixture,n_clusters: 128,[[19450.    50.]  [    0.     0.]],z-score,-39370.0,0.0,-294387.0,0.0
+0.9974358974358974,1.0,VFAttack,"epsilon: 0.1, beta: 9",MM,0.9974358974358974,Gaussian_Mixture,n_clusters: 128,[[19450.    50.]  [    0.     0.]],z-score,-39370.0,0.0,-294387.0,0.0

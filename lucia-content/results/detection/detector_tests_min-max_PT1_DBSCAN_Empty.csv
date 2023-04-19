@@ -1,0 +1,2 @@
+TNR,TPR,attack,attack_params,attacked_policy,balanced_accuracy,detector,detector_params,matrix,norm,other_reward,other_reward_std,recovered_reward,recovered_reward_std
+1.0,1.0,Empty,,PT1,1.0,DBSCAN,,[[19500.     0.]  [    0.     0.]],min-max,-1003801.94,7.420000000000002,-73399.19,9419.489409139967

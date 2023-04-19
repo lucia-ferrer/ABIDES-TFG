@@ -1,0 +1,5 @@
+TNR,TPR,attack,attack_params,attacked_policy,balanced_accuracy,detector,detector_params,matrix,norm,other_reward,other_reward_std,recovered_reward,recovered_reward_std,recovery,recovery_params
+0.7150997150997151,0.26119078661451545,VFAttack,"epsilon: 0.1, beta: 9",PT1,0.4881452508571153,Kernel_Density,,[[12299.  4900.]  [ 1700.   601.]],z-score,-277051.56,14.42,-23291.07,2867.1733222984617,KNNRecovery,"k: 1, consider_next_state: False"
+0.7025153374233128,0.390625,VFAttack,"epsilon: 0.1, beta: 9",PT1,0.5465701687116564,Kernel_Density,,[[11451.  4849.]  [ 1950.  1250.]],z-score,-3757202.5,0.0,-323964.03,41891.289999999986,KNNRecovery,"k: 3, consider_next_state: False"
+0.7545962732919255,0.4264705882352941,VFAttack,"epsilon: 0.1, beta: 9",PT1,0.5905334307636098,Kernel_Density,,[[12149.  3951.]  [ 1950.  1450.]],z-score,-925167.5,0.0,11700.76,48385.67999999999,KNNRecovery,"k: 5, consider_next_state: False"
+0.7536389684813753,0.36585365853658536,VFAttack,"epsilon: 0.1, beta: 9",PT1,0.5597463135089804,Kernel_Density,,[[13151.  4299.]  [ 1300.   750.]],z-score,-722043.0,0.0,-89449.3,16034.9,KNNRecovery,"k: 10, consider_next_state: False"

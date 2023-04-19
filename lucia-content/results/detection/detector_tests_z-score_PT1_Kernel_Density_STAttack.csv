@@ -1,0 +1,2 @@
+TNR,TPR,attack,attack_params,attacked_policy,balanced_accuracy,detector,detector_params,matrix,norm,other_reward,other_reward_std,recovered_reward,recovered_reward_std
+0.7348993288590604,0.33695652173913043,STAttack,"epsilon: 0.1, beta: 0.9, total: 100, temperature: 3",PT1,0.5359279252990954,Kernel_Density,,[[10950.  3950.]  [ 3050.  1550.]],z-score,-3202391.44,13.580000000000002,-275668.6,39321.23853644492

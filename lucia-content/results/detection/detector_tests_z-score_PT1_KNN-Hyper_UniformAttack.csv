@@ -1,0 +1,2 @@
+TNR,TPR,attack,attack_params,attacked_policy,balanced_accuracy,detector,detector_params,matrix,norm,other_reward,other_reward_std,recovered_reward,recovered_reward_std
+0.9930496453900709,1.0,UniformAttack,"epsilon: 0.1, freq: 0.25",PT1,0.9965248226950354,KNN-Hyper,,[[14002.    98.]  [    0.  5400.]],z-score,-1003801.94,7.420000000000002,-73399.19,9419.489409139967

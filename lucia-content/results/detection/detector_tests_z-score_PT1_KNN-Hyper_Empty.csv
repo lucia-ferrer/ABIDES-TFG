@@ -1,0 +1,2 @@
+TNR,TPR,attack,attack_params,attacked_policy,balanced_accuracy,detector,detector_params,matrix,norm,other_reward,other_reward_std,recovered_reward,recovered_reward_std
+0.9949743589743589,1.0,Empty,,PT1,0.9949743589743589,KNN-Hyper,,[[19402.    98.]  [    0.     0.]],z-score,-1003801.94,7.420000000000002,-73399.19,9419.489409139967

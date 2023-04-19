@@ -1,0 +1,5 @@
+TNR,TPR,attack,attack_params,attacked_policy,balanced_accuracy,detector,detector_params,matrix,norm,other_reward,other_reward_std,recovered_reward,recovered_reward_std,recovery,recovery_params
+0.9965248226950355,1.0,UniformAttack,"epsilon: 0.1, freq: 0.25",PT1,0.9982624113475178,DBSCAN,,[[14051.    49.]  [    0.  5400.]],z-score,-1003801.94,7.420000000000002,-73399.19,9419.489409139967,KNNRecovery,"k: 1, consider_next_state: False"
+0.648936170212766,1.0,UniformAttack,"epsilon: 0.1, freq: 0.25",PT1,0.824468085106383,DBSCAN,,[[9150. 4950.]  [   0. 5400.]],z-score,-1981524.5,0.0,-108774.31,5569.830000000001,KNNRecovery,"k: 3, consider_next_state: False"
+0.6204964539007092,0.9907407407407407,UniformAttack,"epsilon: 0.1, freq: 0.25",PT1,0.8056185973207249,DBSCAN,,[[8749. 5351.]  [  50. 5350.]],z-score,-2697847.0,0.0,-34518.37,11944.590000000004,KNNRecovery,"k: 5, consider_next_state: False"
+0.4752482269503546,1.0,UniformAttack,"epsilon: 0.1, freq: 0.25",PT1,0.7376241134751773,DBSCAN,,[[6701. 7399.]  [   0. 5400.]],z-score,-1483155.5,0.0,-346254.44,45048.91999999999,KNNRecovery,"k: 10, consider_next_state: False"

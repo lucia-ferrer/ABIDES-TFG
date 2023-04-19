@@ -1,0 +1,2 @@
+TNR,TPR,attack,attack_params,attacked_policy,balanced_accuracy,detector,detector_params,matrix,norm,other_reward,other_reward_std,recovered_reward,recovered_reward_std
+0.9463811514774846,0.2504164353137146,VFAttack,"epsilon: 0.1, beta: 9",PT1,0.5983987933955996,Kernel_Density,,[[16750.   949.]  [ 1350.   451.]],z-score,-1003801.94,7.420000000000002,-64001.19,8075.495016957166

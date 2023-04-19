@@ -1,0 +1,5 @@
+TNR,TPR,attack,attack_params,attacked_policy,balanced_accuracy,detector,detector_params,matrix,norm,other_reward,other_reward_std,recovered_reward,recovered_reward_std,recovery,recovery_params
+0.9949743589743589,1.0,Empty,,PT1,0.9949743589743589,DBSCAN,,[[19402.    98.]  [    0.     0.]],z-score,-1003801.94,7.420000000000002,-73399.19,9419.489409139967,KNNRecovery,"k: 1, consider_next_state: False"
+0.9948717948717949,1.0,Empty,,PT1,0.9948717948717949,DBSCAN,,[[19400.   100.]  [    0.     0.]],z-score,-1003803.0,0.0,-74748.5,0.0,KNNRecovery,"k: 3, consider_next_state: False"
+0.735897435897436,1.0,Empty,,PT1,0.735897435897436,DBSCAN,,[[14350.  5150.]  [    0.     0.]],z-score,-559405.5,0.0,-34146.86,7713.0199999999995,KNNRecovery,"k: 5, consider_next_state: False"
+0.6333333333333333,1.0,Empty,,PT1,0.6333333333333333,DBSCAN,,[[12350.  7150.]  [    0.     0.]],z-score,-1001059.5,0.0,-45362.2,3684.1000000000013,KNNRecovery,"k: 10, consider_next_state: False"

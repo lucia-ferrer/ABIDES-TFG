@@ -1,0 +1,63 @@
+import numpy as np
+from sklearn.neighbors import BallTree
+
+available_norms = ['z-score', 'min-max']
+
+
+class Defense:
+    def __init__(self, norm='z-score', detector=None, recovery=None):
+        if norm not in available_norms:
+            raise Exception(f"Normalization type not found, must be one of {available_norms}")
+        self.norm = norm
+        self.detector = detector
+        self.recovery = recovery
+
+    def process_transitions(self, transitions, norm_values=None):
+        # Use norm parameters obtained to fit the defense
+        if norm_values is None:
+            return np.true_divide(transitions - self.norm_translation, self.norm_scaling,
+                              out=np.ones_like(transitions), where=self.norm_scaling != 0)
+        # Use special norm parameters -> Recovery Class may use different values. 
+        return np.true_divide(transitions - norm_values[0], norm_values[1],
+                              out=np.ones_like(transitions), where=norm_values[1] != 0)
+
+    def fit(self, X):
+        # set normalization parameters
+        self.train = X.copy()
+        self.norm_translation, self.norm_scaling = self.norm_parameters()
+
+        # normalize transitions and set auxiliar structures
+        self.normalized = self.process_transitions(self.train)
+        self.tree = BallTree(self.normalized)
+ 
+        # fit submodules
+        self.fit_detector()
+        self.fit_recovery()
+
+    def norm_parameters(self, X=None):
+        train = self.train if X is None else X
+        if self.norm == 'z-score':
+            norm_translation = train.mean(axis=0)
+            norm_scaling = train.std(axis=0)
+        elif self.norm == 'min-max':
+            norm_translation = train.min(axis=0)
+            norm_scaling = train.max(axis=0) - train.min(axis=0)
+        return norm_translation, norm_scaling
+
+    def fit_detector(self):
+        if self.detector is not None:
+            self.detector.defense = self
+            self.detector.fit(self.normalized)
+
+    def fit_recovery(self):
+        if self.recovery is not None and self.recovery != 'cheat':
+            self.recovery.defense = self
+            self.recovery.fit(self.train)
+    
+    def is_adversarial(self, t):
+        return self.detector.predict([t])[0] 
+
+    def recover(self, t):
+        distances, parents = self.recovery.find_parents(t)
+        return self.recovery.new_state_from_parents(distances, parents)
+
