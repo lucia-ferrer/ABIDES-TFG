@@ -29,7 +29,7 @@ DETECTOR_CLASS = {
 
 RECOVERY_CLASS = {
     'KNNRecovery': KNNRecovery,
-    'TimeSeries': TimeSeries
+    'TimeSeries': TimeSeriesRecovery
 }
 
 
