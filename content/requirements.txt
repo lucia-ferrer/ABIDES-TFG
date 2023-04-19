@@ -1,9 +1,0 @@
-numpy
-pandas
-Pillow
-sklearn
-seaborn
-matplotlib
-tensorflow
-keras
-cleverhans

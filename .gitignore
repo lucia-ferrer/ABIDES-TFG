@@ -1,5 +1,7 @@
-/adversarial-rl-abides/*
+/alb-adversarial-rl-abides/*
 /content/results*/
 /content/data/*
 /content/out/*
 /content/log/*
+/results/*
+.vscode
