@@ -112,6 +112,7 @@ if __name__ == '__main__':
 
     # execute experiments
     results = pd.DataFrame()
+    results_prev = pd.read_csv("fresults/recovery_v1/{file_name}.csv")
     for detector_name, detector_params in detectors_list:
 
         defenses = {policy_id: Defense(norm=args.norm, detector=DETECTOR_CLASS[detector_name](**detector_params))
@@ -121,11 +122,14 @@ if __name__ == '__main__':
         
         for recovery_name, recovery_params in recovery_list:
             print(f"Recovery : {recovery_name} \t Params : {recovery_params}")
+
+            if recovery_name in results_prev['recovery'] and recovery_params in results_prev["recovery_params"]: continue
             
             for policy_id, defense in defenses.items():
                 state_dims = np.prod(env.observation_space[policy_id].shape)
                 defense.recovery = RECOVERY_CLASS[recovery_name](**recovery_params, state_dims=state_dims)
                 defense.fit_recovery()
+
             for policy_id, attack_name, attack_params in attacks_list:
                 row = {
                     'norm': args.norm,
@@ -141,6 +145,6 @@ if __name__ == '__main__':
                 logger()
 
                 results = results.append(row, ignore_index=True)
-                results.to_csv(f"results/recovery/{file_name}_v1.csv", index=False)
+                results.to_csv(f"results/recovery/{file_name}.csv", index=False)
 
 
