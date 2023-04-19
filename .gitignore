@@ -1,7 +1,7 @@
 /alb-adversarial-rl-abides/*
-/content/results*/
-/content/data/*
-/content/out/*
-/content/log/*
-/results/*
+/lucia-content/results*/
+/lucia-content/data/*
+/lucia-content/out/*
+/lucia-content/log/*
+/lucia-content/results/*
 .vscode
