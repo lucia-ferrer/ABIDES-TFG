@@ -23,31 +23,31 @@ from adversarial.defense import available_norms, Defense
 def parse_args():
 	parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter)
 	parser.add_argument("--agent", default=-1,
-                        help="The agent to use. -1 for all (Default)"
-    )
+						help="The agent to use. -1 for all (Default)"
+	)
 	parser.add_argument("--norm", choices=available_norms, default=available_norms[0],
-                        help=f"The normalization to use (default {available_norms[0]}"
-    )
+						help=f"The normalization to use (default {available_norms[0]}"
+	)
 	parser.add_argument("--val_episodes", default=NUM_TRIALS,
-                        help=f"Number of episodes to validate the agent with (default {NUM_TRIALS})"
-    )
+						help=f"Number of episodes to validate the agent with (default {NUM_TRIALS})"
+	)
 	parser.add_argument("--detector", default=-1,
-                        help="The name of the detector to run. -1 for all (Default)"
-    )
+						help="The name of the detector to run. -1 for all (Default)"
+	)
 	parser.add_argument("--detector_parameter", type=int, default=-1,
-                        help="Parameter ids to try for the detector. -1 for all (Default)"
-    )
+						help="Parameter ids to try for the detector. -1 for all (Default)"
+	)
 	parser.add_argument("--recovery", default=-1,
-                        help="The name of the recovery to run. -1 for all (Default)"
-                        )
+						help="The name of the recovery to run. -1 for all (Default)"
+						)
 	parser.add_argument("--recovery_parameter", type=int, default=-1,
-                        help="Parameter ids to try for the recovery. -1 for all (Default)"
-                        )
+						help="Parameter ids to try for the recovery. -1 for all (Default)"
+						)
 	parser.add_argument("--attack", default=-1,
-                        help="Which attack to use. -1 for all (Default)"
+						help="Which attack to use. -1 for all (Default)"
 	)
 	parser.add_argument("--attack_parameter", type=int, default=-1,
-                        help="Parameter ids to try for the attacks. -1 for all (Default)"
+						help="Parameter ids to try for the attacks. -1 for all (Default)"
 	)
 	return parser.parse_args()
 
@@ -93,36 +93,36 @@ if __name__ == '__main__':
 
 	# file name
 	file_name = f"recovery_tests_{args.norm}"
-	if args.agent != -1:                    # agent
+	if args.agent != -1:					# agent
 		file_name += f"_{args.agent}"
-	if args.detector != -1:                 # detector
+	if args.detector != -1:				 # detector
 		file_name += f"_{args.detector}"
-	if args.detector_parameter != -1:       # detector params
+	if args.detector_parameter != -1:	   # detector params
 		file_name += f"_detparam{args.detector_parameter}"
-	if args.recovery != -1:                 # recovery
+	if args.recovery != -1:				 # recovery
 		file_name += f"_{args.recovery}"
-	if args.recovery_parameter != -1:       # recovery params
+	if args.recovery_parameter != -1:	   # recovery params
 		file_name += f"_recparam{args.recovery_parameter}"
-	if args.attack != -1:                   # attack
+	if args.attack != -1:				   # attack
 		file_name += f"_{args.attack}"
-	if args.attack_parameter != -1:         # attack params
- 		file_name += f"_atckparam{args.attack_parameter}"
-
-    logger = Logger(file_name, len(detectors_list)*len(recovery_list)*len(attacks_list))
+	if args.attack_parameter != -1:		 # attack params
+		file_name += f"_atckparam{args.attack_parameter}"
+	
+	logger = Logger(file_name, len(detectors_list)*len(recovery_list)*len(attacks_list))
 
 	# execute experiments
-    results = pd.DataFrame()
-    results_prev = pd.read_csv(f"results/recovery_v1/{file_name}.csv")
+	results = pd.DataFrame()
+	results_prev = pd.read_csv(f"results/recovery_v1/{file_name}.csv")
 	for detector_name, detector_params in detectors_list:
 
 		defenses = {policy_id: Defense(norm=args.norm, detector=DETECTOR_CLASS[detector_name](**detector_params))
-                    for policy_id in ids[1:]}
-        
+					for policy_id in ids[1:]}
+		
 		[defense.fit(transitions[policy_id]) for policy_id, defense in defenses.items()]
 
 		for recovery_name, recovery_params in recovery_list:
 			print(f"Recovery : {recovery_name} \t Params : {recovery_params}")
-            
+			
 			if 0==1: #recovery_name in results_prev.recovery.unique() and params_to_str(recovery_params) in results_prev.recovery_params.unique(): 
 				print(f"Experiment done")
 			else:
@@ -132,20 +132,20 @@ if __name__ == '__main__':
 					defense.fit_recovery()
 
 				for policy_id, attack_name, attack_params in attacks_list:
-				    row = {
-				        'norm': args.norm,
-				        'detector': detector_name,
-				        'detector_params': params_to_str(detector_params),
-				        'recovery': recovery_name,
-				        'recovery_params': params_to_str(recovery_params),
-				        'attack': attack_name,
-				        'attack_params': params_to_str(attack_params),
-				        'attacked_policy': policy_id,
-				        **test(env, get_agent, config, args.val_episodes, policy_id)
-				    }
-				    logger()
+					row = {
+						'norm': args.norm,
+						'detector': detector_name,
+						'detector_params': params_to_str(detector_params),
+						'recovery': recovery_name,
+						'recovery_params': params_to_str(recovery_params),
+						'attack': attack_name,
+						'attack_params': params_to_str(attack_params),
+						'attacked_policy': policy_id,
+						**test(env, get_agent, config, args.val_episodes, policy_id)
+					}
+					logger()
 
-				    results = results.append(row, ignore_index=True)
-				    results.to_csv(f"results/recovery/{file_name}.csv", index=False)
+					results = results.append(row, ignore_index=True)
+					results.to_csv(f"results/recovery/{file_name}.csv", index=False)
 
 
