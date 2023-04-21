@@ -115,10 +115,12 @@ class KNNRecovery:
         return closest_distances[0], self.data[closest_idxs][:, :, -self.state_dims-1:-1][:]
 
     def new_state_from_parents(self, distances, parents):
+        print(f'Parents shape : {parents.shape}')
         if distances.min() == 0:
             return parents[distances.argmin()]
         distances = distances[:, None]
         new_state = np.sum(parents * (distances/distances.sum()), axis=0)
+        print(f'Parents shape : {new_state.shape}')
         return new_state
 
 class TimeSeriesRecovery:
