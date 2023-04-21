@@ -86,7 +86,7 @@ if __name__ == '__main__':
 
 	# list of attacks to do
 	attacks_list = []
-	for id in ids:
+	for id in ids[1:]:
 		for a_name in ATTACK_CLASS if args.attack == -1 else [args.attack]:
 			for params in grid_generator(get_agent_attack_config(id)[a_name], args.attack_parameter):
 				attacks_list.append((id, a_name, params))
@@ -108,22 +108,22 @@ if __name__ == '__main__':
 	if args.attack_parameter != -1:         # attack params
  		file_name += f"_atckparam{args.attack_parameter}"
 
-	logger = Logger(file_name, len(detectors_list)*len(recovery_list)*len(attacks_list))
+    logger = Logger(file_name, len(detectors_list)*len(recovery_list)*len(attacks_list))
 
 	# execute experiments
-	results = pd.DataFrame()
-	results_prev = pd.read_csv(f"results/recovery_v1/{file_name}.csv")
+    results = pd.DataFrame()
+    results_prev = pd.read_csv(f"results/recovery_v1/{file_name}.csv")
 	for detector_name, detector_params in detectors_list:
 
 		defenses = {policy_id: Defense(norm=args.norm, detector=DETECTOR_CLASS[detector_name](**detector_params))
-                    for policy_id in ids}
+                    for policy_id in ids[1:]}
         
 		[defense.fit(transitions[policy_id]) for policy_id, defense in defenses.items()]
 
 		for recovery_name, recovery_params in recovery_list:
 			print(f"Recovery : {recovery_name} \t Params : {recovery_params}")
             
-			if recovery_name in results_prev.recovery.unique() and params_to_str(recovery_params) in results_prev.recovery_params.unique(): 
+			if 0==1: #recovery_name in results_prev.recovery.unique() and params_to_str(recovery_params) in results_prev.recovery_params.unique(): 
 				print(f"Experiment done")
 			else:
 				for policy_id, defense in defenses.items():

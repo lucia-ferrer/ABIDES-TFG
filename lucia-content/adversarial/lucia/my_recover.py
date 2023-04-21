@@ -112,7 +112,7 @@ class KNNRecovery:
         closest_distances, closest_idxs = self.tree.query(transitions, k=self.k)
 
         #In self.data we have the simple transitions starting in n-1 state. (state, action, next_state, reward)
-        return closest_distances[0], self.data[closest_idxs][:, :, -self.state_dims-1:-1][0]
+        return closest_distances[0], self.data[closest_idxs][:, :, -self.state_dims-1:-1][:]
 
     def new_state_from_parents(self, distances, parents):
         if distances.min() == 0:
