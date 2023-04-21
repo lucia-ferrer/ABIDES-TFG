@@ -109,19 +109,19 @@ class KNNRecovery:
         transitions = self.skip_next_transition(transitions) if not self.consider_transition else self.skip_next_state(transitions) if not self.consider_next_state else transitions
         
         #Search for K neighbours
-        print(f'K value: {self.k}')
         closest_distances, closest_idxs = self.tree.query(transitions, k=self.k)
-        print(f'closest distances: {closest_distances} \t idx: {closest_idxs}')
+        
         #In self.data we have the simple transitions starting in n-1 state. (state, action, next_state, reward)
-        return closest_distances[0], [self.data[idx][:, :, -self.state_dims-1:-1][:] for idx in closest_idxs[0]]
+        return closest_distances.reshape(self.k,), self.data[closest_idxs.reshape(self.k,)][:, -self.state_dims-1:-1] 
 
     def new_state_from_parents(self, distances, parents):
-        print(f'Distances shape: {distances.shape}, Content: {distances}\nParents shape : {parents.shape}, Content: {parents}')
+
         if distances.min() == 0:
             return parents[distances.argmin()]
+            
         distances = distances[:, None]
         new_state = np.sum(parents * (distances/distances.sum()), axis=0)
-        print(f'Parents shape : {new_state.shape}')
+        #print(f'New state DIFFERENCES : {np.subtract(new_state,parents[0])}')
         return new_state
 
 class TimeSeriesRecovery:
