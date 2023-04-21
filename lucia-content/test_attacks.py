@@ -64,7 +64,7 @@ if __name__ == '__main__':
     ids = config['env_config']['learning_agent_ids'] if args.agent == -1 else [args.agent]
     attack = None
 
-    for policy_id in ids:
+    for policy_id in ids[1:]:
         for name, cls in ATTACK_CLASS.items() if args.attack == -1 else ((args.attack, ATTACK_CLASS[args.attack],),):
             #TODO: verify if the empty attack is neccesary
             if name != 'Empty': test_attack(

@@ -118,10 +118,8 @@ class KNNRecovery:
 
         if distances.min() == 0:
             return parents[distances.argmin()]
-            
         distances = distances[:, None]
         new_state = np.sum(parents * (distances/distances.sum()), axis=0)
-        #print(f'New state DIFFERENCES : {np.subtract(new_state,parents[0])}')
         return new_state
 
 class TimeSeriesRecovery:
