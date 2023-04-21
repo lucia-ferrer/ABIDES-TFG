@@ -10,10 +10,10 @@ detector_experiments = {
 
 recovery_experiments = {
     'KNNRecovery': {
-        'k': [1, 3, 5],
+        'k': 3,
         'consider_next_state': False,
         'consider_transition': True,
-        'window' : [2, 3, 4],
+        'window' : 3,
         'diff_state' : False
     },
     'TimeSeries': {}
