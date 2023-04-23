@@ -81,6 +81,8 @@ def AdversarialWrapper(cls):
                 if is_adversarial:
                     if self.defender[policy_id].recovery == 'cheat' or (wnd > 2 and len(self.transitions[policy_id]) < wnd):
                         observation = og_observation
+                    elif self.defender[policy_id].recovery == 'none':
+                        observation = observation
                     else:
                         new_wnd = np.array(self.transitions[policy_id][-wnd+1:] + [transition]) if wnd > 2 else np.array(transition)
                         observation = self.defender[policy_id].recover(new_wnd).reshape(observation.shape)

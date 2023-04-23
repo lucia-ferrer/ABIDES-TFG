@@ -42,8 +42,10 @@ def episode(env, agent, config, norm=False):
         rewards = (env.reward if not norm else norm_reward)
         if 'last_rewards' in agent.__dict__:
             agent.last_rewards = rewards
-        for i, r in rewards.items():
-            episode_rewards[i] += r
+        # uncomment for single total rewards per agent. 
+        """ for i, r in rewards.items():
+            episode_rewards[i] += r """
+        episode_rewards = rewards
         norm_state = norm_state_
 
     # do one last forward pass so the agent sees the final states

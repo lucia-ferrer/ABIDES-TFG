@@ -16,9 +16,11 @@ def test(env, agent, config, episodes, attacked_policy_id):
     acc = (mask*(TNR, TPR)).sum() / mask.sum()
 
     return {
-        'recovered_reward': np.mean(recovered_attack_rewards),
+        'recovered_reward': recovered_attack_rewards,
+        'recovered_reward_mean': np.mean(recovered_attack_rewards),
         'other_reward': np.mean(other_reward),
-        'recovered_reward_std': np.std(recovered_attack_rewards),
+        'recovered_reward_std': recovered_attack_rewards,
+        'recovered_reward_std_mean': np.mean(recovered_attack_rewards),
         'other_reward_std': np.std(other_reward),
         'matrix': str(matrix).replace('\n', ' '),
         'TNR': TNR,

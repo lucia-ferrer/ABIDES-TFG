@@ -10,13 +10,14 @@ detector_experiments = {
 
 recovery_experiments = {
     'KNNRecovery': {
-        'k': 3,
+        'k': [1,2,3],
         'consider_next_state': False,
         'consider_transition': True,
-        'window' : 3,
+        'window' : [2,3],
         'diff_state' : False
     },
-    'TimeSeries': {}
+    'None': {}
+    #'TimeSeries': {}
 
 }
 
@@ -28,7 +29,8 @@ DETECTOR_CLASS = {
 }
 
 RECOVERY_CLASS = {
-    'KNNRecovery': KNNRecovery
+    'KNNRecovery': KNNRecovery,
+    'None' : lambda *args: {}
     #'TimeSeries': TimeSeriesRecovery
 }
 
