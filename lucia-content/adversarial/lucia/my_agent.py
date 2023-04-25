@@ -78,11 +78,11 @@ def AdversarialWrapper(cls):
                 self.matrix[policy_id][int(is_attack), int(is_adversarial)] += 1
 
                 # recovery
-                if is_adversarial:
+                if is_adversarial and self.defender[policy_id].recovery is not None:
+                    #get original transitions
                     if self.defender[policy_id].recovery == 'cheat' or (wnd > 2 and len(self.transitions[policy_id]) < wnd):
                         observation = og_observation
-                    elif self.defender[policy_id].recovery == 'none':
-                        observation = observation
+                    #recover
                     else:
                         new_wnd = np.array(self.transitions[policy_id][-wnd+1:] + [transition]) if wnd > 2 else np.array(transition)
                         observation = self.defender[policy_id].recover(new_wnd).reshape(observation.shape)
@@ -96,9 +96,7 @@ def AdversarialWrapper(cls):
                 if transition is None:
                     transition = self.get_transition(observation, policy_id)
                 self.transitions[policy_id].append(transition)
-            
-            #We will write the rewards iterations for visualization purposes
-                
+                           
             self.last_states[policy_id] = observation
             self.last_actions[policy_id] = self.policy[policy_id](observation, policy_id, *args, **kwargs)
 	

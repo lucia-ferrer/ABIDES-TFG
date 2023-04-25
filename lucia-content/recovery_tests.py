@@ -125,12 +125,8 @@ if __name__ == '__main__':
 			
 			for policy_id, defense in defenses.items():
 				state_dims = np.prod(env.observation_space[policy_id].shape)
-				if recovery_name == 'None': 
-					for pol_id in ids[1:]:
-						defenses[pol_id].recovery = 'none'
-				else:			
-					defense.recovery = RECOVERY_CLASS[recovery_name](**recovery_params, state_dims=state_dims)
-					defense.fit_recovery()
+				defense.recovery = RECOVERY_CLASS[recovery_name](**recovery_params, state_dims=state_dims) if recovery_name != 'None' else None
+				defense.fit_recovery()
 
 			for policy_id, attack_name, attack_params in attacks_list:
 					row = {
