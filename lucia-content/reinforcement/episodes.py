@@ -30,7 +30,7 @@ def episode(env, agent, config, norm=False):
 
     ids = config['env_config']['learning_agent_ids']
     norm_state = env.reset()
-    episode_rewards = {i: 0 for i in ids}
+    episode_rewards = {i: [0] for i in ids}
     for t in range(config['horizon']):
         # compute actions
         action = {}
@@ -44,8 +44,9 @@ def episode(env, agent, config, norm=False):
             agent.last_rewards = rewards
         # uncomment for single total rewards per agent. 
         for i, r in rewards.items():
-            episode_rewards[i] += r
-        episode_rewards = rewards
+            episode_rewards[i].append(r)
+        print(f'Episode_rewards: {episode_rewards}, Rewards: {rewards}')
+        #episode_rewards = rewards
         norm_state = norm_state_
 
     # do one last forward pass so the agent sees the final states
