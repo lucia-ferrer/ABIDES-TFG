@@ -1,5 +1,5 @@
 import argparse
-
+import datetime
 import pandas as pd
 #import tensorflow as tf
 #tf.compat.v1.enable_eager_execution()
@@ -126,7 +126,8 @@ if __name__ == '__main__':
 			for policy_id, defense in defenses.items():
 				state_dims = np.prod(env.observation_space[policy_id].shape)
 				if recovery_name == 'None': 
-					defenses.recovery = 'none'
+					for pol_id in ids[1:]:
+						defenses[pol_id].recovery = 'none'
 				else:			
 					defense.recovery = RECOVERY_CLASS[recovery_name](**recovery_params, state_dims=state_dims)
 					defense.fit_recovery()
@@ -146,6 +147,6 @@ if __name__ == '__main__':
 					logger()
 
 					results = results.append(row, ignore_index=True)
-					results.to_csv(f"results/recovery/{file_name}_50_ep_2304.csv", index=False)
+					results.to_csv(f"results/recovery/{file_name}_{datetime.date.today().isoformat()}.csv", index=False)
 
 
