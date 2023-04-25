@@ -70,7 +70,7 @@ def AdversarialWrapper(cls):
             # defense
             if policy_id in self.defender and policy_id in self.last_states:
                 transition = self.get_transition(observation, policy_id)# -> (prev_observation, prev_action, observation, rewards)
-                wnd = self.defender[policy_id].recovery.window
+                wnd = self.defender[policy_id].recovery.window if self.defender[policy_id].recovery != 'none' else 1
 
                 # detection
                 is_attack = np.linalg.norm((observation - og_observation).flatten()) > 0
