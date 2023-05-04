@@ -3,4 +3,5 @@
 /lucia-content/out/*
 /lucia-content/log/*
 /lucia-content/results/*
+/abides-jpmc-public-multi-agent-rl/abides-gym/scripts/results/*
 .vscode
