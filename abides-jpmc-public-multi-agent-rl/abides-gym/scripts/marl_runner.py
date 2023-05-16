@@ -41,6 +41,11 @@ parser.add_argument('-tf',
                     default=1,
                     type=int,
                     help='0: Use env.step with fixed actions; 1: Use ray.tune for running expts')
+parser.add_argument('-rs',
+                    '--resume_flag',
+                    default=1,
+                    type=int,
+                    help='0: Use when new agent; 1: Use for resuming agent training trail')
 args, remaining_args = parser.parse_known_args()
 mm_add_volume = args.mm_add_volume
 pt_add_volume = args.pt_add_volume
@@ -50,6 +55,7 @@ L = args.quote_history
 M = args.trade_history if args.trade_history is not None else L
 d = args.delay_in_volume_reporting
 tune_flag = True if args.tune_flag else False
+resume_flag = True if args.resume_flag else False
 a2c_flag = False
 timestep_duration = "60S"
 register_env(
@@ -65,6 +71,7 @@ else:
     name_xp = 'ppo_'
 name_xp += f"marl_vol{mm_add_volume}{pt_add_volume}_L{L}_d{d}_M{M}_pts{num_pts}"
 base_log_dir = os.getcwd() + '/results/' + name_xp
+print(f"Reading from base_log_dir : {base_log_dir}")
 
 env_config = multi_agent_init(num_pts,mm_add_volume,pt_add_volume,L,d,M,
                 base_log_dir,pt_add_momentum=pt_add_momentum,
@@ -89,16 +96,16 @@ if tune_flag:
     stop = {
         "training_iteration": 6000
     }
-
     tune.run(
         "A2C" if a2c_flag else "PPO",
         name=name_xp,
-        resume=True,
+        resume=resume_flag,
+        #restore=trial_checkpoint_path
         stop=stop,
         checkpoint_at_end=True,
-        checkpoint_freq=20,
+        checkpoint_freq=5,
         config=config,
-        verbose=1,
+        verbose=2,
     )
 else:
     register(

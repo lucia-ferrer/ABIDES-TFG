@@ -390,26 +390,33 @@ class multi_agent_policy_MARL:
         return action
 
 def load_and_save(ep, path, observables_list, obs_dict, obs_dict_key):
-    # print(f'\nIn load and save {obs_dict_key}\n')
+    print(f'In load and save {obs_dict_key}\n')
     for obs_string in observables_list:
         if os.path.exists(path + f'{obs_string}.npy') and ep > 0: #Load only if at an intermediate testing episode, not the first
             try:
                 prev_obs = np.load(path + f'{obs_string}.npy')
             except ValueError:
-                #TO BE FIXED!!
+                #TODO: BE FIXED!!
                 print(f'Loading pickle file at episode {ep}?! {obs_dict_key}: {obs_string}')
-                prev_obs = np.load(open(path + f'{obs_string}.npy','rb'),allow_pickle=True)
-                print(obs_dict[obs_dict_key][obs_string].dtype,prev_obs.dtype)
+                try: 
+                	prev_obs = np.load(path + f'{obs_string}.npy',allow_pickle=True)
+                except OSError: #<-- probably ended in error
+                	prev_obs = np.load(path + f'prev_{obs_string}.npy')
+            
+            print(f'Obs_dictionary: {obs_dict[obs_dict_key][obs_string].dtype},{prev_obs.dtype}')
             obs = np.vstack((prev_obs,obs_dict[obs_dict_key][obs_string]))
+            print('Loading prev_obs')
+            np.save(path + f'prev_{obs_string}.npy',prev_obs) # num_test * horizon
         else:
             obs = obs_dict[obs_dict_key][obs_string]
+            np.save(path + f'prev_{obs_string}.npy',obs)    
         obs[np.isnan(obs)] = 0
         np.save(path + f'{obs_string}.npy',obs) # num_test * horizon
     return
 
 def log_results(ep, obs_dict, log_dir, num_pts, matching_agents = None, 
 matched_value_agent_orders = None, agent_pnls = None):
-    print('Logging results\n')
+    print('SUPUESTAMENTE -> Logging results\n')
     if not os.path.exists(log_dir):
         os.makedirs(log_dir)
     if not os.path.exists(log_dir + 'Market/'):
@@ -429,6 +436,7 @@ matched_value_agent_orders = None, agent_pnls = None):
     if agent_pnls is not None:
         obs_dict['Market']['Agent PnLs'] = agent_pnls.reshape((1,-1))
 
+    print('SUPUESTAMENTE -> PARA ENTRAR save\n')
     # Save market observables
     load_and_save(ep,log_dir+'Market/',market_obs_list + ['Matched Value Agent Orders'],obs_dict,'Market')
 
@@ -438,5 +446,5 @@ matched_value_agent_orders = None, agent_pnls = None):
     # Save PT observables
     for i in range(num_pts):
         load_and_save(ep,log_dir+f'PT{i + 1}/',pt_obs_list,obs_dict,f'PT{i + 1}')
-    # print('Done all load and save!')
+    print('Done all load and save!')
     return
