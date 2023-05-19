@@ -413,6 +413,23 @@ def load_and_save(ep, path, observables_list, obs_dict, obs_dict_key):
         obs[np.isnan(obs)] = 0
         np.save(path + f'{obs_string}.npy',obs) # num_test * horizon
     return
+"""def load_and_save(ep, path, observables_list, obs_dict, obs_dict_key):
+    # print(f'\nIn load and save {obs_dict_key}\n')
+    for obs_string in observables_list:
+        if os.path.exists(path + f'{obs_string}.npy') and ep > 0: #Load only if at an intermediate testing episode, not the first
+            try:
+                prev_obs = np.load(path + f'{obs_string}.npy')
+            except ValueError:
+                print(f'Loading pickle file at episode {ep}?! {obs_dict_key}: {obs_string}')
+                prev_obs = np.load(open(path + f'{obs_string}.npy','rb'),allow_pickle=True)
+                print(obs_dict[obs_dict_key][obs_string].dtype,prev_obs.dtype)
+            obs = np.vstack((prev_obs,obs_dict[obs_dict_key][obs_string]))
+        else:
+            obs = obs_dict[obs_dict_key][obs_string]
+        obs[np.isnan(obs)] = 0
+        np.save(path + f'{obs_string}.npy',obs) # num_test * horizon
+    return
+"""
 
 def log_results(ep, obs_dict, log_dir, num_pts, matching_agents = None, 
 matched_value_agent_orders = None, agent_pnls = None):
@@ -448,3 +465,4 @@ matched_value_agent_orders = None, agent_pnls = None):
         load_and_save(ep,log_dir+f'PT{i + 1}/',pt_obs_list,obs_dict,f'PT{i + 1}')
     print('Done all load and save!')
     return
+

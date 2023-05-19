@@ -71,6 +71,7 @@ else:
     name_xp = 'ppo_'
 name_xp += f"marl_vol{mm_add_volume}{pt_add_volume}_L{L}_d{d}_M{M}_pts{num_pts}"
 base_log_dir = os.getcwd() + '/results/' + name_xp
+
 print(f"Reading from base_log_dir : {base_log_dir}")
 
 env_config = multi_agent_init(num_pts,mm_add_volume,pt_add_volume,L,d,M,

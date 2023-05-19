@@ -296,16 +296,16 @@ class SubGymMultiAgentRLEnv_v0(AbidesGymMarketsEnv, MultiAgentEnv):
         # print(self.state)
         self.obs_dict = get_observables(self.num_pts,self.quote_history,
                             self.trade_history,self.max_iter,
-                            self.state,action,self.reward,
+                            self.state,action,self.reward,log_results
                             np.array([self.spread_pnl,self.inventory_pnl]),
                             self.iter-1,self.obs_dict,False,self.trades,
                             self.pt_add_momentum,self.price_history[self.iter-1],
                             [self.ask_depth,self.bid_depth])
-        # print(self.obs_dict)
+        #print(self.obs_dict)
         if self.iter >= self.max_iter and self.log_flag:
             matching_agents = self.gym_agent.get_matching_agents()
             agent_pnls = self.get_agent_pnls()
-            print(matching_agents)
+            # print(f"We are logging, matching_agents: {matching_agents}")
             matched_value_agent_orders = self.gym_agent.get_matched_value_agent_orders()
             log_results(1,self.obs_dict,self.log_dir,self.num_pts,matching_agents,matched_value_agent_orders,agent_pnls) #loads for previous training episodes, and saves augmetnted with current training episode
             # print('Back in marl env')
