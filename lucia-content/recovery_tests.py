@@ -57,7 +57,7 @@ def get_agent():
 	load_weights(agent)
 	agent.attacker = {policy_id: ATTACK_CLASS[attack_name](**attack_params)}
 	agent.defender = {policy_id: defenses[policy_id]}
-	return agent
+	return agent()
 
 
 if __name__ == '__main__':
@@ -112,8 +112,7 @@ if __name__ == '__main__':
 
 	# execute experiments
 	results = pd.DataFrame()
-	first_no_attack = True
-	second_only_attack = False
+	
 	for detector_name, detector_params in detectors_list:
 		defenses = {policy_id: Defense(norm=args.norm, detector=DETECTOR_CLASS[detector_name](**detector_params))
 					for policy_id in ids[1:]}
