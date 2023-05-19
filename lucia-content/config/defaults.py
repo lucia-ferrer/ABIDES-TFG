@@ -1,2 +1,2 @@
-root = 'data/ppo_alb'
+root = 'data/ppo'
 NUM_TRIALS = 5
