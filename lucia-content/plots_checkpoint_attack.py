@@ -30,9 +30,9 @@ axs[0].set_ylabel('reward')
 plt.tight_layout()
 plt.legend(handles, labels, loc='upper left')
 plt.show()
-plt.savefig("images/train_v1.png")
+plt.savefig("images/train_v2.png")
 
-# plot attacks
+"""# plot attacks
 x_iterator = {
  	'UniformAttack': 'freq',
  	'STAttack': 'beta',
@@ -61,3 +61,4 @@ for i, attack in enumerate(x_iterator):
 		plt.legend()
 		plt.title(attack)
 		plt.show()
+"""

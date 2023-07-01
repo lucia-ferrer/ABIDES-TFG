@@ -57,7 +57,7 @@ def get_agent():
 	load_weights(agent)
 	agent.attacker = {policy_id: ATTACK_CLASS[attack_name](**attack_params)}
 	agent.defender = {policy_id: defenses[policy_id]}
-	return agent()
+	return agent
 
 
 if __name__ == '__main__':

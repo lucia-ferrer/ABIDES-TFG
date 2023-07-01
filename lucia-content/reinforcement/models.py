@@ -27,8 +27,13 @@ def get_env():
 
 
 def load_weights(agent, checkpoint_idx='max', max_agent='PT1'):
+    """ Input : agente, idx -> (o max o posicion del checkpoint dentro de la listaa ordenada'
+        Output : Number del checkpoint seleccionado ya sea por index o por el max (resultado de mean max)
+        THe function moreover loades in the agent the weights of that checkpoint
+    """
     checkpoints = sorted([f for f in os.listdir(root) if 'checkpoint' in f])
     checkpoints_results_path = 'results/checkpoints.csv'
+        
     if checkpoint_idx == 'max' and os.path.exists(checkpoints_results_path):
         df = pd.read_csv(checkpoints_results_path)
         checkpoint_idx = df.sort_values(f'{max_agent}_mean').index[-1]-1

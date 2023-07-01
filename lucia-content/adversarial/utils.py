@@ -3,7 +3,7 @@ from reinforcement.episodes import evaluate
 
 
 def test(env, agent, config, episodes, attacked_policy_id):
-    results, matrix = evaluate(env, agent, config, episodes, verbose=True)
+    results, matrix = evaluate(env, agent, config, episodes, verbose=True, test=True)
     recovered_attack_rewards = results.pop(attacked_policy_id)
     other_reward = results.popitem()[1]
 
@@ -18,7 +18,7 @@ def test(env, agent, config, episodes, attacked_policy_id):
     print(recovered_attack_rewards)
     
     return {
-        'recovered_reward': recovered_attack_rewards,
+        'recovered_reward_per_trial': recovered_attack_rewards,
         'recovered_reward_mean': np.mean(recovered_attack_rewards),
         #'other_reward': np.mean(other_reward),
         'recovered_reward_std': np.std(recovered_attack_rewards),

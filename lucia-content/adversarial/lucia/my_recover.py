@@ -98,7 +98,7 @@ class KNNRecovery:
         """
         This method will recover from the Fast Index Tree, the k nearest neighbours of the state specified. 
             Input: Last Wnd Raw transitions
-            Output: List with K simple transitions (Sn, A, An+1, R)
+            Output: (List of distances , List with K NextStates An+1 obtained from simple transitions (Sn, A, An+1, R) )
         """
 
         #Transform to obtain wnd size transitions and process the transition
@@ -125,7 +125,3 @@ class KNNRecovery:
 class TimeSeriesRecovery:
     def __init__(self) -> None:
         pass      
-
-class AutoencodeRecovery:
-    def __init__(self) -> None:
-        pass       

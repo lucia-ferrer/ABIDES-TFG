@@ -10,11 +10,14 @@ from reinforcement.models import get_env, load_weights
 
 
 def eval_checkpoint(env, agent, ids, config, loaded_checkpoint, results):
-    print(f"Testing checkponit {loaded_checkpoint}")
-    r = np.asarray(list(evaluate(env, agent, config, num_trials=NUM_TRIALS, verbose=True).values()))
+    print(f"Testing checkpoint {loaded_checkpoint}")
+    #r = np.asarray(evaluate(env, agent, config, num_trials=NUM_TRIALS, verbose=True)[0])
+    r = np.asarray(list(evaluate(env, agent, config, num_trials=NUM_TRIALS, verbose=True)[0].values()))
+    print(f"Rewards: {r.shape} -> {r}")
     means = r.mean(axis=1)
     stds = r.std(axis=1)
     row = {'checkpoint': loaded_checkpoint}
+    print(f"Means: {means}")
     for id, mean, std in zip(ids, means, stds):
         row.update({f'{id}_mean': mean, f'{id}_std': std})
     return results.append(row, ignore_index=True)

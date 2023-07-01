@@ -5,25 +5,25 @@ import numpy as np
 #tf.compat.v1.enable_eager_execution()
 
 
-def evaluate(env, agent, config, num_trials, norm=False, verbose=False):
+def evaluate(env, agent, config, num_trials, norm=False, verbose=False, test=False):
     # if 'at_test_start' in agent.__dir__():
     #     agent.at_test_start()
     rewards = defaultdict(list)
     iterator = range(num_trials)
     matrix = defaultdict(lambda: np.zeros((2, 2)))
     for _ in iterator if not verbose else tqdm(iterator):
-        results, m = episode(env, agent, config, norm)
-        for id, v in m.items():
-            matrix[id] += v
+        results, m = episode(env, agent, config, norm, test)
+        if m: 
+            for id, v in m.items():
+            	matrix[id] += v
         for id, reward in results.items():
             rewards[id].append(reward)
     return rewards, matrix
 
 
-def episode(env, agent, config, norm=False):
-    #TODO : REVIEW why object agent is being called -> Raised errors when get_transitions! and not 
-    # when test_detector, or test_recovery. 
-    # agent = agent()
+def episode(env, agent, config, norm=False, test=False):
+    # Basically done as a fix to get_transitions and test_check, test_attacks ... both working
+    if test: agent = agent()
     # restart adversarial attributes
     #if 'at_episode_start' in agent.__dir__():
     #    agent.at_episode_start() 
@@ -54,4 +54,5 @@ def episode(env, agent, config, norm=False):
     # do one last forward pass so the agent sees the final states
     for i in range(len(ids)):
         agent.compute_single_action(norm_state[ids[i]], policy_id=ids[i])
-    return episode_total_rewards, agent.matrix
+    try: return episode_total_rewards, agent.matrix
+    except AttributeError: return episode_total_rewards, None

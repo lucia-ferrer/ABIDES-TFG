@@ -32,4 +32,4 @@ if __name__ == '__main__':
         print()
         agent.epsilon_greedy = {id: args.epsilon}
         evaluate(env, agent, config, num_trials=args.episodes, verbose=True)
-        pd.DataFrame(agent.transitions[id]).to_csv(f'data/transitions_{id}.csv', index=False)
+        pd.DataFrame(agent.transitions[id]).to_csv(f'data/transitions_{id}_30-06.csv', index=False)
