@@ -23,6 +23,7 @@ def AdversarialWrapper(cls):
                 self.policy[id] = self._epsilon_greedy_policy   
             
             self._record = True
+            self._plot = False
             self.at_test_start()
             self.at_episode_start()
             super().__init__(*args, **kwargs)

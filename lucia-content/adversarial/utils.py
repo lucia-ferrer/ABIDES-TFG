@@ -14,9 +14,7 @@ def test(env, agent, config, episodes, attacked_policy_id, test=True):
                                     where=matrix.sum(axis=1)[:, None] > 0).flatten()
     mask = matrix.sum(axis=1) > 0
     acc = (mask*(TNR, TPR)).sum() / mask.sum()
-    
-    print(recovered_attack_rewards)
-    
+       
     return {
         'recovered_reward_per_trial': recovered_attack_rewards,
         'recovered_reward_mean': np.mean(recovered_attack_rewards),

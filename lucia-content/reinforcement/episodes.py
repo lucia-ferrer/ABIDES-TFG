@@ -47,8 +47,8 @@ def episode(env, agent, config, norm=False, test=False):
         for i, r in rewards.items():
             episode_total_rewards[i] += r # single total rewards per agent.
             if 'last_rewards' in agent.__dict__:
-            	agent.last_rewards[i] = np.array([r]) if i not in agent.last_rewards.keys() else \
-            		np.append(agent.last_rewards[i], r) 
+            	agent.last_rewards[i] = np.array([r]) if i not in agent.last_rewards.keys() and agent._plot else \
+            		np.append(agent.last_rewards[i], r) if agent._plot else r
         
         norm_state = norm_state_
 

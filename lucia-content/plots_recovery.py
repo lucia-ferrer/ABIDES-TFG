@@ -62,6 +62,7 @@ def get_agent():
 	load_weights(agent)
 	agent.attacker = {policy_id: ATTACK_CLASS[attack_name](**attack_params)}
 	agent.defender = {policy_id: defenses[policy_id]}
+	agent._plot = True
 	return agent
 
 
@@ -82,7 +83,7 @@ if __name__ == '__main__':
 	# list of recoveries to do
 	recovery_list = []
 	iterator = recovery_experiments.items() if args.recovery == -1\
-		else ((args.recovery, recovery_experiments[args.recovery],),)
+		else (([args.recovery, 'None'], [recovery_experiments[args.recovery],recovery_experiments['None']],),)
 	for recovery_name, exp_config in iterator:
 		for params in grid_generator(exp_config, args.recovery_parameter):
 			recovery_list.append((recovery_name, params))
@@ -118,6 +119,8 @@ if __name__ == '__main__':
 	results = pd.DataFrame()
 	fig, ax = plt.subplots()
 	
+	done_attack_empty = False
+
 	for detector_name, detector_params in detectors_list:
 		defenses = {policy_id: Defense(norm=args.norm, detector=DETECTOR_CLASS[detector_name](**detector_params))
 					for policy_id in ids[1:]}
@@ -133,7 +136,10 @@ if __name__ == '__main__':
 				defense.fit_recovery()
 
 			for policy_id, attack_name, attack_params in attacks_list:
-					agent=get_agent()
+					if attack_name == 'Empty' : 
+						if done_attack_empty: continue 
+						else: done_attack_empty = True
+					agent = get_agent()
 					row = {
 						'norm': args.norm,
 						'detector': detector_name,
@@ -146,9 +152,11 @@ if __name__ == '__main__':
 						**test(env, agent, config, args.val_episodes, policy_id, test=False)
 					}
 					logger()
-					results[f'{policy_id}-A-{attack_name}_D-{detector_name}_R-{recovery_name}, {params_to_str(recovery_params)}'] = agent.last_rewards
+					results[f"{policy_id}:{attack_name}:{detector_name}:{recovery_name},\
+	     						 {params_to_str(recovery_params)}"] = agent.last_rewards
+					print(results.head(3))
 					
-	results.to_csv(f"images/recovery/plot_{datetime.date.today().isoformat()}.csv", index=False)
+	results.to_csv(f"images/recovery/epsidoes_{file_name}_{datetime.date.today().isoformat()}.csv", index=False)
 	results.plot(ax=ax)
 	ax.legend()
 	plt.save_fig(f"images/recovery/plot_{file_name}.png")
