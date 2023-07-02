@@ -1,6 +1,7 @@
 import argparse
 import datetime
 import pandas as pd
+import matplotlib.pyplot as plt
 #import tensorflow as tf
 #tf.compat.v1.enable_eager_execution()
 from ray.rllib.agents.ppo.ppo import PPOTrainer
@@ -28,7 +29,7 @@ def parse_args():
 	parser.add_argument("--norm", choices=available_norms, default=available_norms[0],
 						help=f"The normalization to use (default {available_norms[0]}"
 	)
-	parser.add_argument("--val_episodes", default=NUM_TRIALS,
+	parser.add_argument("--val_episodes", type=int, default=NUM_TRIALS,
 						help=f"Number of episodes to validate the agent with (default {NUM_TRIALS})"
 	)
 	parser.add_argument("--detector", default=-1,
@@ -89,15 +90,16 @@ if __name__ == '__main__':
 	# list of attacks to do
 	attacks_list = []
 	for id in ids[1:]:
-		for a_name in ATTACK_CLASS if args.attack == -1 else [args.attack]:
+		for a_name in ATTACK_CLASS if args.attack == -1 else [args.attack, 'Empty']:
 			for params in grid_generator(get_agent_attack_config(id)[a_name], args.attack_parameter):
 				attacks_list.append((id, a_name, params))
 
+
 	# file name
 	file_name = f"img_recovery_test_"
-	if args.agent != -1:					# agent
+	if args.agent != -1:				# agent
 		file_name += f"_{args.agent}"
-	if args.detector != -1:				 # detector
+	if args.detector != -1:				# detector
 		file_name += f"_{args.detector}"
 	if args.detector_parameter != -1:	   # detector params
 		file_name += f"_detparam{args.detector_parameter}"
@@ -105,7 +107,7 @@ if __name__ == '__main__':
 		file_name += f"_{args.recovery}"
 	if args.recovery_parameter != -1:	   # recovery params
 		file_name += f"_recparam{args.recovery_parameter}"
-	if args.attack != -1:				   # attack
+	if args.attack != -1:				  # attack
 		file_name += f"_{args.attack}"
 	if args.attack_parameter != -1:		 # attack params
 		file_name += f"_atckparam{args.attack_parameter}"
@@ -114,6 +116,7 @@ if __name__ == '__main__':
 
 	# execute experiments
 	results = pd.DataFrame()
+	fig, ax = plt.subplots()
 	
 	for detector_name, detector_params in detectors_list:
 		defenses = {policy_id: Defense(norm=args.norm, detector=DETECTOR_CLASS[detector_name](**detector_params))
@@ -122,7 +125,7 @@ if __name__ == '__main__':
 		[defense.fit(transitions[policy_id]) for policy_id, defense in defenses.items()]
 
 		for recovery_name, recovery_params in recovery_list:
-			print(f"Recovery : {recovery_name} \t Params : {recovery_params}")
+			# print(f"Recovery : {recovery_name} \t Params : {recovery_params}")
 			
 			for policy_id, defense in defenses.items():
 				state_dims = np.prod(env.observation_space[policy_id].shape)
@@ -143,6 +146,12 @@ if __name__ == '__main__':
 						**test(env, agent, config, args.val_episodes, policy_id, test=False)
 					}
 					logger()
-					print(agent.last_rewards)
-					#results.to_csv(f"images/recovery/{file_name}_{datetime.date.today().isoformat()}.csv", index=False)
+					results[f'{policy_id}-A-{attack_name}_D-{detector_name}_R-{recovery_name}, {params_to_str(recovery_params)}'] = agent.last_rewards
+					
+	results.to_csv(f"images/recovery/plot_{datetime.date.today().isoformat()}.csv", index=False)
+	results.plot(ax=ax)
+	ax.legend()
+	plt.save_fig(f"images/recovery/plot_{file_name}.png")
+	plt.show()
+
 

@@ -9,7 +9,7 @@ def evaluate(env, agent, config, num_trials, norm=False, verbose=False, test=Fal
     # if 'at_test_start' in agent.__dir__():
     #     agent.at_test_start()
     rewards = defaultdict(list)
-    iterator = range(num_trials)
+    iterator = range(int(num_trials))
     matrix = defaultdict(lambda: np.zeros((2, 2)))
     for _ in iterator if not verbose else tqdm(iterator):
         results, m = episode(env, agent, config, norm, test)
@@ -41,16 +41,15 @@ def episode(env, agent, config, norm=False, test=False):
         norm_state_, norm_reward, done, info = env.step(action)
         # update rewards
         rewards = (env.reward if not norm else norm_reward)
-        if 'last_rewards' in agent.__dict__:
-           print(agent.last_rewards)
-           print(rewards)
-           agent.last_rewards = rewards
+        #if 'last_rewards' in agent.__dict__:
+           # agent.last_rewards = rewards
         
         for i, r in rewards.items():
-            #episode_rewards[i].append(r)
-            episode_total_rewards[i] += r # single total rewards per agent. 
+            episode_total_rewards[i] += r # single total rewards per agent.
+            if 'last_rewards' in agent.__dict__:
+            	agent.last_rewards[i] = np.array([r]) if i not in agent.last_rewards.keys() else \
+            		np.append(agent.last_rewards[i], r) 
         
-        # print(f'Episode_rewards: {episode_rewards}, Rewards: {rewards}')
         norm_state = norm_state_
 
     # do one last forward pass so the agent sees the final states

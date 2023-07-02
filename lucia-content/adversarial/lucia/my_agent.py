@@ -57,7 +57,7 @@ def AdversarialWrapper(cls):
             action = np.zeros(action_space.sum())
             action[[self.last_actions[policy_id][0], self.last_actions[policy_id][1]+action_space[0]]] = 1
             # generate transitions
-            return np.concatenate((state, action, next_state, [self.last_rewards[policy_id]]))
+            return np.concatenate((state, action, next_state, [self.last_rewards[policy_id][-1]]))
 
         def compute_single_action(self, observation, policy_id, *args, **kwargs):
 

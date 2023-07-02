@@ -28,7 +28,7 @@ def parse_args():
 	parser.add_argument("--norm", choices=available_norms, default=available_norms[0],
 						help=f"The normalization to use (default {available_norms[0]}"
 	)
-	parser.add_argument("--val_episodes", default=NUM_TRIALS,
+	parser.add_argument("--val_episodes", type=int, default=NUM_TRIALS,
 						help=f"Number of episodes to validate the agent with (default {NUM_TRIALS})"
 	)
 	parser.add_argument("--detector", default=-1,
@@ -113,13 +113,11 @@ if __name__ == '__main__':
 	
 	for detector_name, detector_params in detectors_list:
 		defenses = {policy_id: Defense(norm=args.norm, detector=DETECTOR_CLASS[detector_name](**detector_params))
-					for policy_id in ids[1:]}
+					for policy_id in ids}
 				
 		[defense.fit(transitions[policy_id]) for policy_id, defense in defenses.items()]
 
-		for recovery_name, recovery_params in recovery_list:
-			print(f"Recovery : {recovery_name} \t Params : {recovery_params}")
-			
+		for recovery_name, recovery_params in recovery_list:			
 			for policy_id, defense in defenses.items():
 				state_dims = np.prod(env.observation_space[policy_id].shape)
 				defense.recovery = RECOVERY_CLASS[recovery_name](**recovery_params, state_dims=state_dims) if recovery_name != 'None' else None
