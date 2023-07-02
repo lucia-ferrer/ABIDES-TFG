@@ -1,304 +1,0 @@
-/home/alberto/JPMorgan/adversarial-RL-abides/venv/lib/python3.9/site-packages/skimage/io/manage_plugins.py:23: UserWarning: Your installed pillow version is < 8.1.2. Several security issues (CVE-2021-27921, CVE-2021-25290, CVE-2021-25291, CVE-2021-25293, and more) have been fixed in pillow 8.1.2 or higher. We recommend to upgrade this library.
-  from .collection import imread_collection_wrapper
-  0%|          | 0/50 [00:00<?, ?it/s]2022-07-06 12:47:01,638	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-Install gputil for GPU system monitoring.
-2022-07-06 12:47:02,612	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:47:02,612	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
-  2%|▏         | 1/50 [01:07<55:29, 67.95s/it]2022-07-06 12:48:09,827	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:48:09,827	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:48:09,967	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:48:09,968	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
-  4%|▍         | 2/50 [01:21<28:35, 35.75s/it]2022-07-06 12:48:23,031	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:48:23,032	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:48:23,131	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:48:23,132	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
-  6%|▌         | 3/50 [01:33<19:47, 25.27s/it]2022-07-06 12:48:36,189	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:48:36,190	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:48:36,346	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:48:36,347	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
-  8%|▊         | 4/50 [01:47<15:42, 20.50s/it]2022-07-06 12:48:48,937	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:48:48,938	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:48:49,043	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:48:49,043	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 10%|█         | 5/50 [01:59<13:18, 17.74s/it]2022-07-06 12:49:01,892	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:49:01,892	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:49:02,008	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:49:02,008	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 12%|█▏        | 6/50 [02:13<11:51, 16.18s/it]2022-07-06 12:49:15,004	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:49:15,004	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:49:15,123	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:49:15,124	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 14%|█▍        | 7/50 [02:26<10:53, 15.20s/it]2022-07-06 12:49:28,120	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:49:28,121	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:49:28,231	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:49:28,231	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 16%|█▌        | 8/50 [02:39<10:06, 14.43s/it]2022-07-06 12:49:41,338	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:49:41,339	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:49:41,452	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:49:41,453	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 18%|█▊        | 9/50 [02:52<09:35, 14.03s/it]2022-07-06 12:49:54,348	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:49:54,348	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:49:54,447	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:49:54,447	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 20%|██        | 10/50 [03:05<09:09, 13.74s/it]2022-07-06 12:50:07,192	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:50:07,193	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:50:07,289	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:50:07,289	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 22%|██▏       | 11/50 [03:18<08:43, 13.42s/it]2022-07-06 12:50:19,838	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:50:19,839	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:50:19,945	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:50:19,945	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 24%|██▍       | 12/50 [03:31<08:25, 13.29s/it]2022-07-06 12:50:32,910	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:50:32,910	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:50:33,018	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:50:33,018	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 26%|██▌       | 13/50 [03:44<08:09, 13.23s/it]2022-07-06 12:50:45,999	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:50:45,999	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:50:46,112	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:50:46,112	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 28%|██▊       | 14/50 [03:56<07:51, 13.10s/it]2022-07-06 12:50:58,990	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:50:58,991	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:50:59,134	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:50:59,135	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 30%|███       | 15/50 [04:10<07:39, 13.14s/it]2022-07-06 12:51:11,968	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:51:11,969	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:51:12,094	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:51:12,095	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 32%|███▏      | 16/50 [04:22<07:22, 13.02s/it]2022-07-06 12:51:24,932	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:51:24,933	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:51:25,055	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:51:25,055	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 34%|███▍      | 17/50 [04:36<07:10, 13.05s/it]2022-07-06 12:51:38,042	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:51:38,043	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:51:38,177	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:51:38,177	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 36%|███▌      | 18/50 [04:49<06:59, 13.12s/it]2022-07-06 12:51:51,214	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:51:51,215	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:51:51,314	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:51:51,314	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 38%|███▊      | 19/50 [05:02<06:48, 13.17s/it]2022-07-06 12:52:04,578	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:52:04,578	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:52:04,678	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:52:04,678	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 40%|████      | 20/50 [05:15<06:35, 13.18s/it]2022-07-06 12:52:18,009	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:52:18,010	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:52:18,163	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:52:18,163	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 42%|████▏     | 21/50 [05:29<06:24, 13.25s/it]2022-07-06 12:52:31,299	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:52:31,299	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:52:31,409	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:52:31,409	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 44%|████▍     | 22/50 [05:42<06:11, 13.28s/it]2022-07-06 12:52:44,496	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:52:44,496	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:52:44,638	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:52:44,638	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 46%|████▌     | 23/50 [05:56<06:01, 13.40s/it]2022-07-06 12:52:58,124	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:52:58,125	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:52:58,219	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:52:58,219	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 48%|████▊     | 24/50 [06:09<05:48, 13.41s/it]2022-07-06 12:53:11,470	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:53:11,471	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:53:11,574	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:53:11,574	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 50%|█████     | 25/50 [06:22<05:31, 13.27s/it]2022-07-06 12:53:24,625	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:53:24,625	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:53:24,748	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:53:24,749	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 52%|█████▏    | 26/50 [06:36<05:20, 13.34s/it]2022-07-06 12:53:37,958	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:53:37,958	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:53:38,053	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:53:38,053	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 54%|█████▍    | 27/50 [06:49<05:04, 13.26s/it]2022-07-06 12:53:51,053	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:53:51,053	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:53:51,172	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:53:51,172	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 56%|█████▌    | 28/50 [07:02<04:51, 13.25s/it]2022-07-06 12:54:04,531	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:54:04,531	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:54:04,664	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:54:04,665	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 58%|█████▊    | 29/50 [07:15<04:39, 13.31s/it]2022-07-06 12:54:18,028	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:54:18,028	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:54:18,142	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:54:18,143	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 60%|██████    | 30/50 [07:29<04:26, 13.33s/it]2022-07-06 12:54:31,135	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:54:31,135	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:54:31,273	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:54:31,273	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 62%|██████▏   | 31/50 [07:42<04:13, 13.35s/it]2022-07-06 12:54:44,508	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:54:44,508	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:54:44,654	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:54:44,655	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 64%|██████▍   | 32/50 [07:55<03:59, 13.30s/it]2022-07-06 12:54:57,804	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:54:57,804	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:54:57,935	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:54:57,935	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 66%|██████▌   | 33/50 [08:09<03:45, 13.27s/it]2022-07-06 12:55:10,877	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:55:10,877	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:55:10,987	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:55:10,987	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 68%|██████▊   | 34/50 [08:22<03:32, 13.29s/it]2022-07-06 12:55:24,489	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:55:24,490	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:55:24,613	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:55:24,613	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 70%|███████   | 35/50 [08:35<03:19, 13.32s/it]2022-07-06 12:55:37,796	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:55:37,796	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:55:37,898	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:55:37,898	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 72%|███████▏  | 36/50 [08:49<03:06, 13.34s/it]2022-07-06 12:55:51,372	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:55:51,372	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:55:51,469	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:55:51,469	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 74%|███████▍  | 37/50 [09:02<02:53, 13.34s/it]2022-07-06 12:56:04,407	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:56:04,408	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:56:04,542	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:56:04,542	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 76%|███████▌  | 38/50 [09:16<02:40, 13.40s/it]2022-07-06 12:56:17,972	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:56:17,973	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:56:18,089	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:56:18,089	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 78%|███████▊  | 39/50 [09:29<02:28, 13.46s/it]2022-07-06 12:56:31,426	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:56:31,427	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:56:31,568	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:56:31,568	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 80%|████████  | 40/50 [09:42<02:13, 13.38s/it]2022-07-06 12:56:44,946	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:56:44,947	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:56:45,077	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:56:45,077	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 82%|████████▏ | 41/50 [09:56<02:01, 13.50s/it]2022-07-06 12:56:58,531	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:56:58,532	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:56:58,651	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:56:58,651	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 84%|████████▍ | 42/50 [10:09<01:47, 13.47s/it]2022-07-06 12:57:12,123	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:57:12,123	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:57:12,223	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:57:12,223	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 86%|████████▌ | 43/50 [10:23<01:34, 13.53s/it]2022-07-06 12:57:25,648	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:57:25,649	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:57:25,754	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:57:25,754	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 88%|████████▊ | 44/50 [10:37<01:21, 13.60s/it]2022-07-06 12:57:39,389	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:57:39,390	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:57:39,493	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:57:39,493	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 90%|█████████ | 45/50 [10:50<01:07, 13.50s/it]2022-07-06 12:57:52,786	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:57:52,787	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:57:52,929	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:57:52,929	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 92%|█████████▏| 46/50 [11:04<00:54, 13.60s/it]2022-07-06 12:58:06,494	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:58:06,494	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:58:06,608	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:58:06,608	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 94%|█████████▍| 47/50 [11:17<00:40, 13.56s/it]2022-07-06 12:58:19,907	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:58:19,907	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:58:20,049	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:58:20,049	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 96%|█████████▌| 48/50 [11:31<00:27, 13.55s/it]2022-07-06 12:58:33,606	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:58:33,606	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:58:33,716	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:58:33,716	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
- 98%|█████████▊| 49/50 [11:45<00:13, 13.54s/it]2022-07-06 12:58:46,857	WARNING trainer_template.py:185 -- `execution_plan` functions should accept `trainer`, `workers`, and `config` as args!
-2022-07-06 12:58:46,857	WARNING util.py:57 -- Install gputil for GPU system monitoring.
-2022-07-06 12:58:46,958	INFO trainable.py:393 -- Restored on 10.117.164.101 from checkpoint: data/ppo/checkpoint_000950/checkpoint-950
-2022-07-06 12:58:46,958	INFO trainable.py:401 -- Current state after restoring: {'_iteration': 950, '_timesteps_total': None, '_time_total': 201705.41575789452, '_episodes_total': 9743}
-100%|██████████| 50/50 [11:57<00:00, 13.36s/it]100%|██████████| 50/50 [11:57<00:00, 14.36s/it]
-#PTs: 1; Momentum: 1; Timestep: 60S
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12
-#PTs: 1; Momentum: 1; Timestep: 60S
-False, 20, 2, 2, 5min, 5.7e-12

@@ -46,7 +46,7 @@ class Logger:
         self.write()
 
     def write(self):
-        filled = int(self.length*self.i/self.total)
+        filled = int(self.length*self.i/self.total) if self.total != 0 else 1
         with open(self.path, 'w') as f:
             f.write('█'*filled+'░'*(self.length-filled))
             f.write(f"  {self.i} / {self.total}")

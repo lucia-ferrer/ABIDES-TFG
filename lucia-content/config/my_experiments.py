@@ -3,17 +3,16 @@ from adversarial.lucia.my_recover import *
 
 detector_experiments = {
     #'KNN-Hyper': {},
-    #'Kernel_Density': {},
+    'Kernel_Density': {},
     'DBSCAN': {}
     #'Gaussian_Mixture': {'n_clusters': [128, 256, 512, 1024, 2048] }
 }
 
 recovery_experiments = {
-    #
     'KNNRecovery': {
-        'k': [1,2,3],
+        'k': [1,2,3,5],
         'consider_next_state': False,
-        'consider_transition': True,
+        'consider_transition': [True, False],
         'window' : [2,3],
         'diff_state' : False
     },

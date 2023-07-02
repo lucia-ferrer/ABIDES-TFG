@@ -65,7 +65,6 @@ if __name__ == '__main__':
 
 	env, config = get_env()
 	ids = config['env_config']['learning_agent_ids'] if args.agent == -1 else [args.agent]
-	print('IDS: ', ids)
 	transitions = {id: pd.read_csv(f'data/transitions_{id}.csv', header=None).values for id in ids}
 
 	# list of detectors to do

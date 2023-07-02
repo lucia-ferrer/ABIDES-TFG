@@ -32,7 +32,7 @@ plt.legend(handles, labels, loc='upper left')
 plt.show()
 plt.savefig("images/train_v2.png")
 
-"""# plot attacks
+# plot attacks
 x_iterator = {
  	'UniformAttack': 'freq',
  	'STAttack': 'beta',
@@ -61,4 +61,3 @@ for i, attack in enumerate(x_iterator):
 		plt.legend()
 		plt.title(attack)
 		plt.show()
-"""
