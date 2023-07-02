@@ -140,7 +140,7 @@ if __name__ == '__main__':
 						'attack': attack_name,
 						'attack_params': params_to_str(attack_params),
 						'attacked_policy': policy_id,
-						**test(env, agent, config, args.val_episodes, policy_id)
+						**test(env, agent, config, args.val_episodes, policy_id, test=False)
 					}
 					logger()
 					print(agent.last_rewards)

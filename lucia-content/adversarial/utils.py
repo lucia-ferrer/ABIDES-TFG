@@ -2,8 +2,8 @@ import numpy as np
 from reinforcement.episodes import evaluate
 
 
-def test(env, agent, config, episodes, attacked_policy_id):
-    results, matrix = evaluate(env, agent, config, episodes, verbose=True, test=True)
+def test(env, agent, config, episodes, attacked_policy_id, test=True):
+    results, matrix = evaluate(env, agent, config, episodes, verbose=True, test=test)
     recovered_attack_rewards = results.pop(attacked_policy_id)
     other_reward = results.popitem()[1]
 
