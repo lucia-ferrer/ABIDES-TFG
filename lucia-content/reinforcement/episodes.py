@@ -42,7 +42,9 @@ def episode(env, agent, config, norm=False, test=False):
         # update rewards
         rewards = (env.reward if not norm else norm_reward)
         if 'last_rewards' in agent.__dict__:
-            agent.last_rewards.append(rewards)
+           print(agent.last_rewards)
+           print(rewards)
+           agent.last_rewards = rewards
         
         for i, r in rewards.items():
             #episode_rewards[i].append(r)
