@@ -49,6 +49,10 @@ def parse_args():
 	parser.add_argument("--attack_parameter", type=int, default=-1,
 						help="Parameter ids to try for the attacks. -1 for all (Default)"
 	)
+	parser.add_argument("--plotting", type=bool, default=False, 
+		     			help="Parameter to indicate whether we keep track of each trial in a plot, \
+							instead of storing the tests in a csv"
+	)
 	return parser.parse_args()
 
 
@@ -90,7 +94,7 @@ if __name__ == '__main__':
 				attacks_list.append((id, a_name, params))
 
 	# file name
-	file_name = f"recovery_tests_{args.norm}" if not args.plotting else f"plot_recovery_{args.norm}"
+	file_name = f"img_recovery_test_"
 	if args.agent != -1:					# agent
 		file_name += f"_{args.agent}"
 	if args.detector != -1:				 # detector
@@ -126,6 +130,7 @@ if __name__ == '__main__':
 				defense.fit_recovery()
 
 			for policy_id, attack_name, attack_params in attacks_list:
+					agent=get_agent()
 					row = {
 						'norm': args.norm,
 						'detector': detector_name,
@@ -135,10 +140,9 @@ if __name__ == '__main__':
 						'attack': attack_name,
 						'attack_params': params_to_str(attack_params),
 						'attacked_policy': policy_id,
-						**test(env, get_agent, config, args.val_episodes, policy_id)
+						**test(env, agent, config, args.val_episodes, policy_id)
 					}
 					logger()
-
-					results = results.append(row, ignore_index=True)
-					results.to_csv(f"results/recovery/{file_name}_{datetime.date.today().isoformat()}.csv", index=False)
+					print(agent.last_rewards)
+					#results.to_csv(f"images/recovery/{file_name}_{datetime.date.today().isoformat()}.csv", index=False)
 

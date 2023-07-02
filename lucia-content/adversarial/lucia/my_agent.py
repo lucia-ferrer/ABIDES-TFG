@@ -12,16 +12,17 @@ from collections import defaultdict
 
 def AdversarialWrapper(cls):
     class Adversarial(cls):
-        def __init__(self, attacker=None, defender=None, record=True, epsilon_greedy=None, *args, **kwargs):
+        def __init__(self, attacker=None, defender=None, epsilon_greedy=None, *args, **kwargs):
             self.attacker = attacker if attacker is not None else {}
             self.defender = defender if defender is not None else {}
             self.epsilon_greedy = epsilon_greedy if epsilon_greedy is not None else {}
             self.policy = defaultdict(lambda: self._optimal_policy) #Default policy if key/name not found -> _optimal_policy
+            
             #Store in the dict the different policies for different epsilons
             for id in self.epsilon_greedy:
                 self.policy[id] = self._epsilon_greedy_policy   
-            self.record = record
-
+            
+            self._record = True
             self.at_test_start()
             self.at_episode_start()
             super().__init__(*args, **kwargs)
@@ -46,7 +47,7 @@ def AdversarialWrapper(cls):
 
             self.last_states = {}
             self.last_actions = {}
-            self.last_rewards = {}
+            self.last_rewards = defaultdict(lambda:[])
 
         def get_transition(self, observation, policy_id):
             state = self.last_states[policy_id].flatten()
@@ -56,7 +57,7 @@ def AdversarialWrapper(cls):
             action = np.zeros(action_space.sum())
             action[[self.last_actions[policy_id][0], self.last_actions[policy_id][1]+action_space[0]]] = 1
             # generate transitions
-            return np.concatenate((state, action, next_state, [self.last_rewards[policy_id]]))
+            return np.concatenate((state, action, next_state, [self.last_rewards[policy_id][0]]))
 
         def compute_single_action(self, observation, policy_id, *args, **kwargs):
 
@@ -92,13 +93,13 @@ def AdversarialWrapper(cls):
                     self.transitions[policy_id].pop(0)
                                                 
             # record transitions
-            if self.record and policy_id in self.last_states:
+            if self._record and policy_id in self.last_states:
                 if transition is None:
                     transition = self.get_transition(observation, policy_id)
                 self.transitions[policy_id].append(transition)
                            
             self.last_states[policy_id] = observation
             self.last_actions[policy_id] = self.policy[policy_id](observation, policy_id, *args, **kwargs)
-	
+            	
             return self.last_actions[policy_id]
     return Adversarial

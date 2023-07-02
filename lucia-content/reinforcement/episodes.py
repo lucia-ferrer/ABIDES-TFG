@@ -24,13 +24,13 @@ def evaluate(env, agent, config, num_trials, norm=False, verbose=False, test=Fal
 def episode(env, agent, config, norm=False, test=False):
     # Basically done as a fix to get_transitions and test_check, test_attacks ... both working
     if test: agent = agent()
+
     # restart adversarial attributes
     #if 'at_episode_start' in agent.__dir__():
     #    agent.at_episode_start() 
 
     ids = config['env_config']['learning_agent_ids']
     norm_state = env.reset()
-    #episode_rewards = {i: [0] for i in ids}
     episode_total_rewards = {i: 0 for i in ids}
     for t in range(config['horizon']):
         # compute actions
@@ -42,7 +42,7 @@ def episode(env, agent, config, norm=False, test=False):
         # update rewards
         rewards = (env.reward if not norm else norm_reward)
         if 'last_rewards' in agent.__dict__:
-            agent.last_rewards = rewards
+            agent.last_rewards.append(rewards)
         
         for i, r in rewards.items():
             #episode_rewards[i].append(r)
@@ -54,5 +54,5 @@ def episode(env, agent, config, norm=False, test=False):
     # do one last forward pass so the agent sees the final states
     for i in range(len(ids)):
         agent.compute_single_action(norm_state[ids[i]], policy_id=ids[i])
-    try: return episode_total_rewards, agent.matrix
+    try: return episode_total_rewards, agent.matrix, 
     except AttributeError: return episode_total_rewards, None
