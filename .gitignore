@@ -1,6 +1,7 @@
 /alb-adversarial-rl-abides/*
 /lucia-content/data/*
 /lucia-content/out/*
+/lucia-content/adversarial/out/*
 /lucia-content/log/*
 /lucia-content/results/*
 /abides-jpmc-public-multi-agent-rl/abides-gym/scripts/results/*

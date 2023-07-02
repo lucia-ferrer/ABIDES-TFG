@@ -45,7 +45,7 @@ parser.add_argument('-rs',
                     '--resume_flag',
                     default=1,
                     type=int,
-                    help='0: Use when new agent; 1: Use for resuming agent training trail')
+                    help='0: Use when new agent; 1: Use for resuming agent training ')
 args, remaining_args = parser.parse_known_args()
 mm_add_volume = args.mm_add_volume
 pt_add_volume = args.pt_add_volume
@@ -106,7 +106,7 @@ if tune_flag:
         checkpoint_at_end=True,
         checkpoint_freq=5,
         config=config,
-        verbose=2,
+        verbose=1,
     )
 else:
     register(
