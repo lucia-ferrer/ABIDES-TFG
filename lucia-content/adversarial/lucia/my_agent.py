@@ -47,7 +47,7 @@ def AdversarialWrapper(cls):
 
             self.last_states = {}
             self.last_actions = {}
-            self.last_rewards = defaultdict(lambda:[])
+            self.last_rewards = {}
 
         def get_transition(self, observation, policy_id):
             state = self.last_states[policy_id].flatten()
@@ -57,7 +57,7 @@ def AdversarialWrapper(cls):
             action = np.zeros(action_space.sum())
             action[[self.last_actions[policy_id][0], self.last_actions[policy_id][1]+action_space[0]]] = 1
             # generate transitions
-            return np.concatenate((state, action, next_state, [self.last_rewards[policy_id][0]]))
+            return np.concatenate((state, action, next_state, self.last_rewards[policy_id]))
 
         def compute_single_action(self, observation, policy_id, *args, **kwargs):
 
