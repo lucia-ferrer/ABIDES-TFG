@@ -138,7 +138,12 @@ if __name__ == '__main__':
 			for policy_id, attack_name, attack_params in attacks_list:
 					if attack_name == 'Empty' : 
 						if done_attack_empty: continue 
-						else: done_attack_empty = True
+						else: 
+							done_attack_empty = True
+							empty_attack_col = f"{policy_id}:{attack_name}:{detector_name}:{recovery_name}:{params_to_str(recovery_params)}"
+					if recovery_name == 'None': 
+						empty_recovery_col = f"{policy_id}:{attack_name}:{detector_name}:{recovery_name}:{params_to_str(recovery_params)}"
+
 					agent = get_agent()
 					row = {
 						'norm': args.norm,
@@ -152,14 +157,22 @@ if __name__ == '__main__':
 						**test(env, agent, config, args.val_episodes, policy_id, test=False)
 					}
 					logger()
-					results[f"{policy_id}:{attack_name}:{detector_name}:{recovery_name},\
-	     						 {params_to_str(recovery_params)}"] = agent.last_rewards
-					print(results.head(3))
+					#results.append(row)
+					results[f"{policy_id}:{attack_name}:{detector_name}:{recovery_name}:{params_to_str(recovery_params)}"] = agent.last_rewards
 					
 	results.to_csv(f"images/recovery/epsidoes_{file_name}_{datetime.date.today().isoformat()}.csv", index=False)
-	results.plot(ax=ax)
-	ax.legend()
-	plt.save_fig(f"images/recovery/plot_{file_name}.png")
-	plt.show()
+	for unitest in results.columns(): 
+		if unitest in (empty_attack_col, empty_recovery_col): continue
+		id, attack, detector, recover, r_params = unitest.split(':', 5)
+		results[unitest].plot(ax=ax, label=f"recovered")
+		results[empty_attack_col].plot(ax=ax, label=f"original")
+		results[empty_recovery_col].plot(ax=ax, label="attacked")
+		ax.legend()
+		ax.set_title(unitest)	
+		ax.set_ylabel('rewards')	
+		ax.set_xlabel('steps')
+		plt.save_fig(f"images/recovery/plot_{unitest}.png")
+		plt.show()
+
 
 
