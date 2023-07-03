@@ -9,7 +9,7 @@ from sklearn.neighbors import BallTree
 class KNNRecovery:
     def __init__(self, k=1, state_dims=None, 
                  consider_next_state=False,
-                 consider_transition=True,
+                 trans=True,
                  window=2, 
                  diff_state=False):
         self.k = k
@@ -18,7 +18,7 @@ class KNNRecovery:
         self.transition_dmin = None
         self.defense = None
         self.diff_state = diff_state if window > 2 else False
-        self.consider_transition = consider_transition  if window > 2 else True
+        self.trans = trans  if window > 2 else True
         self.window = window if window > 2 else 2
     
     def fit(self, X):
@@ -31,7 +31,7 @@ class KNNRecovery:
             - self.tree -> Structure for BinarySearch. 
         """
         self.data = self.defense.train[self.window-1:] if self.window > 2 else self.defense.train
-        self.X = X if not self.diff_state and self.consider_transition and self.window<=2 else self.wnd_transform_transition(X)
+        self.X = X if not self.diff_state and self.trans and self.window<=2 else self.wnd_transform_transition(X)
         
         
         # Normalize the data and store the parameters with correct dimension
@@ -41,7 +41,7 @@ class KNNRecovery:
         self.X = self.defense.process_transitions(self.X, self.norm_values)
 
         # To build the tree if specified skip 'attacked info' -> Next_State, Reward, Action.
-        tree =  self.skip_next_transition(self.X) if not self.consider_transition else self.skip_next_state(self.X) if not self.consider_next_state else self.defense.tree
+        tree =  self.skip_next_transition(self.X) if not self.trans else self.skip_next_state(self.X) if not self.consider_next_state else self.defense.tree
         
         self.tree = BallTree(tree)
 
@@ -55,7 +55,7 @@ class KNNRecovery:
             - Only States | State+Action+Reward
         """
         # Reward/Action, or not. -> [Sn, An, Rn]    -> (S0,A0,R0), (S1,A1,R1), (S2,A2,R2) ...
-        x = X[:,:self.state_dims] if not self.consider_transition else self.skip_next_state(X) if not self.consider_next_state else X
+        x = X[:,:self.state_dims] if not self.trans else self.skip_next_state(X) if not self.consider_next_state else X
         
         if self.transition_dmin is None: self.transition_dmin = x.shape[1]
         
@@ -106,7 +106,7 @@ class KNNRecovery:
         transitions = self.defense.process_transitions(transitions, self.norm_values) 
 
         #Skip attacked info: State/Reward/Action' is specified
-        transitions = self.skip_next_transition(transitions) if not self.consider_transition else self.skip_next_state(transitions) if not self.consider_next_state else transitions
+        transitions = self.skip_next_transition(transitions) if not self.trans else self.skip_next_state(transitions) if not self.consider_next_state else transitions
         
         #Search for K neighbours
         closest_distances, closest_idxs = self.tree.query(transitions, k=self.k)

@@ -4,6 +4,7 @@
 /lucia-content/adversarial/out/*
 /lucia-content/log/*
 /lucia-content/results/*
+/lucia-content/images/*
 /abides-jpmc-public-multi-agent-rl/abides-gym/scripts/results/*
 .vscode
 /lucia-content/*/__pycache__

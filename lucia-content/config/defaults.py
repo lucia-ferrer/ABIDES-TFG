@@ -1,2 +1,2 @@
 root = 'data/ppo'
-NUM_TRIALS = 5
+NUM_TRIALS = 50
