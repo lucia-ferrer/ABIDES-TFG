@@ -120,7 +120,8 @@ if __name__ == '__main__':
 		for recovery_name, recovery_params in recovery_list:			
 			for policy_id, defense in defenses.items():
 				state_dims = np.prod(env.observation_space[policy_id].shape)
-				defense.recovery = RECOVERY_CLASS[recovery_name](**recovery_params, state_dims=state_dims) if recovery_name != 'None' else None
+				defense.recovery = RECOVERY_CLASS[recovery_name](**recovery_params, state_dims=state_dims) \
+					if recovery_name != 'None' else None
 				defense.fit_recovery()
 
 			for policy_id, attack_name, attack_params in attacks_list:

@@ -37,7 +37,6 @@ def AdversarialWrapper(cls):
             return self._optimal_policy(observation, policy_id, *args, **kwargs)
 
         def at_test_start(self):
-            #TODO: make transitions a deque (doble ended queue)
             self.transitions = defaultdict(lambda:[])
             self.matrix = defaultdict(lambda: np.zeros((2, 2)))
 
@@ -86,11 +85,12 @@ def AdversarialWrapper(cls):
                         observation = og_observation
                     #recover
                     else:
+                        #  the new window is formed with the last -wnd transitions + the observation transition. 
                         new_wnd = np.array(self.transitions[policy_id][-wnd+1:] + [transition]) if wnd > 2 else np.array(transition)
                         observation = self.defender[policy_id].recover(new_wnd).reshape(observation.shape)
                               
                 # To avoid storing more than necessary transitions
-                if len(self.transitions[policy_id]) >= wnd:
+                if len(self.transitions[policy_id]) >= wnd: 
                     self.transitions[policy_id].pop(0)
                                                 
             # record transitions
