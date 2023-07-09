@@ -121,13 +121,3 @@ class KNNRecovery:
         distances = distances[:, None]
         new_state = np.sum(parents * (distances/distances.sum()), axis=0)
         return new_state
-
-class MultiVarRegressorRecovery:
-    def __init__(self) -> None:
-        pass      
-
-    def fit():
-        pass
-
-    def new_state_from_parents():
-        pass
