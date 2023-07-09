@@ -64,7 +64,7 @@ if __name__ == '__main__':
 	args = parse_args()
 	env, config = get_env()
 	ids = config['env_config']['learning_agent_ids'] if args.agent == -1 else [args.agent]
-	transitions = {id: pd.read_csv(f'data/transitions_{id}.csv', header=None).values for id in ids}
+	transitions = {id: pd.read_csv(f'data/transitions_{id}_01-07.csv', header=None).values for id in ids}
 
 	# list of detectors to do
 	detectors_list = []
@@ -90,7 +90,7 @@ if __name__ == '__main__':
 				attacks_list.append((id, a_name, params))
 
 	# file name
-	file_name = f"recovery_tests_{args.norm}" if not args.plotting else f"plot_recovery_{args.norm}"
+	file_name = f"recovery_tests_{args.norm}"
 	if args.agent != -1:					# agent
 		file_name += f"_{args.agent}"
 	if args.detector != -1:				 # detector
@@ -139,5 +139,5 @@ if __name__ == '__main__':
 					logger()
 
 					results = results.append(row, ignore_index=True)
-					results.to_csv(f"results/recovery/{file_name}_{datetime.date.today().isoformat()}.csv", index=False)
+					results.to_csv(f"results/recovery/{file_name}.csv", index=False)
 

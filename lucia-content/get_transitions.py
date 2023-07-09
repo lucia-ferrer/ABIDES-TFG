@@ -5,7 +5,7 @@ import pandas as pd
 #tf.compat.v1.enable_eager_execution()
 from ray.rllib.agents.ppo.ppo import PPOTrainer
 
-from adversarial.agents import AdversarialWrapper
+from adversarial.lucia.my_agent import AdversarialWrapper
 from reinforcement.episodes import evaluate
 from reinforcement.models import get_env, load_weights
 
@@ -22,7 +22,8 @@ if __name__ == '__main__':
     args = parse_args()
     # load environment and agent
     env, config = get_env()
-    agent = AdversarialWrapper(PPOTrainer)(env='marl-v0', record=True, config=config)
+    agent = AdversarialWrapper(PPOTrainer)(env='marl-v0', config=config)
+    # agent._record = True
     load_weights(agent)
     ids = config['env_config']['learning_agent_ids'] if args.agent == -1 else [args.agent]
 
@@ -32,4 +33,5 @@ if __name__ == '__main__':
         print()
         agent.epsilon_greedy = {id: args.epsilon}
         evaluate(env, agent, config, num_trials=args.episodes, verbose=True)
-        pd.DataFrame(agent.transitions[id]).to_csv(f'data/transitions_{id}_30-06.csv', index=False)
+        # data/transitions_{id}_30-06.csv
+        pd.DataFrame(agent.transitions[id]).to_csv(f'data/transitions_{id}_01-07.csv', index=False)
