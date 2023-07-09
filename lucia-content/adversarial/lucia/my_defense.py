@@ -70,6 +70,7 @@ class GainDefense(Defense):
         self.norm = norm
         self.detector = detector
         self.recovery = recovery
+
          # System params
         self.batch_size = batch
         self.hint_rate = hint
@@ -77,20 +78,101 @@ class GainDefense(Defense):
         self.iterations = iterations      # NUM_trials ? 
     
     def fit(self, X):
+        ''' Impute values in data X : 
+                Args: -  X -> original data with missing next state
+                Returns: - imputed data -> transition with next state. 
+        '''
         # set normalization parameters
         self.train = X.copy()
         self.norm_translation, self.norm_scaling = self.norm_parameters()
 
         # normalize transitions and set auxiliar structures
         self.normalized = self.process_transitions(self.train)
-        self.data_incomplete = self.recover.skip_next_state(self.normalized)
+         = self.recover.skip_next_state(self.normalized)
 
-    def fit(self, X):
-        ''' Impute values in data X : 
-        Args: -  X -> original data with missing next state
-        Returns: - imputed data -> transition with next state. 
-        '''
+        self.detector.defense = self
+        self.recovery.defense = self
+
+        X = self.recovery.fill_with_nan(self.data_incomplete)
+    
         data_mask = 1 - np.isnan(X)
         no, dim = X.shape
         h_dim = int(dim)
+
+        #-------------GAIN Architecture----------------------------
+
+        #input placeholders : data vector, mask vector, hint vector
+        X = tf.placeholder(tf.float32, shape = [None, dim])
+        M = tf.placeholder(tf.float32, shape = [None, dim])
+        H = tf.placeholder(tf.float32, shape = [None, dim])
+        
+        self.detector.params()
+        self.recovery.params()
+
+        self.train()
+    
+        #Generator
+        G_sample = self.recovery.generator(self.X, self.M)
+        #Combine with observed data
+        Hat_X = X * M * G_sample(1-M)
+
+        # TODO: Update so as to accept KNN detector, and the loss function other.
+        #Discriminator
+        D_prob = self.detector.discriminator(Hat_X, H)
+
+        ## GAIN Losss
+        D_loss_temp = - tf.reduce_mean(M * tf.log(D_prob + 1e-8)\ 
+                                        + (1-M) * tf.log(1. - D_prob + 1e-8))
+        G_loss_temp = - tf.reduce_mean((1-M) * tf.log(D_prob + 1e-8))
+
+        MSE_loss = tf.reduce_mean((M * X - M * G_sample)**2) / tf.reduce_mean(M)
+
+        D_loss = D_loss_temp
+        G_loss = G_loss_temp
+        
+        ## ---------------- GAIN solver -----------
+        D_solver = tf.train.AdamOptimizer().minimize(D_loss, var_list=theta_D)
+        G_solver = tf.train.AdamOptimizer().minimize(G_loss, var_list=theta_G)
+
+        sess = tf.Session()
+        sess.run(tf.global_variables_initalizer())
+
+        #mb > masked ?? and batch size sample
+
+        #Start iterations
+        for it in tqdm(range(iterations)):
+            # sample bacth 
+            batch_idx = sample_batch_index(no, batch_size)
+            X_mb = norm_values[batch_idx, :]
+            M_mb = data_m[batch_idx, :]
+
+            #Sample random vectors
+            Z_mb = uniform_sampler(0. 0.01, batch_size, dim)
+            #Sample hint vectors
+            H_mb_temp = binary_sampler(hint_rante,batch_size, dim)
+
+            H_mb = M_mb * H_mb_temp
+
+            # Combine random vectors with observed vectors
+            X_mb = M_mb * X_mb + (1-M_mb) * Z_mb
+
+            _, D_loss_curr = sess.run([D_solver, D_loss_temp], feed_dict = {M: M_mb, X:X_mb, H: H_mb})
+            _, G_loss_curr, MSE_loss_curr = \
+                sess.run([G_solver, G_loss_temp, MSE_loss], feed_dict = {M: M_mb, X:X_mb, H: H_mb})
+        
+        # does not return the imputed data, but we could. 
+        return MSE_loss_curr
+
+    @static method
+    def xavier_init(size):
+        ''' Xavier Weights initialization
+        - Args: size : vector size
+        - Returns: initialized random vector'''
+        in_dim = size[0]
+        xavier_stddev = 1. / tf.sqrt(in_dim / 2.)
+        return tf.random_normal(shape=size, stddev = xavier_stddev)
+
+
+
+
 

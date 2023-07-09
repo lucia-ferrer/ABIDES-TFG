@@ -347,5 +347,28 @@ class KNN(Detector):
         return 1 / (function_over_knn_distances + 1)
 
 class GainDiscriminator(Detector):
-    pass
+    def params(self):
+        # Discriminator variables
+        D_W1 = tf.Variable(xavier_init([dim*2, h_dim])) # Data + Hint as inputs
+        D_b1 = tf.Variable(tf.zeros(shape = [h_dim]))
+        
+        D_W2 = tf.Variable(xavier_init([h_dim, h_dim]))
+        D_b2 = tf.Variable(tf.zeros(shape = [h_dim]))
+        
+        D_W3 = tf.Variable(xavier_init([h_dim, dim]))
+        D_b3 = tf.Variable(tf.zeros(shape = [dim]))  # Multi-variate outputs
+
+        self.theta_D = [D_W1, D_W2, D_W3, D_b1, D_b2, D_b3]
+
+    def discriminator(self, x, h):
+            ''' Args: x -> transtions, h-> hint
+                Returns: D_prob <- probability of being attacked (Sigmoid layer) '''
+            D_W1, D_W2, D_W3, D_b1, D_b2, D_b3 = self.theta_D
+            #concatenate Data and Hint
+            input = tf.concat(values = [x,h], axis = 1)
+            D_h1 = tf.nn.relu(tf.matmul(inputs, D_W1) + D_b1)
+            D_h2 = tf.nn.relu(tf.matmul(D_h1, D_W2) + D_b2)
+            D_logit = tf.matmul(D_h2, D_W3) + D_b3
+            return  tf.nn.sigmoid(D_logit) # D_prob <- probability of attack
+    
     

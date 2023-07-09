@@ -148,7 +148,7 @@ class GainRecovery():
     def fill_with_nan(self, x=None):
         """
         This method inserts nan elements within the transitions of a transformed transition
-                Input: np.array with shape (m,n-transformed*) -> [ Wnd · (State+Action+Reward), ...  ] 
+                Input: np.array with shape (m, n-transformed*) -> [ Wnd · (State+Action+Reward), ...  ] 
                 Output: np.array with shape (m,n-filled) -> [ Wnd-1 · (State+Action+ NaN + Reward), ... ] 
         """
         if x is None : x = self.X 
@@ -159,6 +159,32 @@ class GainRecovery():
         idx = dim if not self.trans else dim-1 
         filled = x.insert(nan_next, idx, axis=1)
     
+    def params():
+        #Generator variables
+        # Data + Mask as inputs (Random noise is in missing components)
+        G_W1 = tf.Variable(xavier_init([dim*2, h_dim]))  
+        G_b1 = tf.Variable(tf.zeros(shape = [h_dim]))
+        
+        G_W2 = tf.Variable(xavier_init([h_dim, h_dim]))
+        G_b2 = tf.Variable(tf.zeros(shape = [h_dim]))
+        
+        G_W3 = tf.Variable(xavier_init([h_dim, dim]))
+        G_b3 = tf.Variable(tf.zeros(shape = [dim]))
+        
+        self.theta_G = [G_W1, G_W2, G_W3, G_b1, G_b2, G_b3]
+    
+    def generator(x,m):
+        ''' Args: x -> transtions, m-> mask to indicate which values to impute
+            Returns: G_prob <- probability of being correct (Sigmoid layer) 
+        '''
+        G_W1, G_W2, G_W3, G_b1, G_b2, G_b3 = self.theta
+         # concatenate Mask and DAta
+        inputs = tf.concat(values = [x,m], axis = 1)
+        G_h1 = tf.nn.relu(tf.matmul(inputs, G_W1) + G_b1)
+        G_h2 = tf.nn.relu(tf.matmul(G_h1, G_W2) + G_b2)
+        #MinMax normalized output
+        G_prob = tf.nn.sigmoid(tf.matmul(G_h2, G_W3) + G_b3)
+        return G_prob
 
 
 
