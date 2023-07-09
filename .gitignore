@@ -7,4 +7,4 @@
 /lucia-content/images/*
 /abides-jpmc-public-multi-agent-rl/abides-gym/scripts/results/*
 .vscode
-/lucia-content/*/__pycache__
+/lucia-content/*/__pycache__/*
