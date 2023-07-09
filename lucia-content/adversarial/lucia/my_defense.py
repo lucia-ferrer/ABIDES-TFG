@@ -61,3 +61,36 @@ class Defense:
         distances, parents = self.recovery.find_parents(t)
         return self.recovery.new_state_from_parents(distances, parents)
 
+class GainDefense(Defense):
+    def __init__(self, batch, hint, alpha, iterations,
+                    norm = 'min-max', detector=None, recovery=None): 
+        if norm not in available_norms:
+            raise Exception(f"Normalization type not found, must be one of {available_norms}")
+        #agent systems
+        self.norm = norm
+        self.detector = detector
+        self.recovery = recovery
+         # System params
+        self.batch_size = batch
+        self.hint_rate = hint
+        self.alpha = alpha
+        self.iterations = iterations      # NUM_trials ? 
+    
+    def fit(self, X):
+        # set normalization parameters
+        self.train = X.copy()
+        self.norm_translation, self.norm_scaling = self.norm_parameters()
+
+        # normalize transitions and set auxiliar structures
+        self.normalized = self.process_transitions(self.train)
+        self.data_incomplete = self.recover.skip_next_state(self.normalized)
+
+    def fit(self, X):
+        ''' Impute values in data X : 
+        Args: -  X -> original data with missing next state
+        Returns: - imputed data -> transition with next state. 
+        '''
+        data_mask = 1 - np.isnan(X)
+        no, dim = X.shape
+        h_dim = int(dim)
+

@@ -1,51 +1,31 @@
 """ Recovery classes with window size transitions : based on more than 1 state
         - KNNRecovery -> Based on density distribution function. 
-        - TimeSeries -> To be implemented. 
+        - GAN Generator with NN -> To be tested. 
 """
 
 import numpy as np
 from sklearn.neighbors import BallTree
 
-class KNNRecovery:
-    def __init__(self, k=1, state_dims=None, 
-                 consider_next_state=False,
+
+class Recover():
+    def __init__(self, state_dims=None, 
+                 # consider_next_state=False,
                  trans=True,
                  window=2, 
                  diff_state=False):
-        self.k = k
-        self.consider_next_state = consider_next_state
+        self.consider_next_state = False # consider_next_state
         self.state_dims = state_dims
         self.transition_dmin = None
-        self.defense = None
         self.diff_state = diff_state if window > 2 else False
         self.trans = trans  if window > 2 else True
         self.window = window if window > 2 else 2
-    
-    def fit(self, X):
-        #We can have problems with norm_parameters in detector. 
-        """
-            Input: X -> not normalized
-            Stored structures: 
-            - self.data -> Normal transitions, if window we only store from n-1 Transition. 
-            - self.X -> Processed transitions, with wnd size transitions, increments, and normalized. 
-            - self.tree -> Structure for BinarySearch. 
-        """
-        self.data = self.defense.train[self.window-1:] if self.window > 2 else self.defense.train
-        self.X = X if not self.diff_state and self.trans and self.window<=2 else self.wnd_transform_transition(X)
-        
-        
-        # Normalize the data and store the parameters with correct dimension
-        self.norm_values = self.defense.norm_parameters(self.X)  # self.norm_translation, self.norm_scaling
-        
-        
-        self.X = self.defense.process_transitions(self.X, self.norm_values)
 
-        # To build the tree if specified skip 'attacked info' -> Next_State, Reward, Action.
-        tree =  self.skip_next_transition(self.X) if not self.trans else self.skip_next_state(self.X) if not self.consider_next_state else self.defense.tree
-        
-        self.tree = BallTree(tree)
+        self.defense = None
 
-    def wnd_transform_transition(self, X):
+    def fit():
+        pass
+
+    def wnd_transform_transition(self, X, nan = False):
         """
         This method transform the current transitions to the desired format: 
             Input: np.array with shape (m,n) -> n = (state, action, next_state, reward)
@@ -59,7 +39,6 @@ class KNNRecovery:
         
         if self.transition_dmin is None: self.transition_dmin = x.shape[1]
         
-
         # Increment difference or not.  -> [Sn+1 - Sn] -> ΔS1-0, ΔS2-1, ΔS3-2, ...
         if self.diff_state: 
             intial_state = x[0,:]
@@ -94,6 +73,41 @@ class KNNRecovery:
         for _ in range(self.state_dims): dims_indexes.pop(len(dims_indexes) - 2) 
         return transitions[:, dims_indexes] if transitions.ndim > 1 else np.take(transitions, dims_indexes)
 
+
+class KNNRecovery:
+    def __init__(self, k=1, state_dims=None, 
+                 # consider_next_state=False,
+                 trans=True,
+                 window=2, 
+                 diff_state=False):
+        self.k = k
+        # self.consider_next_state = consider_next_state
+        super.__init__(state_dims, trans, window, diff_state)
+            
+    def fit(self, X):
+        #We can have problems with norm_parameters in detector. 
+        """
+            Input: X -> not normalized
+            Stored structures: 
+            - self.data -> Normal transitions, if window we only store from n-1 Transition. 
+            - self.X -> Processed transitions, with wnd size transitions, increments, and normalized. 
+            - self.tree -> Structure for BinarySearch. 
+        """
+        self.data = self.defense.train[self.window-1:] if self.window > 2 else self.defense.train
+        self.X = X if not self.diff_state and self.trans and self.window<=2 else self.wnd_transform_transition(X)
+        
+        
+        # Normalize the data and store the parameters with correct dimension
+        self.norm_values = self.defense.norm_parameters(self.X)  # self.norm_translation, self.norm_scaling
+        
+        
+        self.X = self.defense.process_transitions(self.X, self.norm_values)
+
+        # To build the tree if specified skip 'attacked info' -> Next_State, Reward, Action.
+        tree =  self.skip_next_transition(self.X) if not self.trans else self.skip_next_state(self.X) if not self.consider_next_state else self.defense.tree
+        
+        self.tree = BallTree(tree)
+    
     def find_parents(self, transition):
         """
         This method will recover from the Fast Index Tree, the k nearest neighbours of the state specified. 
@@ -121,3 +135,34 @@ class KNNRecovery:
         distances = distances[:, None]
         new_state = np.sum(parents * (distances/distances.sum()), axis=0)
         return new_state
+
+class GainRecovery():
+    def __init__(self, state_dims=None, 
+                 trans=True,
+                 window=2, 
+                 diff_state=False,
+                 ):
+        
+        super.__init__(state_dims, trans, window, diff_state)
+
+    def fill_with_nan(self, x=None):
+        """
+        This method inserts nan elements within the transitions of a transformed transition
+                Input: np.array with shape (m,n-transformed*) -> [ Wnd · (State+Action+Reward), ...  ] 
+                Output: np.array with shape (m,n-filled) -> [ Wnd-1 · (State+Action+ NaN + Reward), ... ] 
+        """
+        if x is None : x = self.X 
+
+        no, dim = X.shape
+        nan_next = np.full(shape=(self.state_dim, no), fill_value=np.nan)
+        # if we do not take into account rewards, it should be in last place else in previous to last
+        idx = dim if not self.trans else dim-1 
+        filled = x.insert(nan_next, idx, axis=1)
+    
+
+
+
+
+
+
+

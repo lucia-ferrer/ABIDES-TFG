@@ -3,12 +3,14 @@ from adversarial.lucia.my_recover import *
 
 detector_experiments = {
     #'KNN-Hyper': {},
-    'Kernel_Density': {},
+    #'Kernel_Density': {},
+    #'GainDiscriminator':{}
     'DBSCAN': {}
     #'Gaussian_Mixture': {'n_clusters': [128, 256, 512, 1024, 2048] }
 }
 
 recovery_experiments = {
+    #'GainDiscriminator':{},
     'KNNRecovery': {
         'k': [1,2,3,5],
         'trans': [True, False],
@@ -18,10 +20,10 @@ recovery_experiments = {
     },
     'None': {}
     #'TimeSeries': {}
-
 }
 
 DETECTOR_CLASS = {
+    #'GainDiscriminator' : GainDiscriminator,
     'KNN-Hyper': KNNHyper,
     'Kernel_Density': KernelDensity,
     'DBSCAN': DBSCAN,
@@ -29,9 +31,9 @@ DETECTOR_CLASS = {
 }
 
 RECOVERY_CLASS = {
+    #'GainRecovery': GainRecovery,
     'KNNRecovery': KNNRecovery,
     'None' : lambda *args: {}
-    #'TimeSeries': TimeSeriesRecovery
 }
 
 

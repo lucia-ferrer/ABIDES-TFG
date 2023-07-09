@@ -345,3 +345,7 @@ class KNN(Detector):
         k_nearest_neighbors_distances = self.tree.query(transitions, k=self.k)[0]
         function_over_knn_distances = self.f(k_nearest_neighbors_distances, axis=1)
         return 1 / (function_over_knn_distances + 1)
+
+class GainDiscriminator(Detector):
+    pass
+    
