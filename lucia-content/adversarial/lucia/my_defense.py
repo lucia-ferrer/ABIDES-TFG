@@ -53,7 +53,7 @@ class Defense:
         if self.recovery is not None and self.recovery != 'cheat':
             self.recovery.defense = self
             self.recovery.fit(self.train)
-    
+ 
     def is_adversarial(self, t):
         return self.detector.predict([t])[0] 
 
@@ -88,13 +88,12 @@ class GainDefense(Defense):
 
         # normalize transitions and set auxiliar structures
         self.normalized = self.process_transitions(self.train)
-         = self.recover.skip_next_state(self.normalized)
+        #nok = self.recover.skip_next_state(self.normalized)
 
         self.detector.defense = self
         self.recovery.defense = self
 
-        X = self.recovery.fill_with_nan(self.data_incomplete)
-    
+        X = self.recovery.fill_with_nan(self.data_incomplete) 
         data_mask = 1 - np.isnan(X)
         no, dim = X.shape
         h_dim = int(dim)
@@ -121,8 +120,7 @@ class GainDefense(Defense):
         D_prob = self.detector.discriminator(Hat_X, H)
 
         ## GAIN Losss
-        D_loss_temp = - tf.reduce_mean(M * tf.log(D_prob + 1e-8)\ 
-                                        + (1-M) * tf.log(1. - D_prob + 1e-8))
+        D_loss_temp = - tf.reduce_mean(M * tf.log(D_prob + 1e-8) + (1-M) * tf.log(1. - D_prob + 1e-8))
         G_loss_temp = - tf.reduce_mean((1-M) * tf.log(D_prob + 1e-8))
 
         MSE_loss = tf.reduce_mean((M * X - M * G_sample)**2) / tf.reduce_mean(M)
@@ -147,7 +145,7 @@ class GainDefense(Defense):
             M_mb = data_m[batch_idx, :]
 
             #Sample random vectors
-            Z_mb = uniform_sampler(0. 0.01, batch_size, dim)
+            Z_mb = uniform_sampler(0., 0.01, batch_size, dim)
             #Sample hint vectors
             H_mb_temp = binary_sampler(hint_rante,batch_size, dim)
 
@@ -159,11 +157,10 @@ class GainDefense(Defense):
             _, D_loss_curr = sess.run([D_solver, D_loss_temp], feed_dict = {M: M_mb, X:X_mb, H: H_mb})
             _, G_loss_curr, MSE_loss_curr = \
                 sess.run([G_solver, G_loss_temp, MSE_loss], feed_dict = {M: M_mb, X:X_mb, H: H_mb})
-        
         # does not return the imputed data, but we could. 
         return MSE_loss_curr
 
-    @static method
+    @staticmethod
     def xavier_init(size):
         ''' Xavier Weights initialization
         - Args: size : vector size

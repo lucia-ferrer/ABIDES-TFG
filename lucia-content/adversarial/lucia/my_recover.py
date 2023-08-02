@@ -74,7 +74,7 @@ class Recover():
         return transitions[:, dims_indexes] if transitions.ndim > 1 else np.take(transitions, dims_indexes)
 
 
-class KNNRecovery:
+class KNNRecovery(Recover):
     def __init__(self, k=1, state_dims=None, 
                  # consider_next_state=False,
                  trans=True,
@@ -82,7 +82,7 @@ class KNNRecovery:
                  diff_state=False):
         self.k = k
         # self.consider_next_state = consider_next_state
-        super.__init__(state_dims, trans, window, diff_state)
+        super().__init__(state_dims, trans, window, diff_state)
             
     def fit(self, X):
         #We can have problems with norm_parameters in detector. 

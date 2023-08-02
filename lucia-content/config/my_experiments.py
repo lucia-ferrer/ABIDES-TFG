@@ -12,7 +12,7 @@ detector_experiments = {
 recovery_experiments = {
     #'GainDiscriminator':{},
     'KNNRecovery': {
-        'k': [1,2,3,5],
+        'k': [1,3,5],
         'trans': [True, False],
         'window' : [2,3]
         #'consider_next_state': False,
