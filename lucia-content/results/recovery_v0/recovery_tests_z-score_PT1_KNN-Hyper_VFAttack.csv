@@ -1,5 +1,0 @@
-TNR,TPR,attack,attack_params,attacked_policy,balanced_accuracy,detector,detector_params,matrix,norm,other_reward,other_reward_std,recovered_reward,recovered_reward_std,recovery,recovery_params
-0.9944785621725167,1.0,VFAttack,"epsilon: 0.1, beta: 9",PT1,0.9972392810862584,KNN-Hyper,,[[17651.    98.]  [    0.  1751.]],z-score,-1003801.94,7.420000000000002,-73399.19,9419.489409139967,KNNRecovery,"k: 1, consider_next_state: False"
-0.592057761732852,1.0,VFAttack,"epsilon: 0.1, beta: 9",PT1,0.796028880866426,KNN-Hyper,,[[8200. 5650.]  [   0. 5650.]],z-score,-284359.0,0.0,-101518.51,5120.43,KNNRecovery,"k: 3, consider_next_state: False"
-0.3643502824858757,1.0,VFAttack,"epsilon: 0.1, beta: 9",PT1,0.6821751412429379,KNN-Hyper,,[[ 6449. 11251.]  [    0.  1800.]],z-score,-477410.5,0.0,56486.0,22918.0,KNNRecovery,"k: 5, consider_next_state: False"
-0.601892244065492,1.0,VFAttack,"epsilon: 0.1, beta: 9",PT1,0.8009461220327461,KNN-Hyper,,[[10624.  7027.]  [    0.  1849.]],z-score,-1346892.66,603098.660749553,128604.14,130583.65997199036,KNNRecovery,"k: 10, consider_next_state: False"

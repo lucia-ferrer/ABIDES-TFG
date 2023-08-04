@@ -157,5 +157,5 @@ if __name__ == '__main__':
 					logger()
 					results = results.append(row, ignore_index=True)
 					results.to_csv(f"results/recovery/{file_name}_{datetime.date.today().isoformat()}.csv", index=False)
-					episodes[f"{attack_name}--{detector_name}--{recovery_name}{params_to_str(recovery_params)}"] = agent.last_rewards
-					episodes.to_csv(f"images/recovery/episodes_{file_name}.csv", index=False)
+					col_name = f"{attack_name}--{detector_name}--{recovery_name}{params_to_str(recovery_params)}"
+					pd.DataFrame.from_dict(agent.last_rewards).to_csv(f"images/recovery/episodes_{col_name}.csv", index=False)

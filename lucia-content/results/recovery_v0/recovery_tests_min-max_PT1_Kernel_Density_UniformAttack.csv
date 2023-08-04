@@ -1,5 +1,0 @@
-TNR,TPR,attack,attack_params,attacked_policy,balanced_accuracy,detector,detector_params,matrix,norm,other_reward,other_reward_std,recovered_reward,recovered_reward_std,recovery,recovery_params
-1.0,0.0,UniformAttack,"epsilon: 0.1, freq: 0.25",PT1,0.5,Kernel_Density,,[[14100.     0.]  [ 5400.     0.]],min-max,-833868.98,111.86000000000001,-77380.85,10610.910700901219,KNNRecovery,"k: 1, consider_next_state: False"
-1.0,0.0,UniformAttack,"epsilon: 0.1, freq: 0.25",PT1,0.5,Kernel_Density,,[[14100.     0.]  [ 5400.     0.]],min-max,-833853.0,0.0,-78902.5,0.0,KNNRecovery,"k: 3, consider_next_state: False"
-1.0,0.0,UniformAttack,"epsilon: 0.1, freq: 0.25",PT1,0.5,Kernel_Density,,[[14100.     0.]  [ 5400.     0.]],min-max,-833853.0,0.0,-78902.5,0.0,KNNRecovery,"k: 5, consider_next_state: False"
-1.0,0.0,UniformAttack,"epsilon: 0.1, freq: 0.25",PT1,0.5,Kernel_Density,,[[14100.     0.]  [ 5400.     0.]],min-max,-833853.0,0.0,-78902.5,0.0,KNNRecovery,"k: 10, consider_next_state: False"

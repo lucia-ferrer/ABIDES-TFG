@@ -9,7 +9,7 @@
       "MM": 0,
       "PT1": 0
     },
-    "base_log_dir": "/home/user/JPMorgan/abides-jpmc-public-multi-agent-rl/abides-gym/scripts/results/ppo_marl_vol00_L2_d0_M2_pts1",
+    "base_log_dir": "/home/user/JPMorgan/ABIDES/abides-jpmc-public-multi-agent-rl/abides-gym/scripts/results/ppo_marl_vol00_L2_d0_M2_pts1",
     "delay_in_volume_reporting": 0,
     "learning_agent_ids": [
       "MM",
@@ -54,7 +54,7 @@
         }
       ]
     },
-    "policy_mapping_fn": "<function multi_agent_policies.<locals>.<lambda> at 0x7f5c290ca0e0>"
+    "policy_mapping_fn": "<function multi_agent_policies.<locals>.<lambda> at 0x7f04fe85e050>"
   },
   "num_gpus": 0,
   "num_workers": 0,

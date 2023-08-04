@@ -1,5 +1,0 @@
-TNR,TPR,attack,attack_params,attacked_policy,balanced_accuracy,detector,detector_params,matrix,norm,other_reward,other_reward_std,recovered_reward,recovered_reward_std,recovery,recovery_params
-1.0,0.0,STAttack,"epsilon: 0.1, beta: 0.9, total: 100, temperature: 3",PT1,0.5,Kernel_Density,,[[15650.     0.]  [ 3850.     0.]],min-max,-869286.64,14.979999999999997,-55104.22,7679.787042073496,KNNRecovery,"k: 1, consider_next_state: False"
-1.0,0.0,STAttack,"epsilon: 0.1, beta: 0.9, total: 100, temperature: 3",PT1,0.5,Kernel_Density,,[[15650.     0.]  [ 3850.     0.]],min-max,-869284.5,0.0,-56205.0,0.0,KNNRecovery,"k: 3, consider_next_state: False"
-1.0,0.0,STAttack,"epsilon: 0.1, beta: 0.9, total: 100, temperature: 3",PT1,0.5,Kernel_Density,,[[15650.     0.]  [ 3850.     0.]],min-max,-869284.5,0.0,-56205.0,0.0,KNNRecovery,"k: 5, consider_next_state: False"
-1.0,0.0,STAttack,"epsilon: 0.1, beta: 0.9, total: 100, temperature: 3",PT1,0.5,Kernel_Density,,[[15650.     0.]  [ 3850.     0.]],min-max,-869284.5,0.0,-56205.0,0.0,KNNRecovery,"k: 10, consider_next_state: False"
