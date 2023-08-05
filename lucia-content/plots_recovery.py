@@ -122,7 +122,7 @@ if __name__ == '__main__':
 
 	for detector_name, detector_params in detectors_list:
 		defenses = {policy_id: Defense(norm=args.norm, detector=DETECTOR_CLASS[detector_name](**detector_params))
-					for policy_id in ids[1:]}
+					for policy_id in ids}
 				
 		[defense.fit(transitions[policy_id]) for policy_id, defense in defenses.items()]
 

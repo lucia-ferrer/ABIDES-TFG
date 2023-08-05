@@ -26,8 +26,8 @@ if __name__ == '__main__':
     env, config = get_env()
     agent = PPOTrainer(env='marl-v0', config=config)
     ids = config['env_config']['learning_agent_ids']
-
-    path = 'results/checkpoints_ppo_07.csv'
+    #SI CAMBIAS ESTE PATH -> CAMBIO REINFORCEMENT/MODELS.PY load_weights()
+    path = 'results/checkpoints_ppo_08.csv'
     if os.path.exists(path):
         results = pd.read_csv(path)
     else:

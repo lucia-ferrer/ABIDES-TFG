@@ -1,6 +1,7 @@
 import argparse
 import datetime
 import pandas as pd
+
 #import tensorflow as tf
 #tf.compat.v1.enable_eager_execution()
 from ray.rllib.agents.ppo.ppo import PPOTrainer
@@ -49,6 +50,10 @@ def parse_args():
 	parser.add_argument("--attack_parameter", type=int, default=-1,
 						help="Parameter ids to try for the attacks. -1 for all (Default)"
 	)
+	parser.add_argument("--plotting", type=bool, default=False, 
+		     			help="Parameter to indicate whether we keep track of each trial in a plot, \
+							instead of storing the tests in a csv"
+	)
 	return parser.parse_args()
 
 
@@ -57,6 +62,7 @@ def get_agent():
 	load_weights(agent)
 	agent.attacker = {policy_id: ATTACK_CLASS[attack_name](**attack_params)}
 	agent.defender = {policy_id: defenses[policy_id]}
+	agent._plot = True
 	return agent
 
 
@@ -77,7 +83,7 @@ if __name__ == '__main__':
 	# list of recoveries to do
 	recovery_list = []
 	iterator = recovery_experiments.items() if args.recovery == -1\
-		else ((args.recovery, recovery_experiments[args.recovery],),)
+		else (([args.recovery, 'None'], [recovery_experiments[args.recovery],recovery_experiments['None']],),)
 	for recovery_name, exp_config in iterator:
 		for params in grid_generator(exp_config, args.recovery_parameter):
 			recovery_list.append((recovery_name, params))
@@ -85,15 +91,16 @@ if __name__ == '__main__':
 	# list of attacks to do
 	attacks_list = []
 	for id in ids[1:]:
-		for a_name in ATTACK_CLASS if args.attack == -1 else [args.attack]:
+		for a_name in ATTACK_CLASS if args.attack == -1 else [args.attack, 'Empty']:
 			for params in grid_generator(get_agent_attack_config(id)[a_name], args.attack_parameter):
 				attacks_list.append((id, a_name, params))
 
+
 	# file name
-	file_name = f"recovery_tests_{args.norm}"
-	if args.agent != -1:					# agent
+	file_name = f"img_recovery_test_"
+	if args.agent != -1:				# agent
 		file_name += f"_{args.agent}"
-	if args.detector != -1:				 # detector
+	if args.detector != -1:				# detector
 		file_name += f"_{args.detector}"
 	if args.detector_parameter != -1:	   # detector params
 		file_name += f"_detparam{args.detector_parameter}"
@@ -101,7 +108,7 @@ if __name__ == '__main__':
 		file_name += f"_{args.recovery}"
 	if args.recovery_parameter != -1:	   # recovery params
 		file_name += f"_recparam{args.recovery_parameter}"
-	if args.attack != -1:				   # attack
+	if args.attack != -1:				  # attack
 		file_name += f"_{args.attack}"
 	if args.attack_parameter != -1:		 # attack params
 		file_name += f"_atckparam{args.attack_parameter}"
@@ -110,21 +117,32 @@ if __name__ == '__main__':
 
 	# execute experiments
 	results = pd.DataFrame()
-	
+	episodes = pd.DataFrame()
+	done_attack_empty = False
+
 	for detector_name, detector_params in detectors_list:
 		defenses = {policy_id: Defense(norm=args.norm, detector=DETECTOR_CLASS[detector_name](**detector_params))
-					for policy_id in ids}
+					for policy_id in ids[1:]}
 				
 		[defense.fit(transitions[policy_id]) for policy_id, defense in defenses.items()]
 
-		for recovery_name, recovery_params in recovery_list:			
+		for recovery_name, recovery_params in recovery_list:
+			# print(f"Recovery : {recovery_name} \t Params : {recovery_params}")
+			
 			for policy_id, defense in defenses.items():
 				state_dims = np.prod(env.observation_space[policy_id].shape)
-				defense.recovery = RECOVERY_CLASS[recovery_name](**recovery_params, state_dims=state_dims) \
-					if recovery_name != 'None' else None
+				defense.recovery = RECOVERY_CLASS[recovery_name](**recovery_params, state_dims=state_dims) if recovery_name != 'None' else None
 				defense.fit_recovery()
 
 			for policy_id, attack_name, attack_params in attacks_list:
+					if attack_name == 'Empty' : 
+						if done_attack_empty: continue 
+						else: 
+							done_attack_empty = True
+							empty_attack_col = f"{attack_name}--{detector_name}--{recovery_name}{params_to_str(recovery_params)}"
+					if recovery_name == 'None': 
+						empty_recovery_col = f"{attack_name}--{detector_name}--{recovery_name}{params_to_str(recovery_params)}"
+					agent = get_agent()
 					row = {
 						'norm': args.norm,
 						'detector': detector_name,
@@ -134,10 +152,11 @@ if __name__ == '__main__':
 						'attack': attack_name,
 						'attack_params': params_to_str(attack_params),
 						'attacked_policy': policy_id,
-						**test(env, get_agent, config, args.val_episodes, policy_id)
+						**test(env, agent, config, args.val_episodes, policy_id, test=False)
 					}
 					logger()
-
 					results = results.append(row, ignore_index=True)
-					results.to_csv(f"results/recovery/{file_name}.csv", index=False)
-
+					results.to_csv(f"results/recovery/{file_name}_{datetime.date.today().isoformat()}.csv", index=False)
+					episodes[f"{attack_name}--{detector_name}--{recovery_name}{params_to_str(recovery_params)}"] = agent.last_rewards
+					episodes.to_csv(f"images/recovery/episodes_{file_name}.csv", index=False)
+val_episodes
