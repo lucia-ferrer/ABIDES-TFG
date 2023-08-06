@@ -1,9 +1,3 @@
 # ABIDES-TFG
 Lucía Ferrer Duaso
-Copy &amp; Update of Albertos Abides JPmorgan Environment
-
-
-To execute -> 
-- Current imports are from my implementations and my experiments. 
-- Plots modified. 
-
+Copy &amp; Update of Abides JPmorgan Environment + HOstile Environment of Ruben
